@@ -58,7 +58,7 @@ const Posts: React.FC<Props> = ({ history }) => {
 
   return (
     <IonPage>
-      <Header title="Publicaciones" />
+      <Header canBack={false} title="Publicaciones" />
       {RenderFabButton}
       <IonContent>
         {RenderSegmentsSelect}
