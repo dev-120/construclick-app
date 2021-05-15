@@ -16,11 +16,8 @@
     --padding-end: 10%;
     --padding-top: 15%;
     --padding-bottom: 15%;
-    height: 30vh;
-}
-
-.container-home_form-login{
-    height: 50vh;
+    height: 25vh;
+    overflow-y: hidden;
 }
 
 .container-home_footer{
@@ -52,7 +49,7 @@
 
 .container_paragraph_home {
     width: 100%;
-    height: 15vh;
+    height: 7vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -67,5 +64,7 @@
 }
 
 .button_signin_home {
-    margin-top: 10px;
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 15px;
 }

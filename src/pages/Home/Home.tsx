@@ -1,16 +1,13 @@
 import {
   IonImg,
   IonPage,
-  IonIcon,
-  IonButton,
-  IonContent,
   IonItem,
   IonLabel,
   IonInput,
+  IonButton,
+  IonContent,
 } from "@ionic/react";
-import firebase from "firebase/app";
 import React, { useState } from "react";
-import { accessibilityOutline } from 'ionicons/icons';
 
 import "./Home.css";
 import Logotipo from "../../assets/logotipo.png";
@@ -29,27 +26,31 @@ const Home: React.FC = () => {
         <IonLabel position="floating" >Contraseña</IonLabel>
         <IonInput value={password} onIonChange={(e) => setPassword(e.detail.value!)} />
       </IonItem>
-      <IonButton className="button_signin_home" type="submit" fill="solid" expand="full" >
-        <IonIcon slot="start" icon={accessibilityOutline} />
-        <IonIcon slot="end" icon={accessibilityOutline} />
+      <IonButton className="button_signin_home_restore" type="button" color="tertiary" fill="clear" size="small" expand="block" >
+        ¿Olvidaste tu contraseña?
+      </IonButton>
+      <IonButton className="button_signin_home" type="submit" fill="solid" size="default" expand="block" >
         Ingresar
+      </IonButton>
+      <IonButton className="button_signin_home" color="tertiary" type="button" fill="solid" size="default" expand="block" >
+        Registrate
       </IonButton>
     </>
   );
 
   return (
     <IonPage>
-      <IonContent fullscreen className="container-home">
-        <IonContent className="container-home__logo">
+      <IonContent scrollY={false} fullscreen className="container-home">
+        <IonContent scrollY={false} className="container-home__logo">
           <IonImg src={Logotipo} />
         </IonContent>
         <IonContent className="container_paragraph_home" >
           <div className="paragraph_home" >
-            La red social del gremio de la construccion mas grande de Colomabia
+            La red social del gremio de la construccion mas grande de Colombia
           </div>
         </IonContent>
         {RenderForm}
-        <IonContent className="container-home_footer" >
+        <IonContent scrollY={false} className="container-home_footer" >
           <IonButton size="small" color="secondary" fill="clear" expand="block">
             Al ingresar aceptas nuestros <br/>
             terminos y condiciones

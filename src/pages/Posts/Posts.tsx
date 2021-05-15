@@ -32,7 +32,7 @@ const Posts: React.FC<Props> = ({ history }) => {
 
   const RenderSegmentsSelect = (
     <IonToolbar>
-      <IonSegment value="all">
+      <IonSegment mode="md" value="all">
         <IonSegmentButton value="all">
           Eventos
         </IonSegmentButton>
