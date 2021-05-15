@@ -15,6 +15,7 @@ import Posts from "./pages/Posts/Posts";
 import Menu from './components/Menu/Menu';
 import ViewPost from './pages/ViewPost/ViewPost';
 import CreatePost from "./pages/CreatePost/CreatePost";
+import MarketPlace from "./pages/MarketPlace/MarketPlace";
 
 import { firebaseConfig } from "./config/environtment";
 
@@ -45,6 +46,7 @@ const Router = (
         <Route path="/view-post" component={ViewPost} />
         <Route path="/create-post" component={CreatePost} />
         <Route exact path="/posts" component={Posts} />
+        <Route path="/marketplace" component={MarketPlace} />
         <Route exact path="/">
           <Redirect to="/posts" />
         </Route>

@@ -11,15 +11,16 @@ import { useHistory } from 'react-router';
 
 type Props = {
   title?: string,
+  canBack?: boolean,
 };
 
-const Header: React.FC<Props> = ({ title }) => {
+const Header: React.FC<Props> = ({ title, canBack = true }) => {
   const { location } = useHistory();
 
   return (
     <IonHeader>
       <IonToolbar>
-        {location.pathname !== "/posts" && (
+        {canBack && (
           <IonButtons slot="start">
             <IonBackButton defaultHref="/" />
           </IonButtons>

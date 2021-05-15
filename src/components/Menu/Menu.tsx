@@ -2,15 +2,16 @@ import {
   IonMenu,
   IonHeader,
   IonToolbar,
-  IonTitle,
+  IonIcon,
   IonContent,
   IonList,
   IonItem,
   IonImg,
 } from "@ionic/react";
-import Logo from '../../assets/logotipo.png';
+import { newspaperOutline, pricetagOutline, cartOutline, peopleOutline, closeOutline } from 'ionicons/icons';
 
 import './Menu.css';
+import Logo from '../../assets/logotipo.png';
 
 const Menu = () => {
   return (
@@ -22,11 +23,26 @@ const Menu = () => {
       </IonHeader>
       <IonContent>
         <IonList>
-          <IonItem>Publicaciones</IonItem>
-          <IonItem>MarketPlace</IonItem>
-          <IonItem>Carrito</IonItem>
-          <IonItem>Perfil</IonItem>
-          <IonItem>Salir</IonItem>
+          <IonItem routerLink="/posts" >
+            <IonIcon icon={newspaperOutline} slot="start" />
+            Publicaciones
+          </IonItem>
+          <IonItem routerLink="/marketplace" >
+            <IonIcon icon={pricetagOutline} slot="start" />
+            MarketPlace
+          </IonItem>
+          <IonItem routerLink="/shopping-cart" >
+            <IonIcon icon={cartOutline} slot="start" />
+            Carrito
+          </IonItem>
+          <IonItem routerLink="/profile" >
+            <IonIcon icon={peopleOutline} slot="start" />
+            Perfil
+          </IonItem>
+          <IonItem>
+            <IonIcon icon={closeOutline} slot="start" />
+            Salir
+          </IonItem>
         </IonList>
       </IonContent>
     </IonMenu>
