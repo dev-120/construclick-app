@@ -15,7 +15,6 @@ type Props = {
 };
 
 const Header: React.FC<Props> = ({ title, canBack = true }) => {
-  const { location } = useHistory();
 
   return (
     <IonHeader>
