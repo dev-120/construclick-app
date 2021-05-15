@@ -65,3 +65,7 @@
 .container-home_footer ion-button {
     --ion-color-base: white !important;
 }
+
+.button_signin_home {
+    margin-top: 10px;
+}

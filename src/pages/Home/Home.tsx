@@ -4,22 +4,38 @@ import {
   IonIcon,
   IonButton,
   IonContent,
+  IonItem,
+  IonLabel,
+  IonInput,
 } from "@ionic/react";
-import React from "react";
 import firebase from "firebase/app";
-import { logoGoogle, logoFacebook } from 'ionicons/icons';
-
-import Logotipo from "../../assets/logotipo.png";
+import React, { useState } from "react";
+import { accessibilityOutline } from 'ionicons/icons';
 
 import "./Home.css";
+import Logotipo from "../../assets/logotipo.png";
 
 const Home: React.FC = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const onClickLoginGoogle = () => {
-    const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(googleAuthProvider);
-  };
-
+  const RenderForm = (
+    <>
+      <IonItem>
+        <IonLabel position="floating" >Email</IonLabel>
+        <IonInput value={email} onIonChange={(e) => setEmail(e.detail.value!)} />
+      </IonItem>
+      <IonItem>
+        <IonLabel position="floating" >Contraseña</IonLabel>
+        <IonInput value={password} onIonChange={(e) => setPassword(e.detail.value!)} />
+      </IonItem>
+      <IonButton className="button_signin_home" type="submit" fill="solid" expand="full" >
+        <IonIcon slot="start" icon={accessibilityOutline} />
+        <IonIcon slot="end" icon={accessibilityOutline} />
+        Ingresar
+      </IonButton>
+    </>
+  );
 
   return (
     <IonPage>
@@ -32,29 +48,7 @@ const Home: React.FC = () => {
             La red social del gremio de la construccion mas grande de Colomabia
           </div>
         </IonContent>
-        <IonButton
-          strong
-          className="button_login_social"
-          id="button-google"
-          onClick={onClickLoginGoogle}
-          shape="round"
-          expand="full"
-          color="google"
-        >
-          Ingresa con Google
-          <IonIcon icon={logoGoogle} slot="start" />
-        </IonButton>
-        <IonButton
-          strong
-          className="button_login_social"
-          shape="round"
-          expand="full"
-          id="button-facebook"
-          color="facebook"
-        >
-          Ingresa con Facebook
-          <IonIcon icon={logoFacebook} slot="start" />
-        </IonButton>
+        {RenderForm}
         <IonContent className="container-home_footer" >
           <IonButton size="small" color="secondary" fill="clear" expand="block">
             Al ingresar aceptas nuestros <br/>
