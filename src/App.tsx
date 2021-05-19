@@ -18,8 +18,6 @@ import Register from './pages/Register/Register';
 import CreatePost from "./pages/CreatePost/CreatePost";
 import MarketPlace from "./pages/MarketPlace/MarketPlace";
 
-import { firebaseConfig } from "./config/environtment";
-
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
 
@@ -38,6 +36,7 @@ import "@ionic/react/css/text-transformation.css";
 
 /* Theme variables */
 import "./theme/variables.css";
+
 
 const Router = (
   <IonReactRouter>
