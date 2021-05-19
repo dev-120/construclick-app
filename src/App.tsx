@@ -17,6 +17,8 @@ import ViewPost from './pages/ViewPost/ViewPost';
 import Register from './pages/Register/Register';
 import CreatePost from "./pages/CreatePost/CreatePost";
 import MarketPlace from "./pages/MarketPlace/MarketPlace";
+import FormPersonas from "./pages/Register/FormPersonas";
+import FormEmpresas from "./pages/Register/FormEmpresas"
 
 import { firebaseConfig } from "./config/environtment";
 
@@ -39,6 +41,7 @@ import "@ionic/react/css/text-transformation.css";
 /* Theme variables */
 import "./theme/variables.css";
 
+
 const Router = (
   <IonReactRouter>
     <IonSplitPane contentId="main" >
@@ -50,6 +53,8 @@ const Router = (
         <Route exact path="/register" component={Register} />
         <Route path="/marketplace" component={MarketPlace} />
         <Route exact path="/" component={Home} />
+        <Route exact path="/register/personas" component={FormPersonas} />
+        <Route exact path="/register/empresas" component={FormEmpresas} />
       </IonRouterOutlet>
     </IonSplitPane>
   </IonReactRouter>
