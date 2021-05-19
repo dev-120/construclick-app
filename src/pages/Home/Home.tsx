@@ -32,7 +32,7 @@ const Home: React.FC = () => {
       <IonButton className="button_signin_home" type="submit" fill="solid" size="default" expand="block" >
         Ingresar
       </IonButton>
-      <IonButton className="button_signin_home" color="tertiary" type="button" fill="solid" size="default" expand="block" >
+      <IonButton routerLink="/register" className="button_signin_home" color="tertiary" type="button" fill="solid" size="default" expand="block" >
         Registrate
       </IonButton>
     </>

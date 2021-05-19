@@ -82,7 +82,12 @@ const RegisterPage: React.FC = () => {
   };
 
   const backSlideHandler = async () => {
-    slidesRef.current?.slidePrev();
+    const isBeginning = await slidesRef?.current?.isBeginning();
+    if(isBeginning){
+      history.goBack();
+    }else{
+      slidesRef.current?.slidePrev();
+    }
   };
 
   const isBussiness = () => registerType === "business";
@@ -91,7 +96,7 @@ const RegisterPage: React.FC = () => {
     <IonPage>
       <IonContent fullscreen className=" ion-text-center">
         <IonSlides mode="md" pager={true} options={slideOpts} ref={slidesRef}>
-          <Slide canBack={false} backSlideHandler={backSlideHandler}>
+          <Slide canBack backSlideHandler={backSlideHandler}>
             <IonImg src={Logo} className="logo-image" />
             <h2 className="ion-text-center">Registrate</h2>
             <IonList>
@@ -165,10 +170,10 @@ const RegisterPage: React.FC = () => {
                 <IonLabel>Ciudad</IonLabel>
                 <IonSelect
                   name="type-user"
-                  value={registerType}
+                  value={city}
                   placeholder="Selecciona uno"
                   onIonChange={(e) => {
-                    setRegisterType(e.detail.value);
+                    setCity(e.detail.value);
                   }}
                 >
                   <IonSelectOption value="Santa Marta">Santa Marta</IonSelectOption>
