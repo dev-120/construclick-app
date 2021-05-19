@@ -16,7 +16,7 @@ type Props = {
 const Header: React.FC<Props> = ({ title, canBack = true }) => {
   return (
     <IonHeader>
-      <IonToolbar>
+      <IonToolbar color="primary" >
         {canBack && (
           <IonButtons slot="start">
             <IonBackButton defaultHref="/" />

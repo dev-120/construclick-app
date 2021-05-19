@@ -29,7 +29,7 @@ const Home: React.FC = () => {
       <IonButton className="button_signin_home_restore" type="button" color="tertiary" fill="clear" size="small" expand="block" >
         ¿Olvidaste tu contraseña?
       </IonButton>
-      <IonButton className="button_signin_home" type="submit" fill="solid" size="default" expand="block" >
+      <IonButton routerLink="/posts" className="button_signin_home" type="submit" fill="solid" size="default" expand="block" >
         Ingresar
       </IonButton>
       <IonButton routerLink="/register" className="button_signin_home" color="tertiary" type="button" fill="solid" size="default" expand="block" >
