@@ -1,3 +1,10 @@
+.content-register-page {
+  --padding-start: 15px;
+  --padding-end: 15px;
+  --padding-top: 15px;
+  --padding-bottom: 15px;
+}
+
 .form-register{
   height: 100%;
 }
@@ -20,4 +27,8 @@ ion-list{
   margin: 10% 25% 0 25%;
   width: 50%;
   height: 25%;
+}
+
+.avatar-profile {
+  margin: 0 auto;
 }
