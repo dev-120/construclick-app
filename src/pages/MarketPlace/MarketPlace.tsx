@@ -27,57 +27,13 @@ import {
   IonButtons,
 } from "@ionic/react";
 import { locationOutline, chevronForwardOutline } from "ionicons/icons";
+import { useHistory } from 'react-router-dom'
 
 import "./MarketPlace.css";
 import Header from "../../components/Header/Header";
+import exampleItems from "./utils"
 
-import tool1 from "./testImages/tool1.jpg";
-import tool2 from "./testImages/tool2.jpg";
 
-const exampleItems = [
-  {
-    productId: 0,
-    img: tool2,
-    productTitle: "Tabla de Cortar",
-    productPrice: 40000,
-    discount: 5,
-  },
-  {
-    productId: 1,
-    img: tool1,
-    productTitle: "Espatula",
-    productPrice: 28000,
-    discount: 10,
-  },
-  {
-    productId: 2,
-    img: tool2,
-    productTitle: "Tabla de Cortar",
-    productPrice: 40000,
-    discount: 5,
-  },
-  {
-    productId: 3,
-    img: tool1,
-    productTitle: "Espatula",
-    productPrice: 28000,
-    discount: 10,
-  },
-  {
-    productId: 4,
-    img: tool2,
-    productTitle: "Tabla de Cortar",
-    productPrice: 40000,
-    discount: 5,
-  },
-  {
-    productId: 5,
-    img: tool1,
-    productTitle: "Espatula",
-    productPrice: 28000,
-    discount: 10,
-  },
-];
 
 const cities = ["Santa Marta", "Barranquilla", "Medellin"];
 
@@ -127,11 +83,18 @@ const ProductCard: React.FC<imageItem> = ({
   productPrice,
   discount,
 }) => {
+
+  const history = useHistory()
+
+  const clickHandler = () =>{
+    history.push(`/marketplace/${productId}`)
+  }
+
   return (
     <div className="product_item">
-      <IonCard mode="md">
+      <IonCard mode="md" button={true} onClick={clickHandler}>
         <IonCardHeader>
-          <IonImg src={img} />
+          <IonImg src={img[0]} />
           <IonCardSubtitle>Herramientas</IonCardSubtitle>
           <IonCardTitle>{productTitle}</IonCardTitle>
         </IonCardHeader>

@@ -1,0 +1,29 @@
+#stars {
+  font-size: larger;
+}
+
+#product-detail-slides{
+  height: 35%;
+}
+
+
+.badge-primary{
+  background-color: #ef7b03;
+  color: white;
+}
+
+.price-product{
+  font-size: x-large;
+}
+
+.product-comentaries{
+  display: flex;
+  color: #ef7b03;
+  flex-direction: row;
+}
+
+
+.swiper-slide > img {
+  width: 100%;
+  height: 70%;
+}
