@@ -21,19 +21,18 @@ const Home: React.FC = () => {
   const RenderForm = (
     <>
       <IonItem className="input-login__home ion-margin-top ion-margin-horizontal">
-        <IonLabel mode="md" position="floating" color="primary">Email</IonLabel>
+        <IonLabel mode="md" position="floating">Email</IonLabel>
         <IonInput
           mode="md"
-          color="primary"
           value={email}
           onIonChange={(e) => setEmail(e.detail.value!)}
         />
       </IonItem>
       <IonItem className="input-login__home ion-margin-top ion-margin-horizontal">
-        <IonLabel mode="md" position="floating" color="primary">Contraseña</IonLabel>
+        <IonLabel mode="md" position="floating">Contraseña</IonLabel>
         <IonInput
+          type="password"
           mode="md"
-          color="primary"
           value={password}
           onIonChange={(e) => setPassword(e.detail.value!)}
         />

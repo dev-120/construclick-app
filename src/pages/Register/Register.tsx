@@ -29,7 +29,7 @@ import { arrowBackOutline } from "ionicons/icons";
 
 import "./Register.css";
 import Logo from "../../assets/logo.png";
-import LogoConstruclick from "../../assets/logotipo.png";
+import LogoConstruclick from "../../assets/logotipo_black.png";
 
 const slideOpts = {
   initialSlide: 0,
@@ -79,6 +79,50 @@ const SlideFooter: React.FC = () => {
         </IonButton>
       </IonToolbar>
     </IonFooter>
+  );
+};
+
+interface SlideButtonRegister {
+  canBack: boolean;
+  backSlideHandler?: (e: any) =>void;
+  clickHandler?: (e: any) => void;
+  titleButton?: string;
+}
+
+const SlideButtons: React.FC<SlideButtonRegister> = ({ canBack, backSlideHandler, clickHandler, titleButton }) => {
+  return (
+    <>
+      {canBack && (
+        <IonGrid>
+          <IonRow className="justify-content-center">
+            <IonCol size="6">
+              <IonButton
+                fill="outline"
+                className="ion-padding-horizontal button-register__outline"
+                expand="block"
+                onClick={backSlideHandler}
+              >
+                atras
+              </IonButton>
+            </IonCol>
+            <IonCol size="6">
+              <IonButton
+                className="ion-padding-horizontal ion-border-horizontal"
+                expand="full"
+                onClick={clickHandler}
+              >
+                {titleButton ? titleButton : "Siguiente"}
+              </IonButton>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
+      )}
+      {!canBack && (
+        <IonButton className="ion-margin-top" onClick={clickHandler}>
+        {titleButton ? titleButton : "Siguiente"}
+        </IonButton>
+      )}
+    </>
   );
 };
 
@@ -141,14 +185,12 @@ const RegisterPage: React.FC = () => {
                   <IonSelectOption value="business">Empresa</IonSelectOption>
                 </IonSelect>
               </IonItem>
-              <IonButton className="ion-margin-top" onClick={clickHandler}>
-                Siguiente
-              </IonButton>
+              <SlideButtons canBack={false} clickHandler={clickHandler}/>
             </IonContent>
           </Slide>
           <Slide canBack backSlideHandler={backSlideHandler}>
             <IonContent className="ion-padding content-center-vertical slide-page-dark">
-              <IonImg src={Logo} className="logo-image__register" />
+              <IonImg src={LogoConstruclick} className="logo-image__register" />
               <IonTitle className="ion-margin ion-padding-bottom">
                 ¿Quien eres?
               </IonTitle>
@@ -188,34 +230,12 @@ const RegisterPage: React.FC = () => {
                   />
                 </IonItem>
               )}
-              <IonGrid>
-                <IonRow className="justify-content-center">
-                  <IonCol size="6">
-                    <IonButton
-                      fill="outline"
-                      className="ion-padding-horizontal"
-                      expand="block"
-                      onClick={backSlideHandler}
-                    >
-                      atras
-                    </IonButton>
-                  </IonCol>
-                  <IonCol size="6">
-                    <IonButton
-                      className="ion-padding-horizontal"
-                      expand="block"
-                      onClick={clickHandler}
-                    >
-                      siguiente
-                    </IonButton>
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
+              <SlideButtons canBack={true} clickHandler={clickHandler} backSlideHandler={backSlideHandler} />
             </IonContent>
           </Slide>
           <Slide canBack backSlideHandler={backSlideHandler}>
             <IonContent className="ion-padding ion-margin-vertical slide-page-dark">
-              <IonImg src={Logo} className="logo-image__register" />
+              <IonImg src={LogoConstruclick} className="logo-image__register" />
               <IonTitle className="ion-padding">
                 ¿Como te podemos contactar?
               </IonTitle>
@@ -265,34 +285,12 @@ const RegisterPage: React.FC = () => {
                   required
                 />
               </IonItem>
-              <IonGrid>
-                <IonRow className="justify-content-center">
-                  <IonCol size="6">
-                    <IonButton
-                      fill="outline"
-                      className="ion-padding-horizontal"
-                      expand="block"
-                      onClick={backSlideHandler}
-                    >
-                      atras
-                    </IonButton>
-                  </IonCol>
-                  <IonCol size="6">
-                    <IonButton
-                      className="ion-padding-horizontal"
-                      expand="block"
-                      onClick={clickHandler}
-                    >
-                      siguiente
-                    </IonButton>
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
+              <SlideButtons canBack={true} backSlideHandler={backSlideHandler} clickHandler={clickHandler} />
             </IonContent>
           </Slide>
           <Slide canBack backSlideHandler={backSlideHandler}>
             <IonContent className="ion-padding ion-margin-vertical slide-page-dark">
-              <IonImg src={Logo} className="logo-image__register" />
+              <IonImg src={LogoConstruclick} className="logo-image__register" />
               <IonTitle className="ion-padding">Aseguremos tu cuenta</IonTitle>
               <IonItem className="ion-margin-vertical item-list__dark">
                 <IonLabel>Contraseña</IonLabel>
@@ -312,36 +310,14 @@ const RegisterPage: React.FC = () => {
                   required
                 />
               </IonItem>
-              <IonGrid>
-                <IonRow className="justify-content-center">
-                  <IonCol size="6">
-                    <IonButton
-                      fill="outline"
-                      className="ion-padding-horizontal"
-                      expand="block"
-                      onClick={backSlideHandler}
-                    >
-                      atras
-                    </IonButton>
-                  </IonCol>
-                  <IonCol size="6">
-                    <IonButton
-                      className="ion-padding-horizontal"
-                      expand="block"
-                      onClick={clickHandler}
-                    >
-                      siguiente
-                    </IonButton>
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
+              <SlideButtons canBack clickHandler={clickHandler} backSlideHandler={backSlideHandler} />
             </IonContent>
           </Slide>
           <Slide canBack backSlideHandler={backSlideHandler}>
             <IonContent className="ion-padding ion-margin-vertical slide-page-dark">
               {!isBussiness() && (
                 <>
-                  <IonImg src={Logo} className="logo-image__register" />
+                  <IonImg src={LogoConstruclick} className="logo-image__register" />
                   <IonTitle className="ion-padding">Dinos mas de ti</IonTitle>
                   <IonItem className="ion-margin-top item-list__dark">
                     <IonLabel>Fecha de Nacimiento</IonLabel>
@@ -407,9 +383,7 @@ const RegisterPage: React.FC = () => {
                   </IonItem>
                 </>
               )}
-              <IonButton className="ion-margin-top" type="submit">
-                Registrarse
-              </IonButton>
+              <SlideButtons canBack={true} titleButton="Registrate" backSlideHandler={backSlideHandler} />
             </IonContent>
           </Slide>
         </IonSlides>
