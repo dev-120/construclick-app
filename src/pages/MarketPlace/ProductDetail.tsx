@@ -22,17 +22,11 @@ import {
   IonTextarea,
 } from "@ionic/react";
 import { useEffect, useState, useRef } from "react";
-import {
-  starHalfSharp,
-  starSharp,
-  starOutline,
-  arrowBackOutline,
-  arrowForwardOutline,
-} from "ionicons/icons";
 
 import exampleItems from "./utils";
 import Header from "../../components/Header/Header";
 import "./ProductDetail.css";
+import StarRating from "../../components/StarRating/StarRating";
 
 interface productItem {
   match: {
@@ -42,41 +36,17 @@ interface productItem {
   };
 }
 
-interface ratingStar {
-  rating: number;
-}
-
-const StarRating: React.FC<ratingStar> = ({ rating }) => {
-  const stars = [];
-  for (let i = 1; i <= 5; i++) {
-    if (i <= rating) {
-      stars.push(
-        <IonIcon icon={starSharp} color="primary" id="stars" key={i} />
-      );
-    } else if (i === Math.ceil(rating) && !Number.isInteger(rating)) {
-      stars.push(
-        <IonIcon icon={starHalfSharp} color="primary" id="stars" key={i} />
-      );
-    } else {
-      stars.push(
-        <IonIcon icon={starOutline} color="primary" id="stars" key={i} />
-      );
-    }
-  }
-  return <>{stars}</>;
-};
 
 interface Comments {
   comments: Array<string>;
 }
 
 const CommentsProduct: React.FC<Comments> = ({ comments }) => {
-  console.log(comments);
   return (
     <>
       <h4 className="ion-margin">Comentarios Del Producto</h4>
-      {comments.map((comment) => (
-        <IonItem>{comment}</IonItem>
+      {comments.map((comment, index) => (
+        <IonItem key={index}>{comment}</IonItem>
       ))}
     </>
   );
@@ -221,51 +191,3 @@ const ProductDetail: React.FC<productItem> = ({ match }) => {
 };
 
 export default ProductDetail;
-
-{
-  /* <IonItem className="ion-padding" lines="none">
-            <IonGrid>
-              <IonRow>
-                <IonCol size="6">
-                  <IonText>{product[0].productTitle}</IonText>
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol>
-                  <StarRating rating={product[0].rating} />
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol className="ion-align-self-center">
-                  <IonSlides
-                    options={slideOpts}
-                    pager={true}
-                    id="product-detail-slides"
-                    mode="md"
-                  >
-                    {product[0].img.map((imgUrl: any, index: number) => (
-                      <IonSlide key={index}>
-                        <img src={imgUrl} id="slides-img-detail" />
-                      </IonSlide>
-                    ))}
-                  </IonSlides>
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonChip>Vendedor : {product[0].seller}</IonChip>
-              </IonRow>
-              <IonRow>
-                <IonText>
-                  <h2>$ {product[0].productPrice}</h2>
-                </IonText>
-              </IonRow>
-            </IonGrid>
-          </IonItem> */
-}
-
-// <IonContent className="ion-margin-horizontal">
-//             <h4>Comentarios del producto</h4>
-//             {product[0].comments.map((comment: string, index: number) => (
-//               <IonItem key={index}>{comment}</IonItem>
-//             ))}
-//             </IonContent>
