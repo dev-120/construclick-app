@@ -1,0 +1,12 @@
+.doughnut_dashboard{
+    width: 30vw;
+    height: auto;
+}
+
+.row_dashboard_doughnut{
+    width: 100%;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}

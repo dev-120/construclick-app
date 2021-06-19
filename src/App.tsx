@@ -13,12 +13,14 @@ import "firebase/auth";
 import Home from "./pages/Home/Home";
 import Posts from "./pages/Posts/Posts";
 import Menu from './components/Menu/Menu';
+import Profile from "./pages/Profile/Profile";
 import ViewPost from './pages/ViewPost/ViewPost';
 import Register from './pages/Register/Register';
+import Management from "./pages/Management/Management";
 import CreatePost from "./pages/CreatePost/CreatePost";
 import MarketPlace from "./pages/MarketPlace/MarketPlace";
 import ProductDetail from "./pages/MarketPlace/ProductDetail";
-import Profile from "./pages/Profile/Profile";
+import ManagementDashboard from "./pages/Management/Dashboard/Dashboard";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -53,6 +55,8 @@ const Router = (
         <Route exact path="/register" component={Register} />
         <Route exact path="/profile" component={Profile}/>
         <Route exact path="/marketplace" component={MarketPlace} />
+        <Route exact path="/gestion/dashboard" component={ManagementDashboard} />
+        <Route exact path="/gestion" component={Management} />
         <Route exact path="/marketplace/:productId" component={ProductDetail} />
         <Route exact path="/" component={Home} />
       </IonRouterOutlet>
