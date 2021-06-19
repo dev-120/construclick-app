@@ -3,7 +3,7 @@
 }
 
 .Foundation-content__style ion-slides{
-  height: 80%;
+  height: 100%;
 }
 
 .Foundation-menu__style {
@@ -14,4 +14,20 @@
   width: 70px !important;
   height: 70px !important;
   max-width: 50px;
+}
+
+.Optionbeam-select__style{
+  font-size: 12px;
+}
+
+.Foundation-sidepanel__img{
+  border-radius: 50%;
+  border: 1px solid #ef7b03;
+  width: 70px !important;
+  height: 70px !important;
+}
+
+.Foundation-Result__icon {
+  width: 80px !important;
+  height: 60px !important;
 }
