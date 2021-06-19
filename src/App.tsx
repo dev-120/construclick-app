@@ -14,10 +14,11 @@ import Home from "./pages/Home/Home";
 import Posts from "./pages/Posts/Posts";
 import Menu from './components/Menu/Menu';
 import ViewPost from './pages/ViewPost/ViewPost';
+import Register from './pages/Register/Register';
 import CreatePost from "./pages/CreatePost/CreatePost";
 import MarketPlace from "./pages/MarketPlace/MarketPlace";
-
-import { firebaseConfig } from "./config/environtment";
+import ProductDetail from "./pages/MarketPlace/ProductDetail";
+import Profile from "./pages/Profile/Profile";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -38,6 +39,9 @@ import "@ionic/react/css/text-transformation.css";
 /* Theme variables */
 import "./theme/variables.css";
 
+
+
+
 const Router = (
   <IonReactRouter>
     <IonSplitPane contentId="main" >
@@ -46,10 +50,11 @@ const Router = (
         <Route path="/view-post" component={ViewPost} />
         <Route path="/create-post" component={CreatePost} />
         <Route exact path="/posts" component={Posts} />
-        <Route path="/marketplace" component={MarketPlace} />
-        <Route exact path="/">
-          <Redirect to="/posts" />
-        </Route>
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/profile" component={Profile}/>
+        <Route exact path="/marketplace" component={MarketPlace} />
+        <Route exact path="/marketplace/:productId" component={ProductDetail} />
+        <Route exact path="/" component={Home} />
       </IonRouterOutlet>
     </IonSplitPane>
   </IonReactRouter>
@@ -57,17 +62,7 @@ const Router = (
 
 const App: React.FC = () => (
   <IonApp>
-    <FirebaseAuthProvider {...firebaseConfig} firebase={firebase}>
-      <FirebaseAuthConsumer>
-        {({ isSignedIn }) => {
-          if (isSignedIn === true) {
-            return Router;
-          } else {
-            return <Home/>;
-          }
-        }}
-      </FirebaseAuthConsumer>
-    </FirebaseAuthProvider>
+    {Router}
   </IonApp>
 );
 

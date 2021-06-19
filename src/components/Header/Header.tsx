@@ -7,7 +7,6 @@ import {
   IonMenuButton,
 } from "@ionic/react";
 import React from "react";
-import { useHistory } from 'react-router';
 
 type Props = {
   title?: string,
@@ -15,11 +14,9 @@ type Props = {
 };
 
 const Header: React.FC<Props> = ({ title, canBack = true }) => {
-  const { location } = useHistory();
-
   return (
     <IonHeader>
-      <IonToolbar>
+      <IonToolbar color="primary" >
         {canBack && (
           <IonButtons slot="start">
             <IonBackButton defaultHref="/" />
@@ -27,7 +24,7 @@ const Header: React.FC<Props> = ({ title, canBack = true }) => {
         )}
         <IonTitle>{title || "Construclick"}</IonTitle>
         <IonButtons slot="end">
-          <IonMenuButton autoHide={false} />
+          <IonMenuButton autoHide={true} />
         </IonButtons>
       </IonToolbar>
     </IonHeader>
