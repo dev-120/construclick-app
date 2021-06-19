@@ -1,24 +1,37 @@
 import {
+  IonBadge,
   IonButton,
   IonCard,
   IonContent,
   IonIcon,
   IonImg,
   IonItem,
+  IonLabel,
   IonPage,
+  IonSegment,
+  IonSegmentButton,
   IonText,
 } from "@ionic/react";
-import { logoFacebook, logoLinkedin, logoWordpress, thumbsUp, shareSocial, chatbox } from "ionicons/icons";
+import {
+  logoFacebook,
+  logoLinkedin,
+  globe,
+  heartOutline,
+  heart,
+} from "ionicons/icons";
+import React, { useState } from "react";
 
 import Header from "../../components/Header/Header";
 import "./Profile.css";
+import profilePoster from "../../assets/profile__poster.png";
+import StarRating from "../../components/StarRating/StarRating";
 
 const mockupProps = {
   coverPhoto:
     "https://images.pexels.com/photos/3525541/pexels-photo-3525541.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
   profilePhoto:
-    "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
-  profileName: "JANTH KOHEMAN",
+    "https://images.unsplash.com/photo-1529088746738-c4c0a152fb2c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1000&amp;q=80",
+  profileName: "Johnny Pacheco",
 };
 
 const randomInt = () => {
@@ -31,8 +44,9 @@ const mockupPost = [
     coverPhoto:
       "https://images.pexels.com/photos/3525541/pexels-photo-3525541.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
     profilePhoto:
-      "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
-    profileName: "JANTH KOHEMAN",
+      "https://images.unsplash.com/photo-1529088746738-c4c0a152fb2c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1000&amp;q=80",
+    profileName: "Johnny Pacheco",
+    profession: "Ingeniero",
     postDescription:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis hendrerit risus nec tincidunt convallis. Mauris ac massa diam. Fusce vel laoreet turpis, suscipit ultricies sem. Nulla facilisi. Donec vehicula ligula ut purus euismod cursus. Nunc euismod odio vel ipsum egestas, eu porttitor nisl pharetra. Donec eu ornare eros, ut convallis.",
     likes: randomInt(),
@@ -43,8 +57,9 @@ const mockupPost = [
     coverPhoto:
       "https://images.pexels.com/photos/3525541/pexels-photo-3525541.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
     profilePhoto:
-      "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
-    profileName: "JANTH KOHEMAN",
+      "https://images.unsplash.com/photo-1529088746738-c4c0a152fb2c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1000&amp;q=80",
+    profileName: "Jhonny Pacheco",
+    profession: "Ingeniero",
     postDescription:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis hendrerit risus nec tincidunt convallis. Mauris ac massa diam. Fusce vel laoreet turpis, suscipit ultricies sem. Nulla facilisi. Donec vehicula ligula ut purus euismod cursus. Nunc euismod odio vel ipsum egestas, eu porttitor nisl pharetra. Donec eu ornare eros, ut convallis.",
     likes: randomInt(),
@@ -55,8 +70,9 @@ const mockupPost = [
     coverPhoto:
       "https://images.pexels.com/photos/3525541/pexels-photo-3525541.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
     profilePhoto:
-      "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
-    profileName: "JANTH KOHEMAN",
+      "https://images.unsplash.com/photo-1529088746738-c4c0a152fb2c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1000&amp;q=80",
+    profileName: "Johnny Pacheco",
+    profession: "Ingeniero",
     postDescription:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis hendrerit risus nec tincidunt convallis. Mauris ac massa diam. Fusce vel laoreet turpis, suscipit ultricies sem. Nulla facilisi. Donec vehicula ligula ut purus euismod cursus. Nunc euismod odio vel ipsum egestas, eu porttitor nisl pharetra. Donec eu ornare eros, ut convallis.",
     likes: randomInt(),
@@ -64,79 +80,149 @@ const mockupPost = [
   },
 ];
 
-const ProfilePosts = () => {
-  return(
+const ProfilePosts: React.FC = () => {
+  const [textColor, setTextLiked] = useState<string>("black");
+
+  const likeHandler: any = (e: Event, index: number) => {
+    setTextLiked("#ef7b03");
+    
+  };
+
+  return (
     <>
-    {mockupPost.map((post) => (
-      <IonCard mode="md" className="ion-margin">
-        <IonItem lines="none">
-          <img src={post.profilePhoto} className="profile_posts_img" slot="start"/>
-          <span><strong>{post.profileName}</strong></span>
-          <IonButton slot="end">Seguir</IonButton>
-        </IonItem>
-        <IonItem lines="none">
-          <p>
-            {post.postDescription}
-          </p>
-        </IonItem>
-        <IonItem>
-          <IonButton color="primary" fill="clear" slot="start" ><IonIcon icon={thumbsUp} slot="start" /><strong>{post.likes}</strong></IonButton>
-          <IonButton color="primary" fill="clear" ><IonIcon icon={chatbox} slot="start" /><strong>{post.comments}</strong></IonButton>
-          <IonButton color="primary" fill="clear" slot="end"><IonIcon icon={shareSocial} slot="icon-only" /></IonButton>
-        </IonItem>
-      </IonCard>
-    ))}
+      {mockupPost.map((post, index) => (
+        <IonCard key={post.id} mode="md" className="ion-margin">
+          <IonItem lines="none" className="ion-margin-top">
+            <img
+              src={post.profilePhoto}
+              className="profile_posts_img"
+              slot="start"
+            />
+            <span className="profile-nameProfession">
+              <strong>{post.profileName}</strong>
+              <IonText>{post.profession}</IonText>
+            </span>
+            <IonText mode="md" className="profile-post__followers">
+              300 seguidores
+            </IonText>
+          </IonItem>
+          <IonItem lines="none">
+            <p>{post.postDescription}</p>
+          </IonItem>
+          <IonItem>
+            <PostsLikes
+              likeHandler={likeHandler}
+              textColor={textColor}
+              likes={post.likes}
+              index={index}
+            />
+          </IonItem>
+        </IonCard>
+      ))}
     </>
-  )
+  );
+};
+
+interface propsPostsLikes {
+  likeHandler: (val1: any, val2: any) => number;
+  textColor: string;
+  likes: number;
+  index: number;
 }
 
+const PostsLikes: React.FC<propsPostsLikes> = ({
+  textColor,
+  likeHandler,
+  likes,
+  index
+}) => {
+
+  const textClickHandler:any = (e: Event) => {
+    likeHandler(e, index)
+  }
+
+  return (
+    <>
+      <strong slot="end" onClick={textClickHandler} style={{ color: textColor }}>
+        {likes} Me gusta
+      </strong>
+    </>
+  );
+};
+
 const Profile = () => {
+  const [like, setLiked] = useState(false);
+  const [likedPost, setLikedPost] = useState<boolean>(false);
+  const [rating, setRating] = useState(3.5);
+  const [toggleOptions, setToggleOptions] = useState("posts");
   return (
     <IonPage>
-      <IonContent>
+      <IonContent id="dark-content__profile">
         <Header canBack={true} title="Perfil" />
         <div className="cover_menu_profileDetail">
           <IonImg
             className="cover_menu_profileDetail_img"
-            src="https://images.pexels.com/photos/3525541/pexels-photo-3525541.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260"
+            src={profilePoster}
           />
-          <div className="cover_menu_gradient" />
+          <div className="cover_menu_profileDetail-gradient" />
           <div className="data_profile_menu_middle ion-margin-horizontal">
-            <IonIcon color="primary" icon={logoFacebook} />
-            <IonIcon color="primary" icon={logoLinkedin} />
-            <IonIcon color="primary" icon={logoWordpress} />
-            <img src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260" />
-            <div className="data_button_profileDetail_menu">
-              <IonButton color="primary" className="follow_button">
-                Seguir
-              </IonButton>
+            <IonIcon color="light" icon={logoFacebook} />
+            <IonIcon color="light" icon={logoLinkedin} />
+            <img src="https://images.unsplash.com/photo-1529088746738-c4c0a152fb2c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1000&amp;q=80" />
+            <div className="data_icon_profileDetail_menu-right">
+              <IonBadge className="badge-like">
+                <IonIcon icon={globe} />
+              </IonBadge>
+              {like ? (
+                <IonBadge
+                  onClick={() => setLiked(!like)}
+                  className="badge-like"
+                >
+                  <IonIcon icon={heart} />
+                </IonBadge>
+              ) : (
+                <IonBadge
+                  onClick={() => setLiked(!like)}
+                  className="badge-like"
+                >
+                  <IonIcon icon={heartOutline} />
+                </IonBadge>
+              )}
             </div>
           </div>
         </div>
-        <div className="ion-text-center ion-margin-top">
-          <IonText className="user_name">JANTH KOHEMAN</IonText>
+        <div className="ion-text-center  username_title">
+          <IonText className="user_name">Johnny Pacheco</IonText>
+          <IonText className="profession">Ingeniero</IonText>
         </div>
-        <IonItem className="ion-margin">
-          <IonText color="primary" className="ion-text-right" slot="start">
-            <span>Publicaciones</span>
-          </IonText>
-          <IonText color="primary" className="ion-text-right" slot="end">
-            <span>100K Seguidores</span>
-          </IonText>
+        <IonItem className="ion-margin-top ion-margin-horizontal ratings-profile">
+          <StarRating rating={rating} size="large" color="warning" />
         </IonItem>
-        <IonItem className="ion-margin">
+        <IonItem className="ion-margin-horizontal profile-description">
           <p className="description_profileDetail">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at
-            nulla consequat, malesuada lacus a, feugiat lectus. Nam luctus metus
-            ullamcorper libero accumsan bibendum. Nunc facilisis sapien tempor
-            feugiat tincidunt. Lorem ipsum dolor sit amet, consectetur
-            adipiscing elit. In hac habitasse platea dictumst. Duis turpis
-            ipsum, aliquam a ornare eget, pretium id diam. Fusce elit risus,
-            malesuada vitae mi sit amet, mattis elementum nulla. Maecenas non
-            porta odio. Curabitur id fermentum tellus.
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book. It has survived not
+            only five cent make a type specimen book. It has
           </p>
         </IonItem>
-        <ProfilePosts />
+        <IonItem className="profile-followers ion-text-center">
+          <IonLabel>300 Seguidores</IonLabel>
+        </IonItem>
+        <IonSegment
+          onIonChange={(e) => setToggleOptions(e.detail.value!)}
+          className="profile-options__projectsOrPosts"
+          value={toggleOptions}
+        >
+          <IonSegmentButton value="projects" mode="md">
+            <IonLabel>Projectos</IonLabel>
+          </IonSegmentButton>
+          <IonSegmentButton value="posts">
+            <IonLabel>Publicaciones</IonLabel>
+          </IonSegmentButton>
+        </IonSegment>
+        {toggleOptions === "posts" ? <ProfilePosts /> : <ProfilePosts />}
       </IonContent>
     </IonPage>
   );

@@ -6,7 +6,7 @@
 }
 
 .form-register{
-  height: 100%;
+  height: 90%;
 }
 
 ion-slides{
@@ -16,6 +16,7 @@ ion-slides{
 
 .swiper-slide {
   display: block;
+  height: 90%;
 }
 
 ion-list{
@@ -29,6 +30,38 @@ ion-list{
   height: 25%;
 }
 
+.logo-image__register{
+  margin: 0 15% 0 15%;
+  width: 70%;
+  height: 25%; 
+}
+
 .avatar-profile {
   margin: 0 auto;
+}
+
+.footer-page__register {
+  --background: black;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  align-items: center;
+}
+
+.slide-page-dark{
+  --background: black;
+  --color: #F7941D;
+}
+
+.item-list__dark {
+  --background: black;
+  --color: #C4C4C4;
+  --border-color: #C4C4C4;
+  --highlight-color-focused: #C4C4C4;
+}
+
+
+.button-register__outline{
+  --color: #C4C4C4;
+  --border-color: #C4C4C4;
 }
