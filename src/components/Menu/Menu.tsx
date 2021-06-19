@@ -1,10 +1,7 @@
 import {
   IonMenu,
-  IonHeader,
-  IonToolbar,
   IonIcon,
   IonContent,
-  IonList,
   IonItem,
   IonImg,
 } from "@ionic/react";
@@ -15,10 +12,10 @@ import {
   peopleOutline,
   closeOutline,
   calculator,
+  buildOutline
 } from "ionicons/icons";
 
 import "./Menu.css";
-import Logo from "../../assets/logotipo.png";
 
 const Menu = () => {
   return (
@@ -43,27 +40,31 @@ const Menu = () => {
           </div>
         </div>
         <IonItem className="item_list_menu_side" routerLink="/posts">
-          <IonIcon icon={newspaperOutline} slot="start" />
+          <IonIcon icon={newspaperOutline} color="white" slot="start" />
           Publicaciones
         </IonItem>
         <IonItem className="item_list_menu_side" routerLink="/marketplace">
-          <IonIcon icon={pricetagOutline} slot="start" />
+          <IonIcon icon={pricetagOutline} color="white" slot="start" />
           MarketPlace
         </IonItem>
         <IonItem className="item_list_menu_side" routerLink="/shopping-cart">
-          <IonIcon icon={cartOutline} slot="start" />
+          <IonIcon icon={cartOutline} color="white" slot="start" />
           Carrito
         </IonItem>
         <IonItem className="item_list_menu_side" routerLink="/calculator">
-          <IonIcon icon={calculator} slot="start" />
+          <IonIcon icon={calculator} color="white" slot="start" />
           Calculadora
         </IonItem>
+        <IonItem className="item_list_menu_side" routerLink="/gestion">
+          <IonIcon icon={buildOutline} color="white" slot="start" />
+          Gestion de obra
+        </IonItem>
         <IonItem className="item_list_menu_side" routerLink="/profile">
-          <IonIcon icon={peopleOutline} slot="start" />
+          <IonIcon icon={peopleOutline} color="white" slot="start" />
           Perfil
         </IonItem>
         <IonItem className="item_list_menu_side">
-          <IonIcon icon={closeOutline} slot="start" />
+          <IonIcon icon={closeOutline} color="white" slot="start" />
           Salir
         </IonItem>
       </IonContent>
