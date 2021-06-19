@@ -1,0 +1,55 @@
+.section_dm{
+    width:100%;
+    height: auto;
+
+    display: flex;
+}
+
+.section_dm > div {
+    width: 50%;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.section_dm > div:first-child{
+    display: flex;
+    align-items: center;
+}
+
+.icon_container {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid black;
+    margin-right: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.section_dm > div > button {
+    min-height: 23px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    border-radius: 5px;
+    padding: 5px;
+    box-sizing: border-box;
+    background-color:rgb(255, 216, 209);
+    text-align: left;
+}
+
+.container_title_section{
+    width: 75%;
+    height: 80px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color:rgb(250, 119, 96);
+}
+
+.container_title_section > .title_section {
+    font-weight: 700;
+    font-size: 17px;
+}

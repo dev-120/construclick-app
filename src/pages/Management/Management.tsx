@@ -17,7 +17,7 @@ type Props = {
   };
 };
 
-const ManagementPage: React.FC<Props> = () => {
+const ManagementPage: React.FC<Props> = ({ history }) => {
   return (
     <IonPage>
       <Header canBack={false} title="Gestion de obra" />
@@ -29,7 +29,9 @@ const ManagementPage: React.FC<Props> = () => {
         </div>
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
           <IonFabButton>
-            <IonIcon icon={add} />
+            <IonIcon  onClick={() => {
+              history.push('/gestion/dashboard')
+            }} icon={add} />
           </IonFabButton>
         </IonFab>
       </IonContent>
