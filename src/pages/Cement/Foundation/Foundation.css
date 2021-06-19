@@ -1,0 +1,17 @@
+.Foundation-content__style{
+  --background: black;
+}
+
+.Foundation-content__style ion-slides{
+  height: 80%;
+}
+
+.Foundation-menu__style {
+  --background: #ef7b03;
+}
+
+.Foundation-image__style{
+  width: 70px !important;
+  height: 70px !important;
+  max-width: 50px;
+}

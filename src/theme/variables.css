@@ -1,6 +1,16 @@
 /* Ionic Variables and Theming. For more info, please see:
 http://ionicframework.com/docs/theming/ */
 
+@font-face{
+  font-family: 'Nunito';
+  src: url('../assets/fonts/Nunito-Regular.ttf');
+}
+
+@font-face{
+  font-family: 'Bebas Neue';
+  src: url('../assets/fonts/BebasNeue-Regular.ttf');
+}
+
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
