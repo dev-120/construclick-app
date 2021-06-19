@@ -1,0 +1,21 @@
+.Header-searchbar__styles{
+  --margin-top: 5px;
+  --icon-color: #ef7b03;
+}
+
+.Search-icon__button{
+  color: #ef7b03;
+}
+
+.Header-searchbutton__styles{
+  font-size: 50px;
+  --ripple-color: #ef7b03;
+}
+
+.Header-searchbar__styles{
+  --placeholder-color: black;
+  --placeholder-font-weight: 800;
+    font-family: Nunito;
+  --border-radius: 8px;
+  --background: #E1E1E1;
+}

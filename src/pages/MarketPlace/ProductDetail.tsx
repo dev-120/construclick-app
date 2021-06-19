@@ -109,7 +109,7 @@ const ProductDetail: React.FC<productItem> = ({ match }) => {
       <IonContent fullscreen>
         <Header
           title={product.length > 0 ? product[0].productTitle : "MarketPlace"}
-          canBack={false}
+          canBack={true}
         />
         {product.length > 0 ? (
           <>

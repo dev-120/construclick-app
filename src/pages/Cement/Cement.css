@@ -1,0 +1,12 @@
+.Concrete-menu__page{
+  --background: black;
+}
+
+.Concrete-menu__page ion-item{
+  --background: black;
+}
+
+.Concrete-card__style{
+  --background: #ef7b03;
+  font-family: Nunito !important;
+}
