@@ -24,6 +24,7 @@ import MarketPlace from "./pages/MarketPlace/MarketPlace";
 import ProductDetail from "./pages/MarketPlace/ProductDetail";
 import Foundation from "./pages/Cement/Foundation/Foundation";
 import ManagementDashboard from "./pages/Management/Dashboard/Dashboard";
+import DataGeneralManagement from './pages/Management/DataGeneral/DataGeneral';
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -56,6 +57,7 @@ const Router = (
         <Route exact path="/profile" component={Profile}/>
         <Route exact path="/marketplace" component={MarketPlace} />
         <Route exact path="/gestion/dashboard" component={ManagementDashboard} />
+        <Route exact path="/gestion/datos-generales"  component={DataGeneralManagement} />
         <Route exact path="/gestion" component={Management} />
         <Route exact path="/marketplace/:productId" component={ProductDetail} />
         <Route exact path="/calculator/concrete" component={Cement}/>

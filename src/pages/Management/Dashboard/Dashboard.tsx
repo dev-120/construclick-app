@@ -13,8 +13,13 @@ import {
   IonLabel,
 } from "@ionic/react";
 import React from "react";
-import { bulbOutline } from "ionicons/icons";
-
+import {
+  bulbOutline,
+  cogOutline,
+  analyticsOutline,
+  golfOutline,
+  calendarClearOutline,
+} from "ionicons/icons";
 
 import "./Dashboard.css";
 import Header from "../../../components/Header/Header";
@@ -35,7 +40,7 @@ const DashboardPage: React.FC<Props> = () => {
   return (
     <IonPage>
       <Header title="Gestion de obra" />
-      <IonContent className="dashboard_page" >
+      <IonContent className="dashboard_page">
         <div className="container-Dashboard">
           <div className="row_dashboard_doughnut">
             <Doughnut
@@ -82,60 +87,110 @@ const DashboardPage: React.FC<Props> = () => {
             />
           </div>
         </div>
-        <Section title="Fase (0)" icon={bulbOutline} subtitle="Pre-diseño" options={[
-          {
-            title: "Datos generales",
-            link: "/datos-generales"
-          },
-          {
-            title: "Planos / render",
-            link: "/planos-render"
-          },
-          {
-            title: "Presupuesto",
-            link: "/presupuesto"
-          },
-          {
-            title: "Aspectos legales",
-            link: "/legal"
-          },
-          {
-            title: "Financiacion",
-            link: "/financiacion"
-          }
-        ]} />
-        <Section title="Fase (1)" icon={bulbOutline} subtitle="Planeación" options={[
-          {
-            title: "Cronograma",
-            link: "/cronograma"
-          },
-          {
-            title: "Materiales, equipo y almacen",
-            link: "/materiales-equipo-almacen"
-          },
-          {
-            title: "Seleccion personal y contratos",
-            link: "/personal-contratos"
-          }
-        ]} />
-        <Section title="Fase (2)" icon={bulbOutline} subtitle="Ejecución" options={[
-          {
-            title: "Construcción de obra",
-            link: "/construccion-obra"
-          },
-          {
-            title: "Control equipos / herramienta",
-            link: "/control-equipos-herramienta"
-          },
-          {
-            title: "Recepcion control materiales",
-            link: "/recepcion-control-materiales"
-          },
-          {
-            title: "Adicionales",
-            link: "/adicionales"
-          }
-        ]} />
+        <Section
+          title="Fase (0)"
+          color="#ffb4a7"
+          icon={bulbOutline}
+          subtitle="Pre-diseño"
+          options={[
+            {
+              title: "Datos generales",
+              link: "/datos-generales",
+            },
+            {
+              title: "Planos / render",
+              link: "/planos-render",
+            },
+            {
+              title: "Presupuesto",
+              link: "/presupuesto",
+            },
+            {
+              title: "Aspectos legales",
+              link: "/legal",
+            },
+            {
+              title: "Financiacion",
+              link: "/financiacion",
+            },
+          ]}
+        />
+        <Section
+          title="Fase (1)"
+          color="#1de9b6"
+          icon={calendarClearOutline}
+          subtitle="Planeación"
+          options={[
+            {
+              title: "Cronograma",
+              link: "/cronograma",
+            },
+            {
+              title: "Materiales, equipo y almacen",
+              link: "/materiales-equipo-almacen",
+            },
+            {
+              title: "Seleccion personal y contratos",
+              link: "/personal-contratos",
+            },
+          ]}
+        />
+        <Section
+          title="Fase (2)"
+          color="#ea80fc"
+          icon={cogOutline}
+          subtitle="Ejecución"
+          options={[
+            {
+              title: "Construcción de obra",
+              link: "/construccion-obra",
+            },
+            {
+              title: "Control equipos / herramienta",
+              link: "/control-equipos-herramienta",
+            },
+            {
+              title: "Recepcion control materiales",
+              link: "/recepcion-control-materiales",
+            },
+            {
+              title: "Adicionales",
+              link: "/adicionales",
+            },
+          ]}
+        />
+        <Section
+          title="Fase (3)"
+          color="#9DA4FB"
+          icon={analyticsOutline}
+          subtitle="Seguimiento"
+          options={[
+            {
+              title: "Reporte interventoria",
+              link: "/reporte-interventoria",
+            },
+            {
+              title: "Aprobación cliente",
+              link: "/aprobacion-cliente",
+            },
+          ]}
+        />
+        <Section
+          title="Fase (4)"
+          color="#DA85F3"
+          icon={golfOutline}
+          subtitle="Cierre"
+          options={[
+            {
+              title: "Entrega y firma de actas",
+              link: "/actas",
+            },
+            {
+              title: "Pago FINAL",
+              link: "/pago-final",
+            },
+          ]}
+        />
       </IonContent>
     </IonPage>
   );
