@@ -11,6 +11,10 @@ http://ionicframework.com/docs/theming/ */
   src: url('../assets/fonts/BebasNeue-Regular.ttf');
 }
 
+* {
+  font-family: 'Nunito';
+}
+
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
