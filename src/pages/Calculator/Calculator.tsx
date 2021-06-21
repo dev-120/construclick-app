@@ -37,7 +37,7 @@ const menuCalculator = [
       id: 1,
       imgsrc: "",
       buttonTitle: "Muros",
-      linkTo: "/wall",
+      linkTo: "/walls",
     },
   ],
   [
