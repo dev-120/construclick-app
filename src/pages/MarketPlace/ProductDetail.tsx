@@ -21,12 +21,13 @@ import {
   IonInput,
   IonTextarea,
 } from "@ionic/react";
+import { pricetagOutline } from "ionicons/icons";
 import { useEffect, useState, useRef } from "react";
 
 import exampleItems from "./utils";
 import Header from "../../components/Header/Header";
 import "./ProductDetail.css";
-import StarRating from "../../components/StarRating/StarRating";
+import Section from "../../components/SectionProducts/SectionProducts"
 
 interface productItem {
   match: {
@@ -36,10 +37,48 @@ interface productItem {
   };
 }
 
-
 interface Comments {
   comments: Array<string>;
 }
+
+const QuestionsAsked: React.FC = () => {
+  const mockupQuestions=[
+    {
+      question: "¿Tiene un tamaño mas grande?",
+      response: "Si, tenemos todos los tamaños disponibles, visita nuestra tienda"
+    },
+    {
+      question: "¿Tiene un tamaño mas grande?",
+      response: "Si, tenemos todos los tamaños disponibles, visita nuestra tienda"
+    },
+    {
+      question: "¿Tiene un tamaño mas grande?",
+      response: "Si, tenemos todos los tamaños disponibles, visita nuestra tienda"
+    },
+  ];
+
+  return (
+    <>
+      <IonText>Preguntas realizadas</IonText>
+      <IonGrid>
+        {mockupQuestions.map((question, index) => (
+          <IonRow key={index}>
+          <IonCol size="12" className="ion-text-left">
+            <IonText color="success">{question.question}</IonText>
+          </IonCol>
+          <IonCol size="12" className="ion-text-left">
+            <div className="ion-margin-start">
+              <IonText color="light">
+                {question.response}
+              </IonText>
+            </div>
+          </IonCol>
+        </IonRow>
+        ))}
+      </IonGrid>
+    </>
+  );
+};
 
 const CommentsProduct: React.FC<Comments> = ({ comments }) => {
   return (
@@ -69,19 +108,23 @@ const CreateComments: React.FC = () => {
         ></IonTextarea>
       </IonItem>
 
-      <IonButton color="primary" expand="full" className="ion-margin-horizontal">
+      <IonButton
+        color="primary"
+        expand="full"
+        className="ion-margin-horizontal"
+      >
         Comentar
       </IonButton>
     </>
   );
 };
 
-const ProductDetail: React.FC<productItem> = ({ match }) => {
-  const slideOpts = {
-    initialSlide: 0,
-    speed: 500,
-  };
+const slideOpts = {
+  initialSlide: 0,
+  speed: 500,
+};
 
+const ProductDetail: React.FC<productItem> = ({ match }) => {
   const slideRef = useRef<HTMLIonSlidesElement>(null);
   const [showLoading, setShowLoading] = useState<boolean>(true);
   const [product, setProduct] = useState<Array<any>>([]);
@@ -106,31 +149,26 @@ const ProductDetail: React.FC<productItem> = ({ match }) => {
   }, [match]);
   return (
     <IonPage>
-      <IonContent fullscreen>
+      <IonContent fullscreen className="ProductDetail-content__style">
         <Header
           title={product.length > 0 ? product[0].productTitle : "MarketPlace"}
           canBack={true}
+          href="/marketplace"
         />
         {product.length > 0 ? (
           <>
             <IonItem
-              className="ion-padding-horizontal ion-margin-top"
+              className="ion-padding-horizontal ion-margin-top ProductDetail-item__style"
               lines="none"
             >
               <IonText>{product[0].productTitle}</IonText>
-            </IonItem>
-            <IonItem
-              className="ion-margin-bottom ion-padding-horizontal"
-              lines="none"
-            >
-              <StarRating rating={product[0].rating} />
             </IonItem>
             <IonSlides
               options={slideOpts}
               pager={false}
               id="product-detail-slides"
               mode="md"
-              className="ion-margin-horizontal"
+              className="ProductDetail-slides__style"
               ref={slideRef}
               onIonSlidesDidLoad={loadHandler}
               onIonSlideNextStart={slideHandler}
@@ -138,28 +176,57 @@ const ProductDetail: React.FC<productItem> = ({ match }) => {
             >
               {product[0].img.map((imgUrl: any, index: number) => (
                 <IonSlide key={index} className="product-slides">
-                  <IonBadge color="medium" className="ion-text-left">
+                  <IonBadge className="ion-text-left Slides-badge__style">
                     {activeIndex}/{product[0].img.length}
                   </IonBadge>
                   <img src={imgUrl} id="slides-img-detail" />
                 </IonSlide>
               ))}
             </IonSlides>
-            <IonItem lines="none">
-              <IonChip>Vendedor : {product[0].seller}</IonChip>
-            </IonItem>
-            <IonItem lines="none" className="ion-margin-horizontal">
-              <IonText slot="start" className="price-product ion-float-center">
-                $ {product[0].productPrice}
-              </IonText>
-              <IonChip slot="end" className="badge-primary">
-                {product[0].discount}%
-              </IonChip>
+            <IonItem lines="none" className="ProductDetail-item__style">
+              <IonGrid slot="start">
+                <IonRow className="ion-align-items-start ion-justify-content-start">
+                  <IonCol
+                    size="12"
+                    className="ion-align-self-start PreviousProductPrice-discount__style"
+                  >
+                    ${product[0].productPrice}
+                  </IonCol>
+                  <IonCol size="12" className="ion-align-self-center">
+                    <IonText
+                      className="price-product ion-float-center"
+                      color="success"
+                    >
+                      $
+                      {parseInt(product[0].productPrice) *
+                        (1 - parseInt(product[0].discount) / 100)}
+                    </IonText>
+                  </IonCol>
+                </IonRow>
+              </IonGrid>
+
+              <IonGrid>
+                <IonRow className="ion-justify-content-end ion-align-items-center">
+                  <IonCol
+                    size="12"
+                    className="ion-align-self-center ion-text-right"
+                  >
+                    <IonText>{product[0].discount}% </IonText>
+                    <IonIcon icon={pricetagOutline} color="success" />
+                  </IonCol>
+                  <IonCol
+                    size="12"
+                    className="ion-align-self-center ion-text-center ion-padding-horizontal"
+                  >
+                    <IonText color="light">{product[0].seller}</IonText>
+                  </IonCol>
+                </IonRow>
+              </IonGrid>
             </IonItem>
             <IonButton
               color="primary"
-              expand="full"
-              className="ion-margin-horizontal ion-margin-top"
+              expand="block"
+              className="ion-margin-horizontal ProductDetail-button__styles"
             >
               Comprar ahora
             </IonButton>
@@ -167,16 +234,43 @@ const ProductDetail: React.FC<productItem> = ({ match }) => {
               expand="block"
               color="primary"
               fill="outline"
-              className="ion-margin-horizontal"
+              className="ion-margin-horizontal ProductDetail-button__styles"
             >
               Agregar al carrito
             </IonButton>
-            <IonItemDivider></IonItemDivider>
-            <IonItem className="ion-margin">
+            {/* <IonItem className="ion-margin">
               {product[0].productDescription}
-            </IonItem>
-            <CreateComments />
-            <CommentsProduct comments={product[0].comments} />
+            </IonItem> */}
+            <IonGrid>
+              <IonRow>
+                <IonCol
+                  size="12"
+                  className="ion-align-self-center ion-text-left"
+                >
+                  <IonText
+                    color="light"
+                    className="ProductDetail-description__title"
+                  >
+                    Descripción:{" "}
+                  </IonText>
+                </IonCol>
+                <IonCol
+                  size="12"
+                  className="ion-align-self-center ion-text-justify"
+                >
+                  <IonText
+                    color="light"
+                    className="ProductDetail-description__text"
+                  >
+                    {product[0].productDescription}
+                  </IonText>
+                </IonCol>
+              </IonRow>
+            </IonGrid>
+            <QuestionsAsked />
+            <Section items={exampleItems} sectionName="Productos Relacionados"/>
+            {/* <CreateComments />
+            <CommentsProduct comments={product[0].comments} /> */}
           </>
         ) : (
           <IonLoading

@@ -19,7 +19,7 @@ const exampleItems = [
     productTitle: "Tabla de Cortar",
     productPrice: 40000,
     productDescription:
-      "Descripción: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean bibendum, turpis quis tempor finibus, mauris felis tristique purus, sed consectetur sapien nisl ac lorem. Donec a nisl urna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis ultricies dui eu lectus viverra feugiat. Nunc vitae dolor mi. Sed blandit efficitur hendrerit. Vivamus nibh metus, commodo.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean bibendum, turpis quis tempor finibus, mauris felis tristique purus, sed consectetur sapien nisl ac lorem. Donec a nisl urna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis ultricies dui eu lectus viverra feugiat. Nunc vitae dolor mi. Sed blandit efficitur hendrerit. Vivamus nibh metus, commodo.",
     discount: 5,
     comments: [
       "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
@@ -41,7 +41,7 @@ const exampleItems = [
     productTitle: "Espatula",
     productPrice: 28000,
     productDescription:
-      "Descripción: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean bibendum, turpis quis tempor finibus, mauris felis tristique purus, sed consectetur sapien nisl ac lorem. Donec a nisl urna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis ultricies dui eu lectus viverra feugiat. Nunc vitae dolor mi. Sed blandit efficitur hendrerit. Vivamus nibh metus, commodo.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean bibendum, turpis quis tempor finibus, mauris felis tristique purus, sed consectetur sapien nisl ac lorem. Donec a nisl urna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis ultricies dui eu lectus viverra feugiat. Nunc vitae dolor mi. Sed blandit efficitur hendrerit. Vivamus nibh metus, commodo.",
     discount: 10,
     comments: [
       "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
@@ -63,7 +63,7 @@ const exampleItems = [
     productTitle: "Espatula Pequeña",
     productPrice: 40000,
     productDescription:
-      "Descripción: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean bibendum, turpis quis tempor finibus, mauris felis tristique purus, sed consectetur sapien nisl ac lorem. Donec a nisl urna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis ultricies dui eu lectus viverra feugiat. Nunc vitae dolor mi. Sed blandit efficitur hendrerit. Vivamus nibh metus, commodo.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean bibendum, turpis quis tempor finibus, mauris felis tristique purus, sed consectetur sapien nisl ac lorem. Donec a nisl urna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis ultricies dui eu lectus viverra feugiat. Nunc vitae dolor mi. Sed blandit efficitur hendrerit. Vivamus nibh metus, commodo.",
     discount: 30,
     comments: [
       "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
@@ -85,7 +85,7 @@ const exampleItems = [
     productTitle: "Costal",
     productPrice: 28000,
     productDescription:
-      "Descripción: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean bibendum, turpis quis tempor finibus, mauris felis tristique purus, sed consectetur sapien nisl ac lorem. Donec a nisl urna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis ultricies dui eu lectus viverra feugiat. Nunc vitae dolor mi. Sed blandit efficitur hendrerit. Vivamus nibh metus, commodo.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean bibendum, turpis quis tempor finibus, mauris felis tristique purus, sed consectetur sapien nisl ac lorem. Donec a nisl urna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis ultricies dui eu lectus viverra feugiat. Nunc vitae dolor mi. Sed blandit efficitur hendrerit. Vivamus nibh metus, commodo.",
     discount: 10,
     comments: [
       "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
@@ -107,7 +107,7 @@ const exampleItems = [
     productTitle: "Espatula de madera",
     productPrice: 50000,
     productDescription:
-      "Descripción: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean bibendum, turpis quis tempor finibus, mauris felis tristique purus, sed consectetur sapien nisl ac lorem. Donec a nisl urna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis ultricies dui eu lectus viverra feugiat. Nunc vitae dolor mi. Sed blandit efficitur hendrerit. Vivamus nibh metus, commodo.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean bibendum, turpis quis tempor finibus, mauris felis tristique purus, sed consectetur sapien nisl ac lorem. Donec a nisl urna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis ultricies dui eu lectus viverra feugiat. Nunc vitae dolor mi. Sed blandit efficitur hendrerit. Vivamus nibh metus, commodo.",
     discount: 10,
     comments: [
       "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
@@ -129,7 +129,7 @@ const exampleItems = [
     productTitle: "Tabla de cortar",
     productPrice: 59999,
     productDescription:
-      "Descripción: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean bibendum, turpis quis tempor finibus, mauris felis tristique purus, sed consectetur sapien nisl ac lorem. Donec a nisl urna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis ultricies dui eu lectus viverra feugiat. Nunc vitae dolor mi. Sed blandit efficitur hendrerit. Vivamus nibh metus, commodo.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean bibendum, turpis quis tempor finibus, mauris felis tristique purus, sed consectetur sapien nisl ac lorem. Donec a nisl urna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis ultricies dui eu lectus viverra feugiat. Nunc vitae dolor mi. Sed blandit efficitur hendrerit. Vivamus nibh metus, commodo.",
     discount: 50,
     comments: [
       "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
