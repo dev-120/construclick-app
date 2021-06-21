@@ -1,3 +1,11 @@
+.container_mk{
+    --background: #212121;
+}
+
+.select_category_mk {
+    --background: white;
+}
+
 .list_Categories {
     height: 12vh;
     box-sizing: border-box;
@@ -37,45 +45,4 @@
 .category_opt span{
     text-align: center;
     font-size: 13px;
-}
-
-
-.list_Products {
-    height: 50vh;
-    box-sizing: border-box;
-    width: 100%;
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: scroll;
-    padding: 0.5vh;
-}
-
-.product_item {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-}
-
-.product_item > ion-card {
-    height: auto;
-}
-
-.product_item > ion-card > ion-card-header > ion-card-title {
-    font-size: 16.5px;
-}
-
-.product_item > ion-card > ion-card-header > ion-img {
-    float: center;
-    width: 100%;
-    height: 20vh;
-    max-height: 20vh;
-    object-fit: cover;
-}
-
-ion-card {
-    margin-left: 2px;
-    margin-right: 2px;
 }

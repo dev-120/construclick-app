@@ -1,0 +1,30 @@
+.Header-icons__color{
+  --color: #ef7b03;
+  --icon-font-size: 40px;
+  --padding-end: 0px;
+  --padding-start: 0px;
+}
+
+.Header-endslot__icons{
+  font-size: 30px;
+  color: #ef7b03;
+}
+
+.Header-endslot__icons ion-menu-button{
+  font-size: 40px;
+}
+
+.Header-logo__style{
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.Header-logo__style img{
+  position: absolute;
+  width: 51px;
+  height: 37px;
+  left: 40px;
+  top: 6px;
+}

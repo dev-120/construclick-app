@@ -5,25 +5,59 @@ import {
   IonButtons,
   IonBackButton,
   IonMenuButton,
+  IonItem,
+  IonIcon,
 } from "@ionic/react";
 import React from "react";
+import { chevronBack, notifications } from "ionicons/icons";
+
+import SearchButton from "../SearchButton/SearchButton";
+import Logo from "../../assets/logo_orange.png";
+
+import "./Header.css";
 
 type Props = {
-  title?: string,
-  canBack?: boolean,
+  title?: string;
+  canBack?: boolean;
+  href?: string;
 };
 
-const Header: React.FC<Props> = ({ title, canBack = true }) => {
+const Header: React.FC<Props> = ({ title, canBack = true, href = "/" }) => {
   return (
     <IonHeader>
-      <IonToolbar color="primary" >
-        {canBack && (
-          <IonButtons slot="start">
-            <IonBackButton defaultHref="/" />
-          </IonButtons>
+      <IonToolbar>
+        {canBack ? (
+          <>
+            <IonButtons slot="start">
+              <IonBackButton
+                defaultHref={href}
+                icon={chevronBack}
+                className="Header-icons__color"
+              />
+              <SearchButton />
+            </IonButtons>
+            <IonItem
+              lines="none"
+              className="ion-text-center Header-logo__style"
+            >
+              <img src={Logo} />
+            </IonItem>
+          </>
+        ) : (
+          <>
+            <IonButtons slot="start">
+              <SearchButton />
+            </IonButtons>
+            <IonItem
+              lines="none"
+              className="ion-text-center Header-logo__style"
+            >
+              <img src={Logo} />
+            </IonItem>
+          </>
         )}
-        <IonTitle>{title || "Construclick"}</IonTitle>
-        <IonButtons slot="end">
+        <IonButtons slot="end" className="Header-endslot__icons">
+          <IonIcon icon={notifications} />
           <IonMenuButton autoHide={true} />
         </IonButtons>
       </IonToolbar>

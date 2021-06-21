@@ -13,12 +13,19 @@ import "firebase/auth";
 import Home from "./pages/Home/Home";
 import Posts from "./pages/Posts/Posts";
 import Menu from './components/Menu/Menu';
+import Cement from "./pages/Cement/Cement";
+import Profile from "./pages/Profile/Profile";
 import ViewPost from './pages/ViewPost/ViewPost';
 import Register from './pages/Register/Register';
+import Calculator from "./pages/Calculator/Calculator";
+import Management from "./pages/Management/Management";
 import CreatePost from "./pages/CreatePost/CreatePost";
 import MarketPlace from "./pages/MarketPlace/MarketPlace";
 import ProductDetail from "./pages/MarketPlace/ProductDetail";
-import Profile from "./pages/Profile/Profile";
+import Foundation from "./pages/Cement/Foundation/Foundation";
+import ManagementDashboard from "./pages/Management/Dashboard/Dashboard";
+import DataGeneralManagement from './pages/Management/DataGeneral/DataGeneral';
+import PlaneRenderManagement from './pages/Management/PlaneRender/PlaneRender';
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -39,9 +46,6 @@ import "@ionic/react/css/text-transformation.css";
 /* Theme variables */
 import "./theme/variables.css";
 
-
-
-
 const Router = (
   <IonReactRouter>
     <IonSplitPane contentId="main" >
@@ -53,9 +57,18 @@ const Router = (
         <Route exact path="/register" component={Register} />
         <Route exact path="/profile" component={Profile}/>
         <Route exact path="/marketplace" component={MarketPlace} />
+        <Route exact path="/gestion/dashboard" component={ManagementDashboard} />
+        <Route exact path="/gestion/datos-generales"  component={DataGeneralManagement} />
+        <Route exact path="/gestion/planos-render" component={PlaneRenderManagement} />
+        <Route exact path="/gestion" component={Management} />
         <Route exact path="/marketplace/:productId" component={ProductDetail} />
+        <Route exact path="/calculator/concrete" component={Cement}/>
+        <Route exact path="/calculator/concrete/foundation" component={Foundation}/>
+        <Route exact path="/calculator" component={Calculator}/>
+        <Route exact path="/calculator/concrete/asdf" component={Cement}/>
+        <Route exact path="/calculator/concrete/asffdf" component={Cement}/>
         <Route exact path="/" component={Home} />
-      </IonRouterOutlet>
+      </IonRouterOutlet>   
     </IonSplitPane>
   </IonReactRouter>
 );
