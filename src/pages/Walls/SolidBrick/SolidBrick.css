@@ -1,33 +1,33 @@
-.Foundation-content__style{
+.SolidBrick-content__style{
   --background: black;
 }
 
-.Foundation-content__style ion-slides{
+.SolidBrick-content__style ion-slides{
   height: 100%;
 }
 
-.Foundation-menu__style {
+.SolidBrick-menu__style {
   --background: #ef7b03;
 }
 
-.Foundation-image__style{
-  width: 100px !important;
-  height: 80px !important;
-  max-width: 90px;
+.SolidBrick-image__style{
+  width: 120px !important;
+  height: 90px !important;
+  max-width: 100px;
 }
 
 .Optionbeam-select__style{
   font-size: 12px;
 }
 
-.Foundation-sidepanel__img{
+.SolidBrick-sidepanel__img{
   border-radius: 50%;
   border: 1px solid #ef7b03;
   width: 70px !important;
   height: 70px !important;
 }
 
-.Foundation-Result__icon {
+.SolidBrick-Result__icon {
   width: 80px !important;
   height: 60px !important;
 }
