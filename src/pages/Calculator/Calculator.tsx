@@ -37,15 +37,15 @@ const menuCalculator = [
       id: 1,
       imgsrc: "",
       buttonTitle: "Muros",
-      linkTo: "/wall",
+      linkTo: "/walls",
     },
   ],
   [
     {
       id: 2,
       imgsrc: "",
-      buttonTitle: "Pañete",
-      linkTo: "/plaste",
+      buttonTitle: "Revoque",
+      linkTo: "/revoke",
     },
     {
       id: 3,
