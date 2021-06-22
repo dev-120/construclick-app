@@ -49,6 +49,9 @@ const mockupPost = [
     profession: "Ingeniero",
     postDescription:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis hendrerit risus nec tincidunt convallis. Mauris ac massa diam. Fusce vel laoreet turpis, suscipit ultricies sem. Nulla facilisi. Donec vehicula ligula ut purus euismod cursus. Nunc euismod odio vel ipsum egestas, eu porttitor nisl pharetra. Donec eu ornare eros, ut convallis.",
+    postsPhoto:
+      "https://images.unsplash.com/photo-1563166423-482a8c14b2d6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80 750w",
+
     likes: randomInt(),
     comments: randomInt(),
   },
@@ -62,6 +65,8 @@ const mockupPost = [
     profession: "Ingeniero",
     postDescription:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis hendrerit risus nec tincidunt convallis. Mauris ac massa diam. Fusce vel laoreet turpis, suscipit ultricies sem. Nulla facilisi. Donec vehicula ligula ut purus euismod cursus. Nunc euismod odio vel ipsum egestas, eu porttitor nisl pharetra. Donec eu ornare eros, ut convallis.",
+    postsPhoto:
+      "https://images.unsplash.com/photo-1563166423-482a8c14b2d6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80 750w",
     likes: randomInt(),
     comments: randomInt(),
   },
@@ -75,22 +80,28 @@ const mockupPost = [
     profession: "Ingeniero",
     postDescription:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis hendrerit risus nec tincidunt convallis. Mauris ac massa diam. Fusce vel laoreet turpis, suscipit ultricies sem. Nulla facilisi. Donec vehicula ligula ut purus euismod cursus. Nunc euismod odio vel ipsum egestas, eu porttitor nisl pharetra. Donec eu ornare eros, ut convallis.",
+    postsPhoto:
+      "https://images.unsplash.com/photo-1563166423-482a8c14b2d6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80 750w",
     likes: randomInt(),
     comments: randomInt(),
   },
 ];
 
-const ProfilePosts: React.FC = () => {
-  const [textColor, setTextLiked] = useState<string>("black");
+const polishPostDescription = (text: string) => {
+  let newText = text;
+  let newTextArray = newText
+    .match(/[a-zA-Z]+/g)
+    ?.slice(0, 23)
+    .join(" ");
+  return newTextArray + "...";
+};
 
-  const likeHandler: any = (e: Event, index: number) => {
-    setTextLiked("#ef7b03");
-    
-  };
+const ProfilePosts: React.FC = () => {
+  const [posts, setPosts] = useState(mockupPost);
 
   return (
     <>
-      {mockupPost.map((post, index) => (
+      {posts.map((post, index) => (
         <IonCard key={post.id} mode="md" className="ion-margin">
           <IonItem lines="none" className="ion-margin-top">
             <img
@@ -106,16 +117,16 @@ const ProfilePosts: React.FC = () => {
               300 seguidores
             </IonText>
           </IonItem>
+          <IonItem lines="none" className="ion-margin-top">
+            <img className="profile-post__image" src={post.postsPhoto} />
+          </IonItem>
           <IonItem lines="none">
-            <p>{post.postDescription}</p>
+            <p className="profile-post__description ion-text-justify">
+              {polishPostDescription(post.postDescription)}
+            </p>
           </IonItem>
           <IonItem>
-            <PostsLikes
-              likeHandler={likeHandler}
-              textColor={textColor}
-              likes={post.likes}
-              index={index}
-            />
+            <PostsLikes post={post} />
           </IonItem>
         </IonCard>
       ))}
@@ -124,27 +135,33 @@ const ProfilePosts: React.FC = () => {
 };
 
 interface propsPostsLikes {
-  likeHandler: (val1: any, val2: any) => number;
-  textColor: string;
-  likes: number;
-  index: number;
+  post: {
+    id: number;
+    likes: number;
+  };
 }
 
-const PostsLikes: React.FC<propsPostsLikes> = ({
-  textColor,
-  likeHandler,
-  likes,
-  index
-}) => {
+const PostsLikes: React.FC<propsPostsLikes> = ({ post }) => {
+  const [liked, setLiked] = useState<string>("black");
+  const [postLikes, setPostLikes] = useState(post.likes);
+  const [toggleClick, setTooggleClick] = useState(false);
 
-  const textClickHandler:any = (e: Event) => {
-    likeHandler(e, index)
-  }
+  const textClickHandler: any = (e: Event) => {
+    if (!toggleClick) {
+      setLiked("#ef7b03");
+      setPostLikes((postlikes) => postlikes + 1);
+      setTooggleClick(true);
+    } else {
+      setLiked("black");
+      setPostLikes((postlikes) => postlikes - 1);
+      setTooggleClick(false);
+    }
+  };
 
   return (
     <>
-      <strong slot="end" onClick={textClickHandler} style={{ color: textColor }}>
-        {likes} Me gusta
+      <strong slot="end" onClick={textClickHandler} style={{ color: liked }}>
+        {postLikes} Me gusta
       </strong>
     </>
   );
@@ -152,7 +169,6 @@ const PostsLikes: React.FC<propsPostsLikes> = ({
 
 const Profile = () => {
   const [like, setLiked] = useState(false);
-  const [likedPost, setLikedPost] = useState<boolean>(false);
   const [rating, setRating] = useState(3.5);
   const [toggleOptions, setToggleOptions] = useState("posts");
   return (
@@ -204,7 +220,7 @@ const Profile = () => {
             industry. Lorem Ipsum has been the industry's standard dummy text
             ever since the 1500s, when an unknown printer took a galley of type
             and scrambled it to make a type specimen book. It has survived not
-            only five cent make a type specimen book. It has
+            only five cent make a type specimen book.
           </p>
         </IonItem>
         <IonItem className="profile-followers ion-text-center">

@@ -1,0 +1,33 @@
+.SolidBrick-content__style{
+  --background: black;
+}
+
+.SolidBrick-content__style ion-slides{
+  height: 100%;
+}
+
+.SolidBrick-menu__style {
+  --background: #ef7b03;
+}
+
+.SolidBrick-image__style{
+  width: 120px !important;
+  height: 90px !important;
+  max-width: 100px;
+}
+
+.Optionbeam-select__style{
+  font-size: 12px;
+}
+
+.SolidBrick-sidepanel__img{
+  border-radius: 50%;
+  border: 1px solid #ef7b03;
+  width: 70px !important;
+  height: 70px !important;
+}
+
+.SolidBrick-Result__icon {
+  width: 80px !important;
+  height: 60px !important;
+}
