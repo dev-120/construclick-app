@@ -1,13 +1,7 @@
-import { Redirect, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import { IonReactRouter } from "@ionic/react-router";
 import { IonApp, IonRouterOutlet, IonSplitPane } from "@ionic/react";
 
-/* --- Firebase */
-import {
-  FirebaseAuthProvider,
-  FirebaseAuthConsumer,
-} from "@react-firebase/auth";
-import firebase from "firebase/app";
 import "firebase/auth";
 
 import Home from "./pages/Home/Home";
@@ -15,8 +9,9 @@ import Posts from "./pages/Posts/Posts";
 import Menu from "./components/Menu/Menu";
 import Cement from "./pages/Cement/Cement";
 import Profile from "./pages/Profile/Profile";
-import ViewPost from "./pages/ViewPost/ViewPost";
-import Register from "./pages/Register/Register";
+import ViewPost from './pages/ViewPost/ViewPost';
+import Register from './pages/Register/Register';
+import Budget from "./pages/Management/Budget/Budget";
 import Calculator from "./pages/Calculator/Calculator";
 import Management from "./pages/Management/Management";
 import CreatePost from "./pages/CreatePost/CreatePost";
@@ -84,6 +79,7 @@ const Router = (
           component={PlaneRenderManagement}
         />
         <Route exact path="/gestion" component={Management} />
+        <Route exact path="/gestion/presupuesto" component={Budget} />
         <Route exact path="/marketplace/:productId" component={ProductDetail} />
         <Route exact path="/calculator/concrete" component={Cement} />
         <Route exact path="/calculator/concrete/foundation" component={Foundation}/>
