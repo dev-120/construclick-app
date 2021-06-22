@@ -17,6 +17,7 @@ import Cement from "./pages/Cement/Cement";
 import Profile from "./pages/Profile/Profile";
 import ViewPost from './pages/ViewPost/ViewPost';
 import Register from './pages/Register/Register';
+import Budget from "./pages/Management/Budget/Budget";
 import Calculator from "./pages/Calculator/Calculator";
 import Management from "./pages/Management/Management";
 import CreatePost from "./pages/CreatePost/CreatePost";
@@ -61,6 +62,7 @@ const Router = (
         <Route exact path="/gestion/datos-generales"  component={DataGeneralManagement} />
         <Route exact path="/gestion/planos-render" component={PlaneRenderManagement} />
         <Route exact path="/gestion" component={Management} />
+        <Route exact path="/gestion/presupuesto" component={Budget} />
         <Route exact path="/marketplace/:productId" component={ProductDetail} />
         <Route exact path="/calculator/concrete" component={Cement}/>
         <Route exact path="/calculator/concrete/foundation" component={Foundation}/>
