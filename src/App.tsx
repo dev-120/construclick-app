@@ -34,6 +34,8 @@ import BrickCalculator from "./pages/Walls/Brick/BrickCalculator";
 import SolidBrickCalculator from "./pages/Walls/SolidBrick/SolidBlockCalculator";
 import CeramicBrick from "./pages/Walls/CeramicBrick/CeramicBrick";
 import CeramicBrickCalculator from "./pages/Walls/CeramicBrick/CeramicBrickCalculator";
+import Revoke from "./pages/Revoke/Revoke"
+import RevokeCalculator from "./pages/Revoke/RevokeCalculator";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -53,6 +55,7 @@ import "@ionic/react/css/text-transformation.css";
 
 /* Theme variables */
 import "./theme/variables.css";
+
 
 const Router = (
   <IonReactRouter>
@@ -92,6 +95,8 @@ const Router = (
         <Route exact path="/calculator/walls/solid-brick/:type" component={SolidBrickCalculator}/>
         <Route exact path="/calculator/walls/brick" component={Brick} />
         <Route exact path="/calculator/walls/brick/:size" component={BrickCalculator} />
+        <Route exact path="/calculator/revoke" component={Revoke} />
+        <Route exact path="/calculator/revoke/:type" component={RevokeCalculator}/>
         <Route exact path="/calculator" component={Calculator} />
         <Route exact path="/" component={Home} />
       </IonRouterOutlet>

@@ -44,8 +44,8 @@ const menuCalculator = [
     {
       id: 2,
       imgsrc: "",
-      buttonTitle: "Pañete",
-      linkTo: "/plaste",
+      buttonTitle: "Revoque",
+      linkTo: "/revoke",
     },
     {
       id: 3,
