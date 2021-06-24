@@ -11,17 +11,18 @@ import {
   IonCol,
   IonInput,
   IonButton,
-  IonRouterOutlet,
 } from "@ionic/react";
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import "./Foundation.css";
+import "./ColumnCalculator.css";
 import Header from "../../../components/Header/Header";
-import FoundationImg from "../../../assets/zapata.png";
-import FoundationDimesions from "../../../assets/dimensiones_zapata.png";
 import WhatsappIcon from "../../../assets/whatsapp_icon.png";
 import EmailIcon from "../../../assets/email_icon.png";
 import TelegramIcon from "../../../assets/telegram_icon.png";
+import RoundColumnImg from "../../../assets/round_column.png";
+import SquareColumnImg from "../../../assets/square_column.png";
+import SquareColumnCalculatorImg from "../../../assets/calculator_column.png";
+import RoundColumnCalculatorImg from "../../../assets/calculator_column_round.png";
 
 const FoundationOption = {
   EC: [
@@ -44,12 +45,23 @@ const FoundationOption = {
 
 type structureType = "EC" | "CCMR" | "ORGP" | "ER" | "EBPEC";
 interface OptionFoundationProps {
-  slideHandler: Function;
+  match: {
+    params: {
+      title: string;
+    }
+  }
 }
 
-const OptionFoundation: React.FC<OptionFoundationProps> = ({
-  slideHandler,
+
+const ColumnOptions = [
+  { title: "Columna rectangular", imgSrc: SquareColumnImg, linkTo: "square-column", calculatorImage: SquareColumnCalculatorImg },
+  { title: "Columna circular", imgSrc: RoundColumnImg,  linkTo: "round-column", calculatorImage: RoundColumnCalculatorImg },
+];
+
+const ColumnCalculator: React.FC<OptionFoundationProps> = ({
+  match
 }) => {
+  const [typeColumn, setTypeColumn ] = useState(Object)
   const [typeStructure, setTypeStructure] = useState<structureType>("EC");
   const [concreteResistance, setConcreteResistance] = useState<any>(
     FoundationOption[typeStructure]
@@ -63,8 +75,9 @@ const OptionFoundation: React.FC<OptionFoundationProps> = ({
   const [calculate, setCalculate] = useState<boolean>(false);
 
   useEffect(() => {
+    setTypeColumn(ColumnOptions.filter((option) => option.linkTo === match.params.title)[0])
     setConcreteResistance(FoundationOption[typeStructure]);
-  }, [typeStructure]);
+  }, [typeStructure, match]);
 
   const clickHandler=() => {
     setCalculate(true);
@@ -82,16 +95,16 @@ const OptionFoundation: React.FC<OptionFoundationProps> = ({
             >
               <img
                 slot="start"
-                src={FoundationImg}
+                src={typeColumn.imgSrc}
                 className="Foundation-sidepanel__img"
               />
               <IonText>
-                <h4>Zapata</h4>
+                <h4>{typeColumn.title}</h4>
               </IonText>
             </IonItem>
             <IonItem className="ion-margin-horizontal">
               <p>Diseño de mezcla de Concreto</p>
-              <IonLabel position="floating">Tipo de estructura</IonLabel>
+              <IonLabel>Tipo de estructura</IonLabel>
               <IonSelect
                 value={typeStructure}
                 onIonChange={(e) => setTypeStructure(e.detail.value!)}
@@ -114,7 +127,7 @@ const OptionFoundation: React.FC<OptionFoundationProps> = ({
               </IonSelect>
             </IonItem>
             <IonItem className="ion-margin-horizontal">
-              <IonLabel position="floating">Seleccione la resistencia del concreto</IonLabel>
+              <IonLabel>Seleccione la resistencia del concreto</IonLabel>
               <IonSelect
                 value={valueConcreteResistance}
                 onIonChange={(e) => setValueConcreteResistance(e.detail.value!)}
@@ -134,51 +147,24 @@ const OptionFoundation: React.FC<OptionFoundationProps> = ({
                 </IonRow>
                 <IonRow className="ion-justify-content-center ion-align-items-center">
                   <IonCol>
-                    <img src={FoundationDimesions} />
-                  </IonCol>
-                  <IonCol>
-                    <h5>Dimensiones de zapata</h5>
-                    <IonItem>
-                      <IonLabel position="floating">A(m)</IonLabel>
-                      <IonInput type="number" />
-                    </IonItem>
-                    <IonItem>
-                      <IonLabel position="floating">B(m)</IonLabel>
-                      <IonInput type="number" />
-                    </IonItem>
-                    <IonItem>
-                      <IonLabel position="floating">H(m)</IonLabel>
-                      <IonInput type="number" />
-                    </IonItem>
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
-            </IonItem>
-            <IonItem className="ion-margin-horizontal">
-              <IonGrid>
-                <IonRow>
-                  <p>Diseño de dimensiones:</p>
-                </IonRow>
-                <IonRow className="ion-justify-content-center ion-align-items-center">
-                  <IonCol>
-                    <img src={FoundationDimesions} />
+                    <img src={typeColumn.calculatorImage} />
                   </IonCol>
                   <IonCol>
                     <h5>Dimensiones de la columna</h5>
                     <IonItem>
-                      <IonLabel position="floating">A(m)</IonLabel>
-                      <IonInput type="number" />
+                      <IonLabel slot="start" position="floating">A(m)</IonLabel>
+                      <IonInput slot="end" type="number" />
                     </IonItem>
                     <IonItem>
-                      <IonLabel position="floating">B(m)</IonLabel>
-                      <IonInput type="number" />
+                      <IonLabel slot="start" position="floating">B(m)</IonLabel>
+                      <IonInput slot="end" type="number" />
                     </IonItem>
                     <IonItem>
-                      <IonLabel position="floating">H(m)</IonLabel>
-                      <IonInput type="number" />
+                      <IonLabel slot="start" position="floating">H(m)</IonLabel>
+                      <IonInput slot="end" type="number" />
                     </IonItem>
                     <IonItem>
-                      <IonLabel position="floating">N° varillas </IonLabel>
+                      <IonLabel slot="start" position="floating">N° varillas </IonLabel>
                       <IonInput
                         value={inputNumberRods}
                         type="number"
@@ -203,7 +189,7 @@ const OptionFoundation: React.FC<OptionFoundationProps> = ({
             <IonItem className="ion-margin-horizontal" lines="none">
               <h4>Diseño del acero:</h4>
             </IonItem>
-            <IonItem className="ion-margin-horizontal">
+            <IonItem className="ion-margin-horizontal" lines="none">
               <IonLabel>Diametro de varilla</IonLabel>
               <IonSelect
                 value={inputDiameterRods}
@@ -229,24 +215,29 @@ const OptionFoundation: React.FC<OptionFoundationProps> = ({
             </IonButton>
           </>
         ) : (
-          <OptionFoundationResult />
+          <ColumnCalculatorResult {...typeColumn} />
         )}
       </IonContent>
     </IonPage>
   );
 };
 
-const OptionFoundationResult: React.FC = () => {
+interface CalculatorResultProps{
+  title: string;
+  imgSrc: string;
+}
+
+const ColumnCalculatorResult: React.FC<CalculatorResultProps> = ({ title, imgSrc }) => {
   return (
     <IonContent className="Foundation-content__style">
       <IonItem className="ion-margin-top ion-margin-horizontal" color="primary">
         <img
           slot="start"
-          src={FoundationImg}
+          src={imgSrc}
           className="Foundation-sidepanel__img"
         />
         <IonText>
-          <h4>Zapata</h4>
+          <h4>{title}</h4>
         </IonText>
       </IonItem>
       <IonItem className="ion-margin-horizontal">
@@ -270,6 +261,13 @@ const OptionFoundationResult: React.FC = () => {
           </IonRow>
           <IonRow>
             <IonCol className="ion-text-center">
+              Cemento
+            </IonCol>
+            <IonCol className="ion-text-center">3,17</IonCol>
+            <IonCol className="ion-text-center">Bulto 50Kg</IonCol>
+          </IonRow>
+          <IonRow>
+            <IonCol className="ion-text-center">
               Acero de refuerzo Ø 1/2"
             </IonCol>
             <IonCol className="ion-text-center">3,1</IonCol>
@@ -277,7 +275,7 @@ const OptionFoundationResult: React.FC = () => {
           </IonRow>
           <IonRow>
             <IonCol className="ion-text-center">
-              Acero de estribos Ø 1/2"
+              Acero de estribos Ø 3/8"
             </IonCol>
             <IonCol className="ion-text-center">1,9</IonCol>
             <IonCol className="ion-text-center">Varilla/barra X 6mt</IonCol>
@@ -291,12 +289,12 @@ const OptionFoundationResult: React.FC = () => {
           </IonRow>
           <IonRow>
             <IonCol className="ion-text-center">Arena</IonCol>
-            <IonCol className="ion-text-center">3,08 171,4</IonCol>
+            <IonCol className="ion-text-center">{"3,08\n171,4"}</IonCol>
             <IonCol className="ion-text-center">m3 Latas 18L</IonCol>
           </IonRow>
           <IonRow>
             <IonCol className="ion-text-center">Piedra</IonCol>
-            <IonCol className="ion-text-center">1,80 101,4</IonCol>
+            <IonCol className="ion-text-center">{"1,80\n101,4"}</IonCol>
             <IonCol className="ion-text-center">m3 Latas 18L</IonCol>
           </IonRow>
           <IonRow>
@@ -321,4 +319,4 @@ const OptionFoundationResult: React.FC = () => {
   );
 };
 
-export default OptionFoundation
+export default ColumnCalculator;

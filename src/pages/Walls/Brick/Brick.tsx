@@ -60,7 +60,7 @@ const Brick: React.FC<BrickProps> = ({ match }) => {
           <IonCard>
             <IonCardHeader className="SolidBrick-menu__style">
               <IonCardTitle className="ion-text-center">
-                Ladrillo macizo
+                Bloque Cemento
               </IonCardTitle>
             </IonCardHeader>
             <IonCardContent>
