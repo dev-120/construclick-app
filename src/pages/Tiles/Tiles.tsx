@@ -11,52 +11,47 @@ import {
   IonRow,
   IonText,
 } from "@ionic/react";
-import { Redirect, Route } from "react-router-dom";
 
-import "./Revoke.css"
+
+import "./Tiles.css"
 import Header from "../../components/Header/Header";
-import CoatingImg from "../../assets/coating.png";
-import WaterproofCoatingImg from "../../assets/waterproof_coating.png"
-import FloorTemplateImg from "../../assets/floor_template.png"
-import WaterproofFloorTemplateImg from "../../assets/waterproof_floor_template.png"
+import CeramicFloorImg from "../../assets/ceramic_floor.png";
+import PorcelainFloorImg from "../../assets/porcelain_floor.png"
+import VeneerImg from "../../assets/veneer.png";
 
-
-const menuRevoke = [
-  { type: "Pañete allanado", linkTo: "coating", imgSrc: CoatingImg },
-  { type: "Pañete allanado impermeable", linkTo: "waterprofing-coating", imgSrc: WaterproofCoatingImg },
-  { type: "Plantilla de piso", linkTo: "floor-template", imgSrc: FloorTemplateImg},
-  { type: "Plantilla de piso impermeable", linkTo: "waterproof-floor-template", imgSrc: WaterproofFloorTemplateImg },
-];
-
-interface RevokeProps {
+interface TilesProps{
   match: {
     url: string;
-  };
+  }
 }
 
-
-interface menuRevokeProps {
+interface menuTilesProps{
   type: string;
   linkTo: string;
-  imgSrc: any;
+  imgSrc: string;
 }
 
+const menuTiles= [
+  { type: "Piso ceramico", linkTo: "ceramic-floor", imgSrc: CeramicFloorImg },
+  { type: "Piso porcelanato", linkTo: "porcelain-floor", imgSrc: PorcelainFloorImg },
+  { type: "Enchape", linkTo: "veneer", imgSrc: VeneerImg }
+]
 
-const Revoke:React.FC<RevokeProps> = ({ match }) => {
+const Tiles:React.FC<TilesProps> = ({ match }) => {
   return (
     <IonPage>
       <IonPage>
-        <IonContent fullscreen className="Revoke-content__style">
+        <IonContent fullscreen className="Tiles-content__style">
           <Header canBack href="/calculator" />
           <IonCard>
-            <IonCardHeader className="Revoke-menu__style">
+            <IonCardHeader className="Tiles-menu__style">
               <IonCardTitle className="ion-text-center">
-                Revoque
+                Piso / enchape
               </IonCardTitle>
             </IonCardHeader>
             <IonCardContent>
-              {menuRevoke.map(
-                ({ type,linkTo, imgSrc }: menuRevokeProps) => (
+              {menuTiles.map(
+                ({ type, linkTo, imgSrc }: menuTilesProps) => (
                   <IonItem
                     lines="none"
                     className="ion-margin-vertical"
@@ -67,7 +62,7 @@ const Revoke:React.FC<RevokeProps> = ({ match }) => {
                     <img
                       src={imgSrc}
                       slot="start"
-                      className="Revoke-image__style"
+                      className="Tiles-image__style"
                     />
                     <IonGrid>
                       <IonRow>
@@ -87,4 +82,5 @@ const Revoke:React.FC<RevokeProps> = ({ match }) => {
   )
 }
 
-export default Revoke
+
+export default Tiles

@@ -11,52 +11,45 @@ import {
   IonRow,
   IonText,
 } from "@ionic/react";
-import { Redirect, Route } from "react-router-dom";
 
-import "./Revoke.css"
+
+import "./Stucco.css"
 import Header from "../../components/Header/Header";
-import CoatingImg from "../../assets/coating.png";
-import WaterproofCoatingImg from "../../assets/waterproof_coating.png"
-import FloorTemplateImg from "../../assets/floor_template.png"
-import WaterproofFloorTemplateImg from "../../assets/waterproof_floor_template.png"
+import StuccoImg from "../../assets/stucco.png";
+import AcrylicStuccoImg from "../../assets/acrylic_stucco.png"
 
-
-const menuRevoke = [
-  { type: "Pañete allanado", linkTo: "coating", imgSrc: CoatingImg },
-  { type: "Pañete allanado impermeable", linkTo: "waterprofing-coating", imgSrc: WaterproofCoatingImg },
-  { type: "Plantilla de piso", linkTo: "floor-template", imgSrc: FloorTemplateImg},
-  { type: "Plantilla de piso impermeable", linkTo: "waterproof-floor-template", imgSrc: WaterproofFloorTemplateImg },
-];
-
-interface RevokeProps {
+interface StuccoProps{
   match: {
     url: string;
-  };
+  }
 }
 
-
-interface menuRevokeProps {
+interface menuStuccoProps{
   type: string;
   linkTo: string;
-  imgSrc: any;
+  imgSrc: string;
 }
 
+const menuStucco= [
+  { type: "Estuco Listo", linkTo: "stucco-ready", imgSrc: StuccoImg },
+  { type: "Estuco Acrilico", linkTo: "acrylic-stucco", imgSrc: AcrylicStuccoImg }
+]
 
-const Revoke:React.FC<RevokeProps> = ({ match }) => {
+const Stucco:React.FC<StuccoProps> = ({ match }) => {
   return (
     <IonPage>
       <IonPage>
-        <IonContent fullscreen className="Revoke-content__style">
+        <IonContent fullscreen className="Stucco-content__style">
           <Header canBack href="/calculator" />
           <IonCard>
-            <IonCardHeader className="Revoke-menu__style">
+            <IonCardHeader className="Stucco-menu__style">
               <IonCardTitle className="ion-text-center">
-                Revoque
+                Estuco
               </IonCardTitle>
             </IonCardHeader>
             <IonCardContent>
-              {menuRevoke.map(
-                ({ type,linkTo, imgSrc }: menuRevokeProps) => (
+              {menuStucco.map(
+                ({ type, linkTo, imgSrc }: menuStuccoProps) => (
                   <IonItem
                     lines="none"
                     className="ion-margin-vertical"
@@ -67,7 +60,7 @@ const Revoke:React.FC<RevokeProps> = ({ match }) => {
                     <img
                       src={imgSrc}
                       slot="start"
-                      className="Revoke-image__style"
+                      className="Stucco-image__style"
                     />
                     <IonGrid>
                       <IonRow>
@@ -87,4 +80,5 @@ const Revoke:React.FC<RevokeProps> = ({ match }) => {
   )
 }
 
-export default Revoke
+
+export default Stucco

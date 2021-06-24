@@ -11,52 +11,45 @@ import {
   IonRow,
   IonText,
 } from "@ionic/react";
-import { Redirect, Route } from "react-router-dom";
 
-import "./Revoke.css"
+
+import "./Paint.css"
 import Header from "../../components/Header/Header";
-import CoatingImg from "../../assets/coating.png";
-import WaterproofCoatingImg from "../../assets/waterproof_coating.png"
-import FloorTemplateImg from "../../assets/floor_template.png"
-import WaterproofFloorTemplateImg from "../../assets/waterproof_floor_template.png"
+import InteriorPaintImg from "../../assets/interior_paint.png";
+import ExteriorPaintImg from "../../assets/exterior_paint.png"
 
-
-const menuRevoke = [
-  { type: "Pañete allanado", linkTo: "coating", imgSrc: CoatingImg },
-  { type: "Pañete allanado impermeable", linkTo: "waterprofing-coating", imgSrc: WaterproofCoatingImg },
-  { type: "Plantilla de piso", linkTo: "floor-template", imgSrc: FloorTemplateImg},
-  { type: "Plantilla de piso impermeable", linkTo: "waterproof-floor-template", imgSrc: WaterproofFloorTemplateImg },
-];
-
-interface RevokeProps {
+interface PaintProps{
   match: {
     url: string;
-  };
+  }
 }
 
-
-interface menuRevokeProps {
+interface menuPaintProps{
   type: string;
   linkTo: string;
-  imgSrc: any;
+  imgSrc: string;
 }
 
+const menuPaint= [
+  { type: "Pintura interior", linkTo: "interior-painting", imgSrc: InteriorPaintImg },
+  { type: "Pintura exterior", linkTo: "exterior-painting", imgSrc: ExteriorPaintImg }
+]
 
-const Revoke:React.FC<RevokeProps> = ({ match }) => {
+const Paint:React.FC<PaintProps> = ({ match }) => {
   return (
     <IonPage>
       <IonPage>
-        <IonContent fullscreen className="Revoke-content__style">
+        <IonContent fullscreen className="Paint-content__style">
           <Header canBack href="/calculator" />
           <IonCard>
-            <IonCardHeader className="Revoke-menu__style">
+            <IonCardHeader className="Paint-menu__style">
               <IonCardTitle className="ion-text-center">
-                Revoque
+                Pintura
               </IonCardTitle>
             </IonCardHeader>
             <IonCardContent>
-              {menuRevoke.map(
-                ({ type,linkTo, imgSrc }: menuRevokeProps) => (
+              {menuPaint.map(
+                ({ type, linkTo, imgSrc }: menuPaintProps) => (
                   <IonItem
                     lines="none"
                     className="ion-margin-vertical"
@@ -67,7 +60,7 @@ const Revoke:React.FC<RevokeProps> = ({ match }) => {
                     <img
                       src={imgSrc}
                       slot="start"
-                      className="Revoke-image__style"
+                      className="Paint-image__style"
                     />
                     <IonGrid>
                       <IonRow>
@@ -87,4 +80,5 @@ const Revoke:React.FC<RevokeProps> = ({ match }) => {
   )
 }
 
-export default Revoke
+
+export default Paint

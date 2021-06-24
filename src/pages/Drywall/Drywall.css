@@ -1,29 +1,25 @@
-.Revoke-content__style{
+.Drywall-content__style{
   --background: black;
 }
 
-.Revoke-menu__style {
+.Drywall-menu__style {
   --background: #ef7b03;
 }
 
-.Revoke-image__style{
+.Drywall-image__style{
   width: 120px !important;
   height: 90px !important;
   max-width: 100px;
 }
 
-.Optionbeam-select__style{
-  font-size: 12px;
-}
-
-.Revoke-sidepanel__img{
+.Drywall-sidepanel__img{
   border-radius: 50%;
   border: 1px solid #ef7b03;
   width: 70px !important;
   height: 70px !important;
 }
 
-.Revoke-Result__icon {
+.Drywall-Result__icon {
   width: 80px !important;
   height: 60px !important;
 }

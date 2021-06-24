@@ -50,7 +50,7 @@ const menuCalculator = [
     {
       id: 3,
       imgsrc: "",
-      buttonTitle: "Baldosas",
+      buttonTitle: "Pisos/enchape",
       linkTo: "/tiles",
     },
   ],
