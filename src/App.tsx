@@ -45,6 +45,8 @@ import Beam from "./pages/Cement/Beam/Beam";
 import BeamCalculator from "./pages/Cement/Beam/BeamCalculator";
 import Slabs from "./pages/Cement/Slabs/Slabs";
 import SlabsCalculator from "./pages/Cement/Slabs/SlabsCalculator";
+import Finance from "./pages/Management/Finance/Finance";
+import LegalAspects from "./pages/Management/LegalAspects/LegalAspects";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -94,6 +96,8 @@ const Router = (
         />
         <Route exact path="/gestion" component={Management} />
         <Route exact path="/gestion/presupuesto" component={Budget} />
+        <Route exact path="/gestion/financiacion" component={Finance} />
+        <Route exact path="/gestion/legal" component={LegalAspects} />
         <Route exact path="/marketplace/:productId" component={ProductDetail} />
         <Route exact path="/calculator/concrete" component={Cement} />
         <Route exact path="/calculator/concrete/foundation" component={Foundation}/>

@@ -1,0 +1,38 @@
+.Finance-Fonds__toggle{
+  --background: grey;
+  --background-checked: #ef7b03;
+
+  --handle-background: grey;
+  --handle-background-checked: #ef7b03;
+}
+
+.Finance-Fonds__toggle::before{
+ position: absolute;
+ 
+ top: -2px;
+ left: 16px;
+ font-weight: 800;
+
+ content: "No";
+
+ color: black;
+ font-size: 10px;
+
+ z-index: 1;
+}
+
+
+.Finance-Fonds__toggle::after {
+  position: absolute;
+
+  top: -2px;
+  left: 38px;
+  font-weight: 800;
+
+  content: "Si";
+
+  color: black;
+  font-size: 10px;
+
+  z-index: 1;
+}
