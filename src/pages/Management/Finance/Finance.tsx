@@ -19,7 +19,7 @@ import "./Finance.css";
 import Header from "../../../components/Header/Header";
 import QuestionTogle from "../../../components/QuestionTogle/QuestionTogle";
 
-const Finance = () => {
+const Finance: React.FC= () => {
   const [hasFond, setHasFond] = useState<boolean>(false);
   const [Fonds, setFonds] = useState<number>(0);
 
