@@ -1,13 +1,7 @@
-import { Redirect, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import { IonReactRouter } from "@ionic/react-router";
 import { IonApp, IonRouterOutlet, IonSplitPane } from "@ionic/react";
 
-/* --- Firebase */
-import {
-  FirebaseAuthProvider,
-  FirebaseAuthConsumer,
-} from "@react-firebase/auth";
-import firebase from "firebase/app";
 import "firebase/auth";
 
 import Home from "./pages/Home/Home";
@@ -15,8 +9,9 @@ import Posts from "./pages/Posts/Posts";
 import Menu from "./components/Menu/Menu";
 import Cement from "./pages/Cement/Cement";
 import Profile from "./pages/Profile/Profile";
-import ViewPost from "./pages/ViewPost/ViewPost";
-import Register from "./pages/Register/Register";
+import ViewPost from './pages/ViewPost/ViewPost';
+import Register from './pages/Register/Register';
+import Budget from "./pages/Management/Budget/Budget";
 import Calculator from "./pages/Calculator/Calculator";
 import Management from "./pages/Management/Management";
 import CreatePost from "./pages/CreatePost/CreatePost";
@@ -36,6 +31,22 @@ import CeramicBrick from "./pages/Walls/CeramicBrick/CeramicBrick";
 import CeramicBrickCalculator from "./pages/Walls/CeramicBrick/CeramicBrickCalculator";
 import Revoke from "./pages/Revoke/Revoke"
 import RevokeCalculator from "./pages/Revoke/RevokeCalculator";
+import Stucco from "./pages/Stucco/Stucco";
+import StuccoCalculator from "./pages/Stucco/StuccoCalculator";
+import Paint from "./pages/Paint/Paint";
+import PaintCalculator from "./pages/Paint/PaintCalculator";
+import Tiles from "./pages/Tiles/Tiles";
+import TilesCalculator from "./pages/Tiles/TilesCalculator";
+import Drywall from "./pages/Drywall/Drywall";
+import DrywallCalculator from "./pages/Drywall/DrywallCalculator";
+import Column from "./pages/Cement/Column/Column";
+import ColumnCalculator from "./pages/Cement/Column/ColumnCalculator";
+import Beam from "./pages/Cement/Beam/Beam";
+import BeamCalculator from "./pages/Cement/Beam/BeamCalculator";
+import Slabs from "./pages/Cement/Slabs/Slabs";
+import SlabsCalculator from "./pages/Cement/Slabs/SlabsCalculator";
+import Finance from "./pages/Management/Finance/Finance";
+import LegalAspects from "./pages/Management/LegalAspects/LegalAspects";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -84,10 +95,19 @@ const Router = (
           component={PlaneRenderManagement}
         />
         <Route exact path="/gestion" component={Management} />
+        <Route exact path="/gestion/presupuesto" component={Budget} />
+        <Route exact path="/gestion/financiacion" component={Finance} />
+        <Route exact path="/gestion/legal" component={LegalAspects} />
         <Route exact path="/marketplace/:productId" component={ProductDetail} />
         <Route exact path="/calculator/concrete" component={Cement} />
         <Route exact path="/calculator/concrete/foundation" component={Foundation}/>
         <Route exact path="/calculator/concrete/foundation/zapata" component={OptionFoundation} />
+        <Route exact path="/calculator/concrete/column" component={Column} />
+        <Route exact path="/calculator/concrete/column/:title" component={ColumnCalculator} />
+        <Route exact path="/calculator/concrete/beam" component={Beam} />
+        <Route exact path="/calculator/concrete/beam/:title" component={BeamCalculator} />
+        <Route exact path="/calculator/concrete/slabs" component={Slabs} />
+        <Route exact path="/calculator/concrete/slabs/:type" component={SlabsCalculator} />
         <Route exact path="/calculator/walls" component={Walls} />
         <Route exact path="/calculator/walls/ceramic-brick" component={CeramicBrick} />
         <Route exact path="/calculator/walls/ceramic-brick/:holes" component={CeramicBrickCalculator} />
@@ -97,6 +117,14 @@ const Router = (
         <Route exact path="/calculator/walls/brick/:size" component={BrickCalculator} />
         <Route exact path="/calculator/revoke" component={Revoke} />
         <Route exact path="/calculator/revoke/:type" component={RevokeCalculator}/>
+        <Route exact path="/calculator/stucco" component={Stucco} />
+        <Route exact path="/calculator/stucco/:type" component={StuccoCalculator} />
+        <Route exact path="/calculator/paint" component={Paint} />
+        <Route exact path="/calculator/paint/:type" component={PaintCalculator} />
+        <Route exact path="/calculator/tiles" component={Tiles} />
+        <Route exact path="/calculator/tiles/:type" component={TilesCalculator} />
+        <Route exact path="/calculator/drywall" component={Drywall} />
+        <Route exact path="/calculator/drywall/drywall-ceiling" component={DrywallCalculator} />
         <Route exact path="/calculator" component={Calculator} />
         <Route exact path="/" component={Home} />
       </IonRouterOutlet>

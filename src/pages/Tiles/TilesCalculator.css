@@ -1,0 +1,25 @@
+.Tiles-content__style{
+  --background: black;
+}
+
+.Tiles-menu__style {
+  --background: #ef7b03;
+}
+
+.Tiles-image__style{
+  width: 120px !important;
+  height: 90px !important;
+  max-width: 100px;
+}
+
+.Tiles-sidepanel__img{
+  border-radius: 50%;
+  border: 1px solid #ef7b03;
+  width: 70px !important;
+  height: 70px !important;
+}
+
+.Tiles-Result__icon {
+  width: 80px !important;
+  height: 60px !important;
+}

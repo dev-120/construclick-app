@@ -50,16 +50,6 @@ const menuSolidBrick = [
   {brickType: "Ladrillo macizo", size: "(Selección dimensiones)", linkTo: "/personalized"},
 ]
 
-// const SolidBrickPage: React.FC = () => {
-//   return (
-//     <>
-//       <Route
-//         path="/calculator/walls/solid-brick"
-//         component={SolidBrick}
-//       />
-//     </>
-//   );
-// };
 
 interface menuSolidBrickProps{
   brickType: string;

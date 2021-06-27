@@ -1,14 +1,7 @@
 import {
   IonPage,
   IonContent,
-  IonSlide,
-  IonSlides,
   IonText,
-  IonCard,
-  IonCardTitle,
-  IonCardSubtitle,
-  IonCardContent,
-  IonCardHeader,
   IonItem,
   IonLabel,
   IonSelect,
@@ -20,20 +13,15 @@ import {
   IonButton,
   IonRouterOutlet,
 } from "@ionic/react";
-import { Redirect, Route } from "react-router-dom";
 import { useRef, useEffect, useState } from "react";
-import { RouteComponentProps, Switch } from "react-router";
 
 import "./Foundation.css";
 import Header from "../../../components/Header/Header";
-import Beam from "../../../assets/viga.png";
-import Pile from "../../../assets/pilote.png";
 import FoundationImg from "../../../assets/zapata.png";
 import FoundationDimesions from "../../../assets/dimensiones_zapata.png";
 import WhatsappIcon from "../../../assets/whatsapp_icon.png";
 import EmailIcon from "../../../assets/email_icon.png";
 import TelegramIcon from "../../../assets/telegram_icon.png";
-import Cement from "../Cement";
 
 const FoundationOption = {
   EC: [
@@ -103,7 +91,7 @@ const OptionFoundation: React.FC<OptionFoundationProps> = ({
             </IonItem>
             <IonItem className="ion-margin-horizontal">
               <p>Diseño de mezcla de Concreto</p>
-              <IonLabel>Tipo de estructura</IonLabel>
+              <IonLabel position="floating">Tipo de estructura</IonLabel>
               <IonSelect
                 value={typeStructure}
                 onIonChange={(e) => setTypeStructure(e.detail.value!)}
@@ -126,7 +114,7 @@ const OptionFoundation: React.FC<OptionFoundationProps> = ({
               </IonSelect>
             </IonItem>
             <IonItem className="ion-margin-horizontal">
-              <IonLabel>Seleccione la resistencia del concreto</IonLabel>
+              <IonLabel position="floating">Seleccione la resistencia del concreto</IonLabel>
               <IonSelect
                 value={valueConcreteResistance}
                 onIonChange={(e) => setValueConcreteResistance(e.detail.value!)}
@@ -151,16 +139,16 @@ const OptionFoundation: React.FC<OptionFoundationProps> = ({
                   <IonCol>
                     <h5>Dimensiones de zapata</h5>
                     <IonItem>
-                      <IonLabel>A(m)</IonLabel>
-                      <IonInput slot="end" type="number" />
+                      <IonLabel position="floating">A(m)</IonLabel>
+                      <IonInput type="number" />
                     </IonItem>
                     <IonItem>
-                      <IonLabel>B(m)</IonLabel>
-                      <IonInput slot="end" type="number" />
+                      <IonLabel position="floating">B(m)</IonLabel>
+                      <IonInput type="number" />
                     </IonItem>
                     <IonItem>
-                      <IonLabel>H(m)</IonLabel>
-                      <IonInput slot="end" type="number" />
+                      <IonLabel position="floating">H(m)</IonLabel>
+                      <IonInput type="number" />
                     </IonItem>
                   </IonCol>
                 </IonRow>
@@ -178,19 +166,19 @@ const OptionFoundation: React.FC<OptionFoundationProps> = ({
                   <IonCol>
                     <h5>Dimensiones de la columna</h5>
                     <IonItem>
-                      <IonLabel>A(m)</IonLabel>
-                      <IonInput slot="end" type="number" />
+                      <IonLabel position="floating">A(m)</IonLabel>
+                      <IonInput type="number" />
                     </IonItem>
                     <IonItem>
-                      <IonLabel>B(m)</IonLabel>
-                      <IonInput slot="end" type="number" />
+                      <IonLabel position="floating">B(m)</IonLabel>
+                      <IonInput type="number" />
                     </IonItem>
                     <IonItem>
-                      <IonLabel>H(m)</IonLabel>
-                      <IonInput slot="end" type="number" />
+                      <IonLabel position="floating">H(m)</IonLabel>
+                      <IonInput type="number" />
                     </IonItem>
                     <IonItem>
-                      <IonLabel slot="start">N° varillas </IonLabel>
+                      <IonLabel position="floating">N° varillas </IonLabel>
                       <IonInput
                         value={inputNumberRods}
                         type="number"

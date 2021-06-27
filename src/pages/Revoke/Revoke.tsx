@@ -51,7 +51,7 @@ const Revoke:React.FC<RevokeProps> = ({ match }) => {
           <IonCard>
             <IonCardHeader className="Revoke-menu__style">
               <IonCardTitle className="ion-text-center">
-                Ladrillo macizo
+                Revoque
               </IonCardTitle>
             </IonCardHeader>
             <IonCardContent>

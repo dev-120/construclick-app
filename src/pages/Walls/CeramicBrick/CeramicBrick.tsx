@@ -59,7 +59,7 @@ const CeramicBrick: React.FC<CeramicBrickProps> = ({ match }) => {
           <IonCard>
             <IonCardHeader className="SolidBrick-menu__style">
               <IonCardTitle className="ion-text-center">
-                Ladrillo macizo
+                Ladrillo Ceramico
               </IonCardTitle>
             </IonCardHeader>
             <IonCardContent>
