@@ -1,0 +1,12 @@
+.Card-Icon__style{
+  position: absolute;
+  right: -10px;
+  top: -15px;
+}
+
+.Card-Cost__style{
+  position: absolute;
+  left: 10px;
+  top: 120px;
+  font-weight: 600;
+}
