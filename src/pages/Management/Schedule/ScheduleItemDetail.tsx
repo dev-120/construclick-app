@@ -168,7 +168,6 @@ const ActivitiesCard: React.FC<activitiesCardProps> = ({ items }) => {
   };
   const changeDateHandler = (id: number, newDate: Array<any>) => {
     setItem({ ...item, since: newDate[0], to: newDate[1] });
-    console.log(item);
   };
   const [present, dismiss] = useIonModal(ActivityDetail, {
     item,
