@@ -113,7 +113,7 @@ const LegalAspects: React.FC = () => {
       <Header canBack href="/gestion/dashboard" />
       <IonContent fullscreen>
         <IonToolbar>
-          <IonTitle className="ion-text-center">Financiación</IonTitle>
+          <IonTitle className="ion-text-center">Aspectos Legales</IonTitle>
         </IonToolbar>
         <IonList>
           <IonItem>
