@@ -1,0 +1,14 @@
+.Warehouse-img__style{
+  float: right;
+  width: 150px;
+  height: 100px;
+  left: 10px;
+}
+
+.Warehouse-maps__style{
+  width: 100%;
+}
+
+.Warehouse-description__style{
+  font-size: 10px;
+}
