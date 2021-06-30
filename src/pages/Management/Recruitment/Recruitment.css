@@ -1,0 +1,17 @@
+.PersonalCard-image__style {
+  border-radius: 50%;
+  width: 75px;
+  height: 70px;
+  border: 1px solid orange;
+}
+
+.ProfileCard-buttons__style{
+  width: 100px;
+}
+
+.ProfileCard-buttons__style ion-button{
+  width: 80px;
+  font-size: xx-small;
+  --padding-top: 10px;
+  --padding-bottom: 10px;
+}
