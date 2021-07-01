@@ -20,6 +20,7 @@ import {
   IonCard,
   IonButton,
   IonCardContent,
+  IonDatetime
 } from "@ionic/react";
 import { useState } from "react";
 import {
@@ -164,16 +165,15 @@ const NewItemSchedule = ({ setShow }: NewItemScheduleProps) => {
           <IonItem>
             <IonIcon slot="start" icon={calendarOutline} />
             <IonLabel>Desde: </IonLabel>
-            <IonInput
-              type="date"
-            />
+            <IonDatetime displayFormat="YYYY-MM-DD" displayTimezone="America/Bogota" placeholder="Ingrese Fecha" />
           </IonItem>
           <IonItem>
             <IonIcon slot="start" icon={calendar} />
             <IonLabel>Hasta: </IonLabel>
-            <IonInput
+            { /*<IonInput
               type="date"
-            />
+            /> */}
+            <IonDatetime displayFormat="YYYY-MM-DD" displayTimezone="America/Bogota" placeholder="Ingrese Fecha" />
           </IonItem>
           <IonItem disabled>
             <IonIcon slot="start" icon={personAdd} />
