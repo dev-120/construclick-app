@@ -70,6 +70,7 @@ import "@ionic/react/css/text-transformation.css";
 
 /* Theme variables */
 import "./theme/variables.css";
+import PayToStaff from "./pages/Management/PayToStaff/PayToStaff";
 
 
 
@@ -106,6 +107,7 @@ const Router = (
         <Route exact path="/gestion/financiacion" component={Finance} />
         <Route exact path="/gestion/cronograma" component={Schedule}/>
         <Route exact path="/gestion/cronograma/:id" component={ScheduleItemDetail} />
+        <Route exact path="/gestion/pago-al-personal" component={PayToStaff}/>
         <Route exact path="/gestion/legal" component={LegalAspects} />
         <Route exact path="/gestion/materiales-equipo-almacen" component={Warehouse} />
         <Route exact path="/gestion/personal-contratos" component={Recruitment} />

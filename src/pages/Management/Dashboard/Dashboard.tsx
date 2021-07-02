@@ -154,8 +154,8 @@ const DashboardPage: React.FC<Props> = () => {
               link: "/recepcion-control-materiales",
             },
             {
-              title: "Adicionales",
-              link: "/adicionales",
+              title: "Pago al personal",
+              link: "/pago-al-personal",
             },
           ]}
         />
