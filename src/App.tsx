@@ -51,6 +51,8 @@ import Schedule from "./pages/Management/Schedule/Schedule";
 import ScheduleItemDetail from "./pages/Management/Schedule/ScheduleItemDetail"
 import Warehouse from "./pages/Management/Warehouse/Warehouse";
 import Recruitment from "./pages/Management/Recruitment/Recruitment";
+import PayToStaff from "./pages/Management/PayToStaff/PayToStaff";
+import ScheduleExecution from "./pages/Management/ScheduleExecution/ScheduleExecution";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -70,7 +72,7 @@ import "@ionic/react/css/text-transformation.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-import PayToStaff from "./pages/Management/PayToStaff/PayToStaff";
+
 
 
 
@@ -111,6 +113,7 @@ const Router = (
         <Route exact path="/gestion/legal" component={LegalAspects} />
         <Route exact path="/gestion/materiales-equipo-almacen" component={Warehouse} />
         <Route exact path="/gestion/personal-contratos" component={Recruitment} />
+        <Route exact path="/gestion/cronograma-ejecucion" component={ScheduleExecution} />
         <Route exact path="/marketplace/:productId" component={ProductDetail} />
         <Route exact path="/calculator/concrete" component={Cement} />
         <Route exact path="/calculator/concrete/foundation" component={Foundation}/>
