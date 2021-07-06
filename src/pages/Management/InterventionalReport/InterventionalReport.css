@@ -1,0 +1,18 @@
+.InterventionalReport-Card__style {
+  display: inline-grid;
+  grid-template-columns: 180px 140px;
+  grid-template-rows: 100px;
+} 
+
+.InterventionalReport-Flex__style{
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+}
+
+.InterventionalReport-Card__img{
+  width: 70px;
+  height: 90px;
+  border-radius: 50%;
+}

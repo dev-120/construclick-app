@@ -19,15 +19,16 @@ import {
   IonLabel,
   useIonModal,
 } from "@ionic/react";
-import { receipt, close } from "ionicons/icons";
+import { receipt, close, book } from "ionicons/icons";
 import { useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 
 import "./PayToStaff.css";
 import Header from "../../../components/Header/Header";
 import ProfilePicImg from "../../../assets/profile_pic_personal.jpg";
-import ProfilePicImg2 from "../../../assets/profile_pic_personal2.jpg";
-import ProfilePicImg3 from "../../../assets/profile_pic_personal3.jpg";
+import ProfilePicImg2 from "../../../assets/builder_1.png";
+import ProfilePicImg3 from "../../../assets/builder_2.png";
+import InterventorImg from "../../../assets/interventor_img.png"
 
 const mockupMenu = {
   contrato: [
@@ -87,7 +88,7 @@ const mockupActivities = [
   {
     title: "Actividades (3/5)",
     profile: {
-      name: "Luis Contreras",
+      name: "Jorge Charris",
       profession: "Auxiliar de obra",
       profilePic: ProfilePicImg3,
     },
@@ -117,9 +118,9 @@ const mockupActivities = [
   {
     title: "Actividades (3/8)",
     profile: {
-      name: "Jorge Charris",
-      profession: "Auxiliar de obra",
-      profilePic: ProfilePicImg,
+      name: "Luis Contreras",
+      profession: "Albañil (Oficial)",
+      profilePic: InterventorImg,
     },
     activities: [
       {
@@ -296,7 +297,7 @@ const ActivitiesDetail = ({
                 </p>
               </IonText>
             </IonItem>
-            <IonButton expand="full">Pagar</IonButton>
+            <IonButton expand="full" routerLink="/gestion/dashboard">Pagar</IonButton>
           </IonCard>
         )}
         {title !== "Contrato" && (
@@ -336,6 +337,21 @@ const ActivitiesDetail = ({
                           {activity.data1Second} Dias /
                           <strong> {activity.data2Second} Dia(s)</strong>
                         </IonLabel>
+                      </IonCol>
+                    </IonRow>
+                    <IonRow>
+                      <IonCol>
+                        <IonItem lines="none">
+                          <IonIcon slot="start" icon={book} />
+                          <IonLabel className="ion-text-wrap ion-text-center"><strong>Cantidad: </strong> 43 (m2) - Metro Cuadrado</IonLabel>
+                        </IonItem>
+                      </IonCol>
+                    </IonRow>
+                    <IonRow>
+                      <IonCol style={{ display: "flex", alignItems:"center", justifyContent: "center" }}>
+                        <IonButton routerLink="/gestion/dashboard">
+                          Pagar
+                        </IonButton>
                       </IonCol>
                     </IonRow>
                   </IonGrid>

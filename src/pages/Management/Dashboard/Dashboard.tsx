@@ -142,16 +142,12 @@ const DashboardPage: React.FC<Props> = () => {
           subtitle="Ejecución"
           options={[
             {
-              title: "Construcción de obra",
-              link: "/construccion-obra",
+              title: "Cronograma - ejecución",
+              link: "/cronograma-ejecucion",
             },
             {
               title: "Control equipos / herramienta",
               link: "/control-equipos-herramienta",
-            },
-            {
-              title: "Recepcion control materiales",
-              link: "/recepcion-control-materiales",
             },
             {
               title: "Pago al personal",
