@@ -153,11 +153,6 @@ const DashboardPage: React.FC<Props> = () => {
               title: "Pago al personal",
               link: "/pago-al-personal",
             },
-            {
-              title: "Recepcion control materiales",
-              link: "/recepcion-control-materiales",
-            },
-            
           ]}
         />
         <Section

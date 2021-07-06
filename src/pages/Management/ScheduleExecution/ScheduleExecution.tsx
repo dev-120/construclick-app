@@ -55,6 +55,7 @@ import Header from "../../../components/Header/Header";
 import ProfilePic from "../../../assets/profile_pic_personal.jpg";
 import ProfilePic2 from "../../../assets/profile_pic_personal2.jpg";
 import ProfilePic3 from "../../../assets/profile_pic_personal3.jpg";
+import InterventorImg from "../../../assets/interventor_img.png"
 import { useHistory } from "react-router";
 
 const activitiesMenu = [
@@ -531,7 +532,7 @@ const ShowAct = ({ clickDismmiss, onSave }: ShowActProps) => {
             <IonRow>
               <IonCol size="6">
                 <IonItem lines="none">
-                  <img src={ProfilePic} />
+                  <img src={ProfilePic}  className="ScheduleExecution-img__style"/>
                 </IonItem>
                 <IonItem className="ion-text-center" lines="none">
                   <IonLabel className="ion-text-wrap">Hassem Escobar</IonLabel>
@@ -544,7 +545,7 @@ const ShowAct = ({ clickDismmiss, onSave }: ShowActProps) => {
               </IonCol>
               <IonCol size="6">
                 <IonItem lines="none">
-                  <img src={ProfilePic2} />
+                  <img src={InterventorImg} className="ScheduleExecution-img__style"/>
                 </IonItem>
                 <IonItem className="ion-text-center" lines="none">
                   <IonLabel className="ion-text-wrap">Luis Contreras</IonLabel>
@@ -646,7 +647,7 @@ const ShowAct = ({ clickDismmiss, onSave }: ShowActProps) => {
         <IonCardContent>
           <IonItem className="ion-text-center">
             <IonLabel>
-              <strong>FIRMA DEL CONTRATANTE</strong>
+              <strong>FIRMA DEL INTERVENTOR</strong>
             </IonLabel>
           </IonItem>
           <IonItem>
