@@ -44,8 +44,8 @@ const Section: React.FC<Props> = ({
         </div>
       </div>
       <div>
-        {options.map((opt) => (
-          <button onClick={() => push("/gestion" + opt.link)}>
+        {options.map((opt, index) => (
+          <button key={index} onClick={() => push("/gestion" + opt.link)}>
             {opt.title}
           </button>
         ))}

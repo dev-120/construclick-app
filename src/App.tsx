@@ -51,6 +51,12 @@ import Schedule from "./pages/Management/Schedule/Schedule";
 import ScheduleItemDetail from "./pages/Management/Schedule/ScheduleItemDetail"
 import Warehouse from "./pages/Management/Warehouse/Warehouse";
 import Recruitment from "./pages/Management/Recruitment/Recruitment";
+import PayToStaff from "./pages/Management/PayToStaff/PayToStaff";
+import ScheduleExecution from "./pages/Management/ScheduleExecution/ScheduleExecution";
+import InterventionalReport from "./pages/Management/InterventionalReport/InterventionalReport";
+import ClientApprobal from "./pages/Management/ClientApprobal/ClientApprobal";
+import HandingReports from "./pages/Management/HandingReports/HandingReports";
+
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -70,9 +76,7 @@ import "@ionic/react/css/text-transformation.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-import PayToStaff from "./pages/Management/PayToStaff/PayToStaff";
-
-
+import FinalPayment from "./pages/Management/FinalPayment/FinalPayment";
 
 
 
@@ -110,7 +114,13 @@ const Router = (
         <Route exact path="/gestion/pago-al-personal" component={PayToStaff}/>
         <Route exact path="/gestion/legal" component={LegalAspects} />
         <Route exact path="/gestion/materiales-equipo-almacen" component={Warehouse} />
+        <Route exact path="/gestion/control-equipos-herramienta" component={Warehouse} />
         <Route exact path="/gestion/personal-contratos" component={Recruitment} />
+        <Route exact path="/gestion/cronograma-ejecucion" component={ScheduleExecution} />
+        <Route exact path="/gestion/actas" component={HandingReports} />
+        <Route exact path="/gestion/reporte-interventoria" component={InterventionalReport} />
+        <Route exact path="/gestion/aprobacion-cliente" component={ClientApprobal} />
+        <Route exact path="/gestion/pago-final" component={FinalPayment} />
         <Route exact path="/marketplace/:productId" component={ProductDetail} />
         <Route exact path="/calculator/concrete" component={Cement} />
         <Route exact path="/calculator/concrete/foundation" component={Foundation}/>
