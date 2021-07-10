@@ -1,0 +1,22 @@
+.ShoppingCart-segment__buttons{
+  font-weight: 600 !important;
+  font-style: normal;
+}
+
+.ShoppingCart-content__style{
+  --background: black;
+  --color: white;
+}
+
+.ShoppingCart-segment__style{
+  --background: white;
+}
+
+.ShoppingCart-lists__style{
+  background-color: black !important;
+}
+
+.ShoppingCart-item__style{
+  --background: black;
+  --color: white;
+}
