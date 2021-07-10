@@ -53,7 +53,7 @@ const ProductCard: React.FC<imageItem> = ({
           <IonCardTitle>${productPrice}</IonCardTitle>
         </IonCardHeader>
         <div className="conten_card_product" >
-          <span className="title_product" >{productTitle}</span>
+          <span className="title_product"  >{productTitle}</span>
           <span className="discount_product" >{discount}%</span>
         </div>
       </IonCard>
