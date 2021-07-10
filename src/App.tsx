@@ -56,6 +56,8 @@ import ScheduleExecution from "./pages/Management/ScheduleExecution/ScheduleExec
 import InterventionalReport from "./pages/Management/InterventionalReport/InterventionalReport";
 import ClientApprobal from "./pages/Management/ClientApprobal/ClientApprobal";
 import HandingReports from "./pages/Management/HandingReports/HandingReports";
+import FinalPayment from "./pages/Management/FinalPayment/FinalPayment";
+import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
 
 
 /* Core CSS required for Ionic components to work properly */
@@ -76,7 +78,7 @@ import "@ionic/react/css/text-transformation.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-import FinalPayment from "./pages/Management/FinalPayment/FinalPayment";
+
 
 
 
@@ -122,6 +124,7 @@ const Router = (
         <Route exact path="/gestion/aprobacion-cliente" component={ClientApprobal} />
         <Route exact path="/gestion/pago-final" component={FinalPayment} />
         <Route exact path="/marketplace/:productId" component={ProductDetail} />
+        <Route exact path="/shopping-cart" component={ShoppingCart} />
         <Route exact path="/calculator/concrete" component={Cement} />
         <Route exact path="/calculator/concrete/foundation" component={Foundation}/>
         <Route exact path="/calculator/concrete/foundation/zapata" component={OptionFoundation} />
