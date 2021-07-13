@@ -58,6 +58,7 @@ import ClientApprobal from "./pages/Management/ClientApprobal/ClientApprobal";
 import HandingReports from "./pages/Management/HandingReports/HandingReports";
 import FinalPayment from "./pages/Management/FinalPayment/FinalPayment";
 import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
+import MarketPlaceSell from "./pages/MarketPlaceSell/MarketPlaceSell";
 
 
 /* Core CSS required for Ionic components to work properly */
@@ -93,6 +94,7 @@ const Router = (
         <Route exact path="/register" component={Register} />
         <Route exact path="/profile" component={Profile} />
         <Route exact path="/marketplace" component={MarketPlace} />
+        <Route exact path="/sell" component={MarketPlaceSell} />
         <Route
           exact
           path="/gestion/dashboard"

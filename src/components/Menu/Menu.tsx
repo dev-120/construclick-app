@@ -12,7 +12,8 @@ import {
   peopleOutline,
   closeOutline,
   calculator,
-  buildOutline
+  buildOutline,
+  bagAddOutline
 } from "ionicons/icons";
 
 import "./Menu.css";
@@ -62,6 +63,10 @@ const Menu = () => {
         <IonItem className="item_list_menu_side" routerLink="/profile">
           <IonIcon icon={peopleOutline} color="white" slot="start" />
           Perfil
+        </IonItem>
+        <IonItem className="item_list_menu_side" routerLink="/sell">
+          <IonIcon icon={bagAddOutline} color="white" slot="start" />
+          Vender
         </IonItem>
         <IonItem className="item_list_menu_side">
           <IonIcon icon={closeOutline} color="white" slot="start" />
