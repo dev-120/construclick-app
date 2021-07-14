@@ -1,0 +1,18 @@
+.PaymentsCheckout-avatar__style{
+  --border-radius: 9999px;
+  background: rgba(210, 215, 211, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.PaymentsCheckout-avatar__style > ion-icon{
+  font-size: 25px;
+}
+
+.CheckoutReview-product__style{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
