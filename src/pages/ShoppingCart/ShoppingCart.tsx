@@ -23,11 +23,12 @@ import {
 } from "@ionic/react";
 import { useState, useEffect } from "react";
 import { disc, menu, save } from "ionicons/icons";
+import { RouteComponentProps, Link } from "react-router-dom";
 
 import Header from "../../components/Header/Header";
-import CementArgos from "../../assets/cement_image.jpg"
-import StuccoImage from "../../assets/stucco_img.jpg"
-import Mastic from "../../assets/masilla_img.jpg"
+import CementArgos from "../../assets/cement_image.jpg";
+import StuccoImage from "../../assets/stucco_img.jpg";
+import Mastic from "../../assets/masilla_img.jpg";
 import "./ShoppingCart.css";
 
 const mockupProducts = [
@@ -40,6 +41,7 @@ const mockupProducts = [
     discount: 5,
     cuantity: 5,
     color: "Gris",
+    selectedCuantity: 1,
   },
   {
     productId: "Ob8Ne",
@@ -50,6 +52,7 @@ const mockupProducts = [
     discount: 15,
     cuantity: 10,
     color: "Blanco",
+    selectedCuantity: 1,
   },
   {
     productId: "htBFn",
@@ -60,20 +63,11 @@ const mockupProducts = [
     discount: 8,
     cuantity: 5,
     color: "Cafe",
-  },
-  {
-    productId: "htBFn",
-    seller: "Ferreteria Santa Marta",
-    img: Mastic,
-    productTitle: "Masilla 1g 5.6k",
-    productPrice: 15400,
-    discount: 8,
-    cuantity: 5,
-    color: "Cafe",
+    selectedCuantity: 1,
   },
 ];
 
-const mockupSavedProducts= [
+const mockupSavedProducts = [
   {
     productId: "htBFn",
     seller: "Ferreteria Santa Marta",
@@ -83,10 +77,11 @@ const mockupSavedProducts= [
     discount: 8,
     cuantity: 5,
     color: "Cafe",
+    selectedCuantity: 1,
   },
-]
+];
 
-const ShoppingCart: React.FC = () => {
+const ShoppingCart: React.FC<RouteComponentProps> = ({ match }) => {
   const [productsInCart, setProductsInCart] = useState<Array<any>>([]);
   const [savedProducts, setSavedProducts] = useState<Array<any>>([]);
   const [segment, setSegment] = useState("cart");
@@ -97,13 +92,17 @@ const ShoppingCart: React.FC = () => {
     setSavedProducts(mockupSavedProducts);
   }, []);
 
-  const totalPriceHandler = (value: number, action: string, substract: number) => {
+  const totalPriceHandler = (
+    value: number,
+    action: string,
+    substract: number,
+  ) => {
     if (action === "ADD_TOTAL") {
       setTotalPrice((val) => val + value);
     }
 
-    if(action === "CORRECT_PRICE"){
-      setTotalPrice(val => val - substract + value)
+    if (action === "CORRECT_PRICE") {
+      setTotalPrice((val) => val - substract + value);
     }
 
     if (action === "SUBSTRACT_TOTAL") {
@@ -112,12 +111,18 @@ const ShoppingCart: React.FC = () => {
   };
 
   const deleteItemHandler = (id: string) => {
-    setProductsInCart((product : any ) => product.filter((pro: any) => pro.productId !== id))
-  }
+    setProductsInCart((product: any) =>
+      product.filter((pro: any) => pro.productId !== id)
+    );
+  };
 
   const segmentChangeHandler = (e: any) => {
-    setTotalPrice(0)
-    setSegment(e.detail.value!)
+    setTotalPrice(0);
+    setSegment(e.detail.value!);
+  };
+
+  const cuantityChangeHandler = (id: string, cuantity: number) => {
+    setProductsInCart(products => products.map((product) => product.productId === id ? {...product, selectedCuantity: cuantity} : product))
   }
 
   return (
@@ -151,10 +156,11 @@ const ShoppingCart: React.FC = () => {
                   {...product}
                   priceHandler={totalPriceHandler}
                   deleteHandler={deleteItemHandler}
+                  cuantityHandler={cuantityChangeHandler}
                 />
               ))}
             </IonList>
-          ): (
+          ) : (
             <IonList className="ShoppingCart-lists__style">
               {savedProducts.map((product) => (
                 <CartProduct
@@ -168,7 +174,10 @@ const ShoppingCart: React.FC = () => {
           )
         ) : (
           <IonList className="ShoppingCart-lists__style">
-            <IonItem lines="none" className="ion-text-center ShoppingCart-item__style">
+            <IonItem
+              lines="none"
+              className="ion-text-center ShoppingCart-item__style"
+            >
               <IonTitle>Tú carrito esta vacio</IonTitle>
             </IonItem>
           </IonList>
@@ -178,10 +187,28 @@ const ShoppingCart: React.FC = () => {
         <IonFooter>
           <IonToolbar className="ShoppingCart-item__style">
             <IonItem lines="none" className="ShoppingCart-item__style">
-              <IonLabel slot="start" color="light"><strong>Total Costo</strong></IonLabel>
-              <IonText slot="end"  color="light"><strong>$ {totalPrice}</strong></IonText>
+              <IonLabel slot="start" color="light">
+                <strong>Total Costo</strong>
+              </IonLabel>
+              <IonText slot="end" color="light">
+                <strong>$ {totalPrice}</strong>
+              </IonText>
             </IonItem>
-            <IonButton size="large" expand="full"  color="primary" style={{ fontFamily: "Bebas Neue" }} >Continuar Compra</IonButton>
+            <Link
+              to={{
+                pathname: `${match.url}/checkout/shipping`,
+                state: { productList: productsInCart, total: totalPrice },
+              }}
+            >
+              <IonButton
+                size="large"
+                expand="full"
+                color="primary"
+                style={{ fontFamily: "Bebas Neue" }}
+              >
+                Continuar Compra
+              </IonButton>
+            </Link>
           </IonToolbar>
         </IonFooter>
       )}
@@ -197,35 +224,46 @@ type CartProductProps = {
   color: string;
   img: string;
   discount: number;
+  selectedCuantity: number;
   priceHandler: (value: number, action: string, substract?: number) => void;
   deleteHandler: (id: string) => void;
+  cuantityHandler: (id: string, cuantity: number) => void;
 };
 
 const CartProduct = ({
   productId,
+  selectedCuantity,
   productTitle,
   productPrice,
-  cuantity,
   color,
   img,
   discount,
   priceHandler,
   deleteHandler,
+  cuantityHandler,
 }: CartProductProps) => {
-  const [selectCuantity, setSelectCuantity] = useState(1);
-  const [currentPrice, setCurrentPrice] = useState(productPrice * (1 - discount / 100) * selectCuantity)
+  const [selectCuantity, setSelectCuantity] = useState(selectedCuantity);
+  const [currentPrice, setCurrentPrice] = useState(
+    productPrice * (1 - discount / 100) * selectCuantity
+  );
 
   useEffect(() => {
-    priceHandler(productPrice * (1 - discount / 100) * selectCuantity, "ADD_TOTAL")
-  }, [])
+    priceHandler(
+      productPrice * (1 - discount / 100) * selectCuantity,
+      "ADD_TOTAL",
+    );
+  }, []);
 
   const changeHandler = (e: any) => {
+    cuantityHandler(productId, parseInt(e.detail.value!))
     priceHandler(
       productPrice * (1 - discount / 100) * parseInt(e.detail.value),
       "CORRECT_PRICE",
       currentPrice
     );
-    setCurrentPrice(productPrice * (1 - discount / 100) * parseInt(e.detail.value))
+    setCurrentPrice(
+      productPrice * (1 - discount / 100) * parseInt(e.detail.value)
+    );
     setSelectCuantity(parseInt(e.detail.value!));
   };
 
@@ -233,9 +271,9 @@ const CartProduct = ({
     priceHandler(
       productPrice * (1 - discount / 100) * selectCuantity,
       "SUBSTRACT_TOTAL"
-    )
-    deleteHandler(productId)
-  }
+    );
+    deleteHandler(productId);
+  };
 
   return (
     <IonCard>
@@ -253,7 +291,12 @@ const CartProduct = ({
                   <IonCol className="ion-align-self-end" size="7">
                     <IonItem lines="none" className="ion-no-padding">
                       <IonLabel position="floating">Cantidad</IonLabel>
-                      <IonInput value={selectCuantity} type="number" debounce={500} onIonChange={changeHandler} />
+                      <IonInput
+                        value={selectCuantity}
+                        type="number"
+                        debounce={500}
+                        onIonChange={changeHandler}
+                      />
                     </IonItem>
                   </IonCol>
                   <IonCol size="5" className="ion-align-self-center">
@@ -277,7 +320,7 @@ const CartProduct = ({
                           color="dark"
                         >
                           <strong>
-                            ${" "}
+                            $
                             {productPrice *
                               (1 - discount / 100) *
                               selectCuantity}
@@ -292,7 +335,12 @@ const CartProduct = ({
           </IonRow>
           <IonRow>
             <IonCol size="3">
-              <IonButton expand="block" fill="clear" size="small" onClick={clickDeleteHandler}>
+              <IonButton
+                expand="block"
+                fill="clear"
+                size="small"
+                onClick={clickDeleteHandler}
+              >
                 Eliminar
               </IonButton>
             </IonCol>
