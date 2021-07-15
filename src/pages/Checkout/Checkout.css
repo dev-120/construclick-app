@@ -16,3 +16,11 @@
   align-items: center;
   justify-content: center;
 }
+
+.PurchaseDetail-avatar__style{
+  --border-radius: 9999px;
+  background: rgba(210, 215, 211, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
