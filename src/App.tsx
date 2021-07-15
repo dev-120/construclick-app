@@ -60,6 +60,10 @@ import FinalPayment from "./pages/Management/FinalPayment/FinalPayment";
 import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
 import MarketPlaceSell from "./pages/MarketPlaceSell/MarketPlaceSell";
 import ShippingOption from "./pages/Checkout/ShippingOption";
+import Payments from "./pages/Checkout/Payments";
+import Review from "./pages/Checkout/Review";
+import Purchases from "./pages/Purchases/Purchases";
+
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -79,11 +83,7 @@ import "@ionic/react/css/text-transformation.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-import Payments from "./pages/Checkout/Payments";
-import Review from "./pages/Checkout/Review";
-
-
-
+import PurchaseDetail from "./pages/Purchases/PurchaseDetail";
 
 
 
@@ -118,6 +118,8 @@ const Router = (
         <Route exact path="/shopping-cart/checkout/shipping" component={ShippingOption} />
         <Route exact path="/shopping-cart/checkout/payments" component={Payments} />
         <Route exact path="/shopping-cart/checkout/review" component={Review} />
+        <Route exact path="/purchases" component={Purchases} />
+        <Route exact path="/purchases/:id/detail" component={PurchaseDetail} />
         <Route exact path="/gestion" component={Management} />
         <Route exact path="/gestion/presupuesto" component={Budget} />
         <Route exact path="/gestion/financiacion" component={Finance} />
