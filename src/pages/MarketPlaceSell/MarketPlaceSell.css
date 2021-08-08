@@ -1,0 +1,29 @@
+.MarketplaceSell-Image__style{
+  width: 100%;
+  --min-height: 200px;
+  --highlight-height: 200px;
+  --border-radius: 5px;
+  --border-color: #a3a3a3;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  position: relative;
+  /* --border-width: 1px !important; */
+  --border-style: solid;
+  --inner-border-width: 0px;
+}
+
+.MarketplaceSell-Image__style > ion-label{
+  position: absolute !important;
+  left: 110px;
+}
+
+.MarketplaceSell-Image__style > ion-icon{
+  position: absolute !important;
+  left: 60px;
+}
+.MarketplaceSell-profilePic__style {
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+}

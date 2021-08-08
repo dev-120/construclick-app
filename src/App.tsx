@@ -58,6 +58,11 @@ import ClientApprobal from "./pages/Management/ClientApprobal/ClientApprobal";
 import HandingReports from "./pages/Management/HandingReports/HandingReports";
 import FinalPayment from "./pages/Management/FinalPayment/FinalPayment";
 import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
+import MarketPlaceSell from "./pages/MarketPlaceSell/MarketPlaceSell";
+import ShippingOption from "./pages/Checkout/ShippingOption";
+import Payments from "./pages/Checkout/Payments";
+import Review from "./pages/Checkout/Review";
+import Purchases from "./pages/Purchases/Purchases";
 
 
 /* Core CSS required for Ionic components to work properly */
@@ -78,7 +83,7 @@ import "@ionic/react/css/text-transformation.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-
+import PurchaseDetail from "./pages/Purchases/PurchaseDetail";
 
 
 
@@ -93,6 +98,7 @@ const Router = (
         <Route exact path="/register" component={Register} />
         <Route exact path="/profile" component={Profile} />
         <Route exact path="/marketplace" component={MarketPlace} />
+        <Route exact path="/sell" component={MarketPlaceSell} />
         <Route
           exact
           path="/gestion/dashboard"
@@ -108,6 +114,12 @@ const Router = (
           path="/gestion/planos-render"
           component={PlaneRenderManagement}
         />
+        <Route exact path="/shopping-cart" render={(props) => <ShoppingCart {...props} />} />
+        <Route exact path="/shopping-cart/checkout/shipping" component={ShippingOption} />
+        <Route exact path="/shopping-cart/checkout/payments" component={Payments} />
+        <Route exact path="/shopping-cart/checkout/review" component={Review} />
+        <Route exact path="/purchases" component={Purchases} />
+        <Route exact path="/purchases/:id/detail" component={PurchaseDetail} />
         <Route exact path="/gestion" component={Management} />
         <Route exact path="/gestion/presupuesto" component={Budget} />
         <Route exact path="/gestion/financiacion" component={Finance} />
@@ -124,7 +136,6 @@ const Router = (
         <Route exact path="/gestion/aprobacion-cliente" component={ClientApprobal} />
         <Route exact path="/gestion/pago-final" component={FinalPayment} />
         <Route exact path="/marketplace/:productId" component={ProductDetail} />
-        <Route exact path="/shopping-cart" component={ShoppingCart} />
         <Route exact path="/calculator/concrete" component={Cement} />
         <Route exact path="/calculator/concrete/foundation" component={Foundation}/>
         <Route exact path="/calculator/concrete/foundation/zapata" component={OptionFoundation} />

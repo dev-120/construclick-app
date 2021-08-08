@@ -14,7 +14,7 @@ import Mesh from "../../assets/malla_img.jpg"
 
 const exampleItems = [
   {
-    productId: "LC93f",
+    productId: "LC93F",
     seller: "Ferreteria Santa Marta",
     rating: 4.0,
     img: [

@@ -1,0 +1,15 @@
+.Purchases-item__style{
+  --min-height: 100px;
+}
+
+.PurchaseDetail-Item__style{
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.PurchaseDetail-buttons__style{
+  --background: rgba(210, 215, 211, 1);
+}
