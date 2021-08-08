@@ -1,0 +1,26 @@
+span.title_section_pr {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.container_sub_questions{
+    height: auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.container_alternative_pr {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.container_alternative_pr > ion-icon {
+    width: 20%;
+    height: 35px;
+}
+
+.container_alternative_pr > span {
+    width: 75%;
+    font-size: 18px;
+}

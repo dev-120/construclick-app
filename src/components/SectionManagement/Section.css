@@ -1,0 +1,74 @@
+.section_dm{
+    width:100%;
+    height: auto;
+
+    display: flex;
+}
+
+.section_dm > div {
+    width: 50%;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.section_dm > div:first-child{
+    display: flex;
+    align-items: center;
+}
+
+.icon_container {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid black;
+    margin-right: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.section_dm > div > button {
+    min-height: 23px;
+    width: 100%;
+    margin-bottom: 8px;
+    font-size: 14px;
+    border-radius: 5px;
+    padding: 5px;
+    box-sizing: border-box;
+    background-color:rgb(255, 236, 233);
+    text-align: left;
+}
+
+.container_title_section{
+    width: 75%;
+    height: 80px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.container_title_section > .title_section {
+    font-weight: 700;
+    font-size: 17px;
+}
+.line_vertical_SM {
+    width: 3px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background-color: #212121;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container_checkmark {
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    border: 2px solid green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

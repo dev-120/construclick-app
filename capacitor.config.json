@@ -1,13 +1,14 @@
 {
-  "appId": "io.ionic.starter",
+  "appId": "com.construclick.app",
   "appName": "Construclick",
   "bundledWebRuntime": false,
-  "npmClient": "npm",
+  "npmClient": "yarn",
   "webDir": "build",
   "plugins": {
     "SplashScreen": {
       "launchShowDuration": 0
     }
   },
-  "cordova": {}
+  "cordova": {},
+  "linuxAndroidStudioPath": "/snap/bin/android-studio"
 }

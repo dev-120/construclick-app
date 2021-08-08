@@ -1,0 +1,12 @@
+.Walls-menu__page{
+  --background: black;
+}
+
+.Walls-menu__page ion-item{
+  --background: black;
+}
+
+.Walls-card__style{
+  --background: #ef7b03;
+  font-family: Nunito !important;
+}

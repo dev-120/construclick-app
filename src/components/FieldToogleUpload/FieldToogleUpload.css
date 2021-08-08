@@ -1,0 +1,10 @@
+.field_toggle_upload {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.field_toggle_upload > span, .field_toggle_upload > ion-button {
+    width: 70%;
+}

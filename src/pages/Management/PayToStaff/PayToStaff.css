@@ -1,0 +1,13 @@
+.PayToStaff-profileCol__styles{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.PayToStaff-profileCol__styles img {
+    width: 75px;
+    height: 72px;
+    border-radius: 50%;
+    border: 1px solid orange;
+}

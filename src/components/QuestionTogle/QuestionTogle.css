@@ -1,0 +1,12 @@
+.question_tootle_container{
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.question_tootle_container > span {
+    font-size: 18px;
+    font-weight: 700;
+}

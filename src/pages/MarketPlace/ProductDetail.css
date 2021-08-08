@@ -1,0 +1,86 @@
+#stars {
+  font-size: larger;
+}
+
+#product-detail-slides{
+  height: 35%;
+}
+
+
+.badge-primary{
+  background-color: #ef7b03;
+  color: white;
+}
+
+.price-product{
+  font-size: x-large;
+}
+
+.product-comentaries{
+  display: flex;
+  color: #ef7b03;
+  flex-direction: row;
+}
+
+
+.swiper-slide > img {
+  width: 100%;
+  height: 100%;
+}
+
+.ProductDetail-content__style{
+  --background: black;
+}
+
+
+.ProductDetail-itemSlide__style{
+  height: 50vh;
+  width: 100%;
+}
+
+.ProductDetail-slides__style{
+  background: white;
+}
+
+.Slides-badge__style{
+  --background: #C4C4C4 !important;
+  --color: black !important;
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  --padding-start: 10px;
+  --padding-end: 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.ProductDetail-item__style{
+  --background: black;
+  --color: #ef7b03;
+  font-weight: 800;
+}
+
+.PreviousProductPrice-discount__style{
+  text-decoration: line-through;
+  color: #FFFFFF;
+  font-weight: normal;
+  font-size: 12px;
+}
+
+
+.ProductDetail-button__styles{
+  font-family: Bebas Neue !important;
+  font-size: 16px;
+  font-weight: 400;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.ProductDetail-description__title{
+  font-size: 25px;
+}
+
+.ProductDetail-description__text{
+  font-size: 16px;
+}

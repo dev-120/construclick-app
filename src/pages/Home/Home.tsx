@@ -1,67 +1,92 @@
 import {
   IonImg,
   IonPage,
-  IonIcon,
+  IonItem,
+  IonLabel,
+  IonInput,
   IonButton,
   IonContent,
+  IonFooter,
+  IonToolbar,
 } from "@ionic/react";
-import React from "react";
-import firebase from "firebase/app";
-import { logoGoogle, logoFacebook } from 'ionicons/icons';
-
-import Logotipo from "../../assets/logotipo.png";
+import React, { useState } from "react";
 
 import "./Home.css";
+import Logotipo from "../../assets/logo.png";
 
 const Home: React.FC = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const onClickLoginGoogle = () => {
-    const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(googleAuthProvider);
-  };
-
+  const RenderForm = (
+    <>
+      <IonItem className="input-login__home ion-margin-top ion-margin-horizontal">
+        <IonLabel mode="md" position="floating">Email</IonLabel>
+        <IonInput
+          mode="md"
+          value={email}
+          onIonChange={(e) => setEmail(e.detail.value!)}
+        />
+      </IonItem>
+      <IonItem className="input-login__home ion-margin-top ion-margin-horizontal">
+        <IonLabel mode="md" position="floating">Contraseña</IonLabel>
+        <IonInput
+          type="password"
+          mode="md"
+          value={password}
+          onIonChange={(e) => setPassword(e.detail.value!)}
+        />
+      </IonItem>
+      <IonButton
+        className="button_signin_home_restore ion-margin"
+        type="button"
+        color="primary"
+        fill="clear"
+        size="small"
+        expand="block"
+      >
+        ¿Olvidaste tu contraseña?
+      </IonButton>
+      <IonButton
+        routerLink="/posts"
+        className="button_signin_home"
+        type="submit"
+        fill="solid"
+        size="default"
+        expand="block"
+      >
+        Ingresar
+      </IonButton>
+      <IonButton
+        routerLink="/register"
+        className="button_signin_home"
+        color="primary"
+        type="button"
+        fill="outline"
+        size="default"
+        expand="block"
+      >
+        Registrate
+      </IonButton>
+    </>
+  );
 
   return (
     <IonPage>
-      <IonContent fullscreen className="container-home">
-        <IonContent className="container-home__logo">
+      <IonContent scrollY={false} fullscreen className="container-home">
+        <IonItem lines="none" className="container-home__logo">
           <IonImg src={Logotipo} />
-        </IonContent>
-        <IonContent className="container_paragraph_home" >
-          <div className="paragraph_home" >
-            La red social del gremio de la construccion mas grande de Colomabia
-          </div>
-        </IonContent>
-        <IonButton
-          strong
-          className="button_login_social"
-          id="button-google"
-          onClick={onClickLoginGoogle}
-          shape="round"
-          expand="full"
-          color="google"
-        >
-          Ingresa con Google
-          <IonIcon icon={logoGoogle} slot="start" />
-        </IonButton>
-        <IonButton
-          strong
-          className="button_login_social"
-          shape="round"
-          expand="full"
-          id="button-facebook"
-          color="facebook"
-        >
-          Ingresa con Facebook
-          <IonIcon icon={logoFacebook} slot="start" />
-        </IonButton>
-        <IonContent className="container-home_footer" >
-          <IonButton size="small" color="secondary" fill="clear" expand="block">
-            Al ingresar aceptas nuestros <br/>
+        </IonItem>
+        {RenderForm}
+      </IonContent>
+      <IonFooter mode="md">
+        <IonToolbar mode="md" className="footer-home__login">
+          <IonButton expand="block" fill="clear" className="ion-margin">
+            Al ingresar aceptas nuestros <br />
             terminos y condiciones
           </IonButton>
-        </IonContent>
-      </IonContent>
+        </IonToolbar>
+      </IonFooter>
     </IonPage>
   );
 };
