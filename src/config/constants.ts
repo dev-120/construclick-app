@@ -10,5 +10,12 @@ export const typePosts = [
   {
     singular: "Oportunidad",
     plural: "Oportunidades",
-  }
+  },
 ];
+
+export const ROLES = {
+  person: "persona",
+  company: "empresa",
+};
+
+export const KEY_TOKEN_STORAGE = "USER@TOK:CK";

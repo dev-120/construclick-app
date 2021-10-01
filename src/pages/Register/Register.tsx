@@ -42,22 +42,6 @@ interface SlideProps {
   backSlideHandler: React.MouseEventHandler<HTMLIonButtonElement>;
 }
 
-const SlideHeader: React.FC = () => {
-  return (
-    <>
-      {
-        <IonHeader className="ion-no-border ion-text-left">
-          <IonToolbar>
-            <IonButton fill="clear">
-              <IonIcon icon={arrowBackOutline} />
-            </IonButton>
-          </IonToolbar>
-        </IonHeader>
-      }
-    </>
-  );
-};
-
 const Slide: React.FC<SlideProps> = ({
   children,
   canBack,

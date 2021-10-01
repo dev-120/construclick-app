@@ -1,8 +1,7 @@
+import React, { useEffect } from 'react';
 import { Route } from "react-router-dom";
 import { IonReactRouter } from "@ionic/react-router";
 import { IonApp, IonRouterOutlet, IonSplitPane } from "@ionic/react";
-
-import "firebase/auth";
 
 import Home from "./pages/Home/Home";
 import Posts from "./pages/Posts/Posts";
@@ -63,6 +62,7 @@ import ShippingOption from "./pages/Checkout/ShippingOption";
 import Payments from "./pages/Checkout/Payments";
 import Review from "./pages/Checkout/Review";
 import Purchases from "./pages/Purchases/Purchases";
+import PurchaseDetail from "./pages/Purchases/PurchaseDetail";
 
 
 /* Core CSS required for Ionic components to work properly */
@@ -83,7 +83,9 @@ import "@ionic/react/css/text-transformation.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-import PurchaseDetail from "./pages/Purchases/PurchaseDetail";
+
+import useUser from "./hooks/useUser";
+import { runSaga } from './store/store';
 
 
 
@@ -169,6 +171,16 @@ const Router = (
   </IonReactRouter>
 );
 
-const App: React.FC = () => <IonApp>{Router}</IonApp>;
+const App: React.FC = () => {
+  const { loadTokenStorage } = useUser();
+
+  useEffect(() => {
+    runSaga();
+    loadTokenStorage();
+  }, []);
+  return (
+    <IonApp>{Router}</IonApp>
+  );
+};
 
 export default App;
