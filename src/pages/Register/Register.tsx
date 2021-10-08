@@ -1,117 +1,38 @@
 import {
-  IonButton,
   IonContent,
   IonPage,
-  IonList,
   IonLabel,
   IonSelectOption,
   IonSelect,
   IonItem,
   IonImg,
-  IonHeader,
-  IonToolbar,
   IonTitle,
   IonInput,
   IonSlides,
-  IonIcon,
-  IonSlide,
   IonDatetime,
   IonAvatar,
-  IonFooter,
-  IonButtons,
-  IonCol,
-  IonGrid,
-  IonRow,
+
 } from "@ionic/react";
 import { useHistory } from "react-router-dom";
 import React, { useState, useRef } from "react";
-import { arrowBackOutline } from "ionicons/icons";
+import { Plugins, CameraResultType } from "@capacitor/core";
 
+import {
+  Slide, SlideButtons, slideOpts
+} from './Slide';
 import "./Register.css";
 import Logo from "../../assets/logo.png";
+import useUser from "../../hooks/useUser";
+import { uploadImage } from '../../services/image.service';
+import { AVATAR_IMAGE, ROLES } from "../../config/constants";
 import LogoConstruclick from "../../assets/logotipo_black.png";
+import { dataURLtoFile } from "../../utils/image";
 
-const slideOpts = {
-  initialSlide: 0,
-  speed: 400,
-};
-
-interface SlideProps {
-  children?: React.ReactNode;
-  canBack: boolean;
-  backSlideHandler: React.MouseEventHandler<HTMLIonButtonElement>;
-}
-
-const Slide: React.FC<SlideProps> = ({
-  children,
-  canBack,
-  backSlideHandler,
-}) => (
-  <IonSlide className="ion-padding">
-    {children}
-    {canBack && <SlideFooter />}
-  </IonSlide>
-);
-
-const SlideFooter: React.FC = () => {
-  return (
-    <IonFooter mode="md">
-      <IonToolbar className="footer-page__register">
-        <IonButton expand="block" fill="clear" color="primary">
-          Al ingresar aceptas nuestros <br />
-          terminos y condiciones
-        </IonButton>
-      </IonToolbar>
-    </IonFooter>
-  );
-};
-
-interface SlideButtonRegister {
-  canBack: boolean;
-  backSlideHandler?: (e: any) =>void;
-  clickHandler?: (e: any) => void;
-  titleButton?: string;
-}
-
-const SlideButtons: React.FC<SlideButtonRegister> = ({ canBack, backSlideHandler, clickHandler, titleButton }) => {
-  return (
-    <>
-      {canBack && (
-        <IonGrid>
-          <IonRow className="justify-content-center">
-            <IonCol size="6">
-              <IonButton
-                fill="outline"
-                className="ion-padding-horizontal button-register__outline"
-                expand="block"
-                onClick={backSlideHandler}
-              >
-                atras
-              </IonButton>
-            </IonCol>
-            <IonCol size="6">
-              <IonButton
-                className="ion-padding-horizontal ion-border-horizontal"
-                expand="full"
-                onClick={clickHandler}
-              >
-                {titleButton ? titleButton : "Siguiente"}
-              </IonButton>
-            </IonCol>
-          </IonRow>
-        </IonGrid>
-      )}
-      {!canBack && (
-        <IonButton className="ion-margin-top" onClick={clickHandler}>
-        {titleButton ? titleButton : "Siguiente"}
-        </IonButton>
-      )}
-    </>
-  );
-};
+const { Camera } = Plugins;
 
 const RegisterPage: React.FC = () => {
   const history = useHistory();
+  const { registerAction } = useUser();
   const slidesRef = useRef<HTMLIonSlidesElement>(null);
 
   const [nit, setNit] = useState("");
@@ -121,7 +42,7 @@ const RegisterPage: React.FC = () => {
   const [cellphone, setCellphone] = useState<string>("");
   const [address, setAddress] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
-  const [profilePicture, setProfilePicture] = useState("");
+  const [profilePicture, setProfilePicture] = useState<string | null>(null);
   const [profession, setProfession] = useState<string>("");
   const [city, setCity] = useState<string>("Santa Marta");
   const [password, setPassword] = useState<string>("");
@@ -130,6 +51,7 @@ const RegisterPage: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [legalAgentName, setLegalAgentName] = useState("");
   const [legalAgentPhone, setLegalAgentPhone] = useState("");
+  const [legalAgentEmail, setLegalAgentEmail] = useState("");
 
   const clickHandler = (e: { preventDefault: () => void }) => {
     slidesRef.current?.slideNext();
@@ -144,7 +66,48 @@ const RegisterPage: React.FC = () => {
     }
   };
 
+  const takePicture = async () => {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: true,
+      resultType: CameraResultType.DataUrl,
+    });
+    console.log(image);
+    setProfilePicture(image.dataUrl ?? null);
+  };
   const isBussiness = () => registerType === "business";
+
+  const onSubmit = async () => {
+    const role = registerType === "person" ? ROLES.person : ROLES.company;
+    let imageUrl;
+
+    if(profilePicture){
+      const responseImage = await uploadImage(dataURLtoFile(profilePicture, 'image.png'));
+      imageUrl = responseImage.data.data;
+    }
+
+
+    registerAction({
+      ...role === ROLES.person ? {
+        birthdate: birthDate,
+        gender,
+        profession_id: profession,
+        last_name: lastName,
+      } : {
+        nit,
+        name_legal_representative: legalAgentName,
+        phone_legal_representative: legalAgentPhone,
+        email_legal_representative: legalAgentEmail,
+      },
+      email,
+      image_url: imageUrl,
+      city_id: city,
+      name,
+      password,
+      phone: cellphone,
+      type: role,
+    });
+  };
 
   return (
     <IonPage>
@@ -169,7 +132,7 @@ const RegisterPage: React.FC = () => {
                   <IonSelectOption value="business">Empresa</IonSelectOption>
                 </IonSelect>
               </IonItem>
-              <SlideButtons canBack={false} clickHandler={clickHandler}/>
+              <SlideButtons canBack={false} clickHandler={clickHandler} />
             </IonContent>
           </Slide>
           <Slide canBack backSlideHandler={backSlideHandler}>
@@ -178,8 +141,8 @@ const RegisterPage: React.FC = () => {
               <IonTitle className="ion-margin ion-padding-bottom">
                 ¿Quien eres?
               </IonTitle>
-              <IonAvatar className="avatar-profile ion-margin-bottom">
-                <img src="https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg" />
+              <IonAvatar onClick={takePicture} className="avatar-profile ion-margin-bottom">
+                <img className="profile-img_register" src={profilePicture || AVATAR_IMAGE} alt="Avatar" />
               </IonAvatar>
               <IonItem className="item-list__dark">
                 <IonLabel position="floating">
@@ -214,7 +177,11 @@ const RegisterPage: React.FC = () => {
                   />
                 </IonItem>
               )}
-              <SlideButtons canBack={true} clickHandler={clickHandler} backSlideHandler={backSlideHandler} />
+              <SlideButtons
+                canBack={true}
+                clickHandler={clickHandler}
+                backSlideHandler={backSlideHandler}
+              />
             </IonContent>
           </Slide>
           <Slide canBack backSlideHandler={backSlideHandler}>
@@ -269,7 +236,11 @@ const RegisterPage: React.FC = () => {
                   required
                 />
               </IonItem>
-              <SlideButtons canBack={true} backSlideHandler={backSlideHandler} clickHandler={clickHandler} />
+              <SlideButtons
+                canBack={true}
+                backSlideHandler={backSlideHandler}
+                clickHandler={clickHandler}
+              />
             </IonContent>
           </Slide>
           <Slide canBack backSlideHandler={backSlideHandler}>
@@ -294,14 +265,21 @@ const RegisterPage: React.FC = () => {
                   required
                 />
               </IonItem>
-              <SlideButtons canBack clickHandler={clickHandler} backSlideHandler={backSlideHandler} />
+              <SlideButtons
+                canBack
+                clickHandler={clickHandler}
+                backSlideHandler={backSlideHandler}
+              />
             </IonContent>
           </Slide>
           <Slide canBack backSlideHandler={backSlideHandler}>
             <IonContent className="ion-padding ion-margin-vertical slide-page-dark">
               {!isBussiness() && (
                 <>
-                  <IonImg src={LogoConstruclick} className="logo-image__register" />
+                  <IonImg
+                    src={LogoConstruclick}
+                    className="logo-image__register"
+                  />
                   <IonTitle className="ion-padding">Dinos mas de ti</IonTitle>
                   <IonItem className="ion-margin-top item-list__dark">
                     <IonLabel>Fecha de Nacimiento</IonLabel>
@@ -348,7 +326,7 @@ const RegisterPage: React.FC = () => {
                     Datos del representante
                   </IonTitle>
                   <IonItem className="ion-margin-vertical item-list__dark">
-                    <IonLabel>Nombre Representante</IonLabel>
+                    <IonLabel>Nombre del representante</IonLabel>
                     <IonInput
                       type="text"
                       value={legalAgentName}
@@ -357,7 +335,7 @@ const RegisterPage: React.FC = () => {
                     />
                   </IonItem>
                   <IonItem className="ion-margin-top item-list__dark">
-                    <IonLabel>Telefono Representante</IonLabel>
+                    <IonLabel>Telefono del representante</IonLabel>
                     <IonInput
                       type="tel"
                       value={legalAgentPhone}
@@ -365,9 +343,23 @@ const RegisterPage: React.FC = () => {
                       required
                     />
                   </IonItem>
+                  <IonItem className="ion-margin-top item-list__dark">
+                    <IonLabel>Email del representante</IonLabel>
+                    <IonInput
+                      type="email"
+                      value={legalAgentEmail}
+                      onIonChange={(e) => setLegalAgentEmail(e.detail.value!)}
+                      required
+                    />
+                  </IonItem>
                 </>
               )}
-              <SlideButtons canBack={true} titleButton="Registrate" backSlideHandler={backSlideHandler} />
+              <SlideButtons
+                canBack={true}
+                titleButton="Registrate"
+                backSlideHandler={backSlideHandler}
+                clickHandler={onSubmit}
+              />
             </IonContent>
           </Slide>
         </IonSlides>

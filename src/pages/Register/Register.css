@@ -65,3 +65,9 @@ ion-list{
   --color: #C4C4C4;
   --border-color: #C4C4C4;
 }
+
+.profile-img_register {
+  height: 60px !important;
+  width: 60px !important;
+  object-fit: cover;
+}

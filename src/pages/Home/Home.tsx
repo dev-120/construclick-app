@@ -13,10 +13,22 @@ import React, { useState } from "react";
 
 import "./Home.css";
 import Logotipo from "../../assets/logo.png";
+import useUser from "../../hooks/useUser";
 
 const Home: React.FC = () => {
+  const { loginAction } = useUser();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const onSubmit = () => {
+    // TODO: Mejorar validacion
+    if(email && password){
+      loginAction({
+        email,
+        password,
+      });
+    }
+  };
 
   const RenderForm = (
     <>
@@ -48,12 +60,12 @@ const Home: React.FC = () => {
         ¿Olvidaste tu contraseña?
       </IonButton>
       <IonButton
-        routerLink="/posts"
         className="button_signin_home"
         type="submit"
         fill="solid"
         size="default"
         expand="block"
+        onClick={onSubmit}
       >
         Ingresar
       </IonButton>
