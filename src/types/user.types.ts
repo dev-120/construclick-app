@@ -2,6 +2,11 @@ export interface authData {
     id: string
 };
 
+export interface Profession {
+    id: string;
+    name: string;
+};
+
 export interface dataLogin {
     email: string;
     password: string;

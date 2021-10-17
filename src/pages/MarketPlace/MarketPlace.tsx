@@ -2,50 +2,36 @@ import React, { useState } from "react";
 import {
   IonImg,
   IonPage,
-  IonIcon,
-  IonButton,
   IonContent,
   IonSegment,
   IonSegmentButton,
   IonLabel,
-  IonItem,
-  IonCard,
-  IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle,
-  IonCardContent,
-  IonBadge,
-  IonText,
 } from "@ionic/react";
-import { useHistory } from "react-router-dom";
-import { chevronForwardOutline } from "ionicons/icons";
 
 import "./MarketPlace.css";
 import itemsExample from './utils';
+import useCommons from "../../hooks/useCommons";
+import { Category } from '../../types/marketplace';
 import Header from "../../components/Header/Header";
 import Section from '../../components/SectionProducts/SectionProducts';
 
-const categories = [
-  "Todo",
-  "Herramientas",
-  "Pinturas",
-  "Electricidad",
-  "Plomeria",
-  "Jardineria",
-  "Maquinaria",
-];
-
-const SelectCategory = () => (
-  <IonSegment className="select_category_mk" scrollable value={categories[0]} >
-    {categories.map((cat) => (
-      <IonSegmentButton value={cat} >
-        <IonLabel>{cat}</IonLabel>
-      </IonSegmentButton>
-    ))}
-  </IonSegment>
-);
-
 const MarketPlacePage = () => {
+  const [ categorySelected, setCategorySelected ] = useState<null | Category>(null);
+  const { categories } = useCommons();
+
+  const SelectCategory = () => (
+    <IonSegment mode="md" className="select_category_mk" scrollable value={categorySelected?.name || 'todo'} >
+      <IonSegmentButton onClick={() => setCategorySelected(null)} value='todo'>
+          <IonLabel>Todo</IonLabel>
+        </IonSegmentButton>
+      {categories.map((cat) => (
+        <IonSegmentButton onClick={() => setCategorySelected(cat)} value={cat.name} >
+          <IonLabel>{cat.name}</IonLabel>
+        </IonSegmentButton>
+      ))}
+    </IonSegment>
+  );
+
   return (
     <IonPage>
       <Header canBack={false} title="MarketPlace" />

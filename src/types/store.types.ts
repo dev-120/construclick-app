@@ -1,3 +1,4 @@
+import { Profession } from "./user.types";
 import { Category, City } from "./marketplace";
 
 export interface Action {
@@ -9,6 +10,7 @@ export interface Action {
 export interface stateCommons {
     loading: boolean;
     error: string;
-    categories: [Category],
-    cities: [City]
+    categories: [Category];
+    cities: [City];
+    professions: [Profession];
 }

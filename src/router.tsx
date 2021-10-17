@@ -1,4 +1,4 @@
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import { IonReactRouter } from "@ionic/react-router";
 import { IonRouterOutlet, IonSplitPane } from "@ionic/react";
 
@@ -66,16 +66,12 @@ import useUser from "./hooks/useUser";
 
 const Router = () => {
   const { user } = useUser();
-  return (
-    <IonReactRouter>
-      <IonSplitPane contentId="main">
-        {user && <Menu />}
-        <IonRouterOutlet id="main">
-          <Route path="/view-post" component={ViewPost} />
-          <Route path="/create-post" component={CreatePost} />
-          <Route exact path="/posts" component={Posts} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/profile" component={Profile} />
+  const RouterAuth = (
+    <IonRouterOutlet id="main">
+      <Route path="/view-post" component={ViewPost} />
+      <Route path="/create-post" component={CreatePost} />
+      <Route exact path="/posts" component={Posts} />
+      <Route exact path="/profile" component={Profile} />
           <Route exact path="/marketplace" component={MarketPlace} />
           <Route exact path="/sell" component={MarketPlaceSell} />
           <Route
@@ -258,8 +254,22 @@ const Router = () => {
             component={DrywallCalculator}
           />
           <Route exact path="/calculator" component={Calculator} />
-          <Route exact path="/" component={Home} />
-        </IonRouterOutlet>
+          <Redirect exact path="/" to='/marketplace' />
+    </IonRouterOutlet>
+  );
+
+  const RouterWithOutAuth = (
+    <IonRouterOutlet id="main">
+      <Route exact path="/register" component={Register} />
+      <Route exact path="/" component={Home} />
+    </IonRouterOutlet>
+  );
+
+  return (
+    <IonReactRouter>
+      <IonSplitPane contentId="main">
+        {user && <Menu />}
+        {user ? RouterAuth : RouterWithOutAuth}
       </IonSplitPane>
     </IonReactRouter>
   );

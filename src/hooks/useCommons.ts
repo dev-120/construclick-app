@@ -1,10 +1,16 @@
-import { stateCommons } from '../types/store.types';
-import { useSelector, useDispatch } from 'react-redux';
-import { CLOSE_LOADER, OPEN_LOADER, LOAD_DATAS_COMMONS } from '../store/actions/commons.actions';
+import { stateCommons } from "../types/store.types";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  CLOSE_LOADER,
+  OPEN_LOADER,
+  LOAD_DATAS_COMMONS,
+} from "../store/actions/commons.actions";
 
 const useCommons = () => {
   const dispatch = useDispatch();
-  const { loading } = useSelector((state : {commons : stateCommons}) => state.commons);
+  const { loading, cities, professions, categories } = useSelector(
+    (state: { commons: stateCommons }) => state.commons
+  );
 
   const openLoader = () => {
     dispatch({ type: OPEN_LOADER });
@@ -15,12 +21,15 @@ const useCommons = () => {
   };
 
   const loadDatasCommons = () => {
-    dispatch({ type: LOAD_DATAS_COMMONS});
+    dispatch({ type: LOAD_DATAS_COMMONS });
   };
 
   return {
+    cities,
     loading,
+    categories,
     openLoader,
+    professions,
     closeLoader,
     loadDatasCommons,
   };
