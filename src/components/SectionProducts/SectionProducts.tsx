@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import {
   IonImg,
-  IonItem,
   IonCard,
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle,
-  IonCardContent,
-  IonBadge,
   IonText,
 } from "@ionic/react";
 import { useHistory } from "react-router-dom";

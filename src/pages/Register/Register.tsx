@@ -27,6 +27,7 @@ import { uploadImage } from '../../services/image.service';
 import { AVATAR_IMAGE, ROLES } from "../../config/constants";
 import LogoConstruclick from "../../assets/logotipo_black.png";
 import { dataURLtoFile } from "../../utils/image";
+import useCommons from "../../hooks/useCommons";
 
 const { Camera } = Plugins;
 
@@ -34,6 +35,7 @@ const RegisterPage: React.FC = () => {
   const history = useHistory();
   const { registerAction } = useUser();
   const slidesRef = useRef<HTMLIonSlidesElement>(null);
+  const { cities, professions } = useCommons();
 
   const [nit, setNit] = useState("");
   const [email, setEmail] = useState<string>("");
@@ -311,9 +313,11 @@ const RegisterPage: React.FC = () => {
                       placeholder="Seleciona Profesion"
                       onIonChange={(e) => setProfession(e.detail.value!)}
                     >
-                      <IonSelectOption value="Ingeniero">
-                        Ingeniero
-                      </IonSelectOption>
+                      {professions?.map((item) => (
+                        <IonSelectOption value={item.id}>
+                          {item.name}
+                        </IonSelectOption>
+                      ))}
                       <IonSelectOption value="Obrero">Obrero</IonSelectOption>
                     </IonSelect>
                   </IonItem>

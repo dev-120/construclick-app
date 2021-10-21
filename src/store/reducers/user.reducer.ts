@@ -2,6 +2,7 @@ import {
   LOGOUT,
   LOGIN_SUCCESS,
   REGISTER_SUCCESS,
+  PROFILE_USER_SUCCESS,
 } from "../actions/user.actions";
 
 import { Action } from '../../types/store.types';
@@ -29,6 +30,11 @@ const reducer = (state = initialState, action : Action) => {
         ...state,
         dataUser: action.payload,
       };
+    case PROFILE_USER_SUCCESS:
+      return {
+        ...state,
+        profileUser: action.payload,
+      }
     case LOGOUT:
       return initialState;
     default:
