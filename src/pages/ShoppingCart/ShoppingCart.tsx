@@ -19,110 +19,73 @@ import {
   IonFooter,
   IonToolbar,
   IonTitle,
-  IonInput,
 } from "@ionic/react";
 import { useState, useEffect } from "react";
-import { disc, menu, save } from "ionicons/icons";
+import { menu } from "ionicons/icons";
 import { RouteComponentProps, Link } from "react-router-dom";
 
 import Header from "../../components/Header/Header";
-import CementArgos from "../../assets/cement_image.jpg";
-import StuccoImage from "../../assets/stucco_img.jpg";
 import Mastic from "../../assets/masilla_img.jpg";
 import "./ShoppingCart.css";
-
-const mockupProducts = [
-  {
-    productId: "LC93f",
-    seller: "Ferreteria Santa Marta",
-    img: CementArgos,
-    productTitle: "Cemento Argos Gris 50kg",
-    productPrice: 25900,
-    discount: 5,
-    cuantity: 5,
-    color: "Gris",
-    selectedCuantity: 1,
-  },
-  {
-    productId: "Ob8Ne",
-    seller: "Ferreteria Santa Marta",
-    img: StuccoImage,
-    productTitle: "Estucor estuco 5 kilos",
-    productPrice: 7900,
-    discount: 15,
-    cuantity: 10,
-    color: "Blanco",
-    selectedCuantity: 1,
-  },
-  {
-    productId: "htBFn",
-    seller: "Ferreteria Santa Marta",
-    img: Mastic,
-    productTitle: "Masilla 1g 5.6k",
-    productPrice: 15400,
-    discount: 8,
-    cuantity: 5,
-    color: "Cafe",
-    selectedCuantity: 1,
-  },
-];
+import useShoppingCart from "../../hooks/useShoppingCart";
 
 const mockupSavedProducts = [
   {
-    productId: "htBFn",
+    _id: "htBFn",
     seller: "Ferreteria Santa Marta",
-    img: Mastic,
-    productTitle: "Masilla 1g 5.6k",
-    productPrice: 15400,
-    discount: 8,
-    cuantity: 5,
+    image_url: Mastic,
+    title: "Masilla 1g 5.6k",
+    product: {
+      unitPrice: 15400,
+      quantity: 5,
+    },
+    quantity: 5,
     color: "Cafe",
-    selectedCuantity: 1,
   },
 ];
 
+// type CartProduct = {
+//   _id: string;
+//   title: string;
+//   price: number;
+//   quantity: number;
+//   color: string | undefined;
+//   image_url: string;
+//   discount: number | undefined;
+//   product: any;
+// };
+
+type CartProductType = {
+  _id: string;
+  titleProduct: string;
+  unitPrice: number;
+  quantity: number;
+  color: string | undefined;
+  productId: string;
+  image_url: string;
+  discount: number | undefined;
+};
+
+
+
 const ShoppingCart: React.FC<RouteComponentProps> = ({ match }) => {
-  const [productsInCart, setProductsInCart] = useState<Array<any>>([]);
-  const [savedProducts, setSavedProducts] = useState<Array<any>>([]);
+  const [savedProducts, setSavedProducts] = useState<Array<any>>(mockupSavedProducts);
   const [segment, setSegment] = useState("cart");
-  const [totalPrice, setTotalPrice] = useState(0);
+  const { cart, deleteProductOfCart, totalPrice, getShoppingCart } =
+    useShoppingCart();
 
   useEffect(() => {
-    setProductsInCart(mockupProducts);
+    getShoppingCart()
     setSavedProducts(mockupSavedProducts);
-  }, []);
-
-  const totalPriceHandler = (
-    value: number,
-    action: string,
-    substract: number,
-  ) => {
-    if (action === "ADD_TOTAL") {
-      setTotalPrice((val) => val + value);
-    }
-
-    if (action === "CORRECT_PRICE") {
-      setTotalPrice((val) => val - substract + value);
-    }
-
-    if (action === "SUBSTRACT_TOTAL") {
-      setTotalPrice((val) => val - value);
-    }
-  };
-
-  const deleteItemHandler = (id: string) => {
-    setProductsInCart((product: any) =>
-      product.filter((pro: any) => pro.productId !== id)
-    );
-  };
+  },[]);
 
   const segmentChangeHandler = (e: any) => {
-    setTotalPrice(0);
     setSegment(e.detail.value!);
   };
 
-  const cuantityChangeHandler = (id: string, cuantity: number) => {
-    setProductsInCart(products => products.map((product) => product.productId === id ? {...product, selectedCuantity: cuantity} : product))
+  const deleteProductInShoppingCartHandler = (id: string) => {
+    deleteProductOfCart(id)
+    getShoppingCart();
   }
 
   return (
@@ -138,7 +101,7 @@ const ShoppingCart: React.FC<RouteComponentProps> = ({ match }) => {
             value="cart"
             className="ShoppingCart-segment__buttons"
           >
-            Carrito ({productsInCart.length})
+            Carrito ({cart?.items.length})
           </IonSegmentButton>
           <IonSegmentButton
             value="saved"
@@ -147,17 +110,13 @@ const ShoppingCart: React.FC<RouteComponentProps> = ({ match }) => {
             Guardados ({savedProducts.length})
           </IonSegmentButton>
         </IonSegment>
-        {productsInCart.length > 0 ? (
+        {cart?.items.length > 0 ? (
           segment === "cart" ? (
             <IonList className="ShoppingCart-lists__style">
-              {productsInCart.map((product) => (
+              {cart?.items.map((product: CartProductType) => (
                 <CartProduct
-                  key={product.productId}
-                  {...product}
-                  priceHandler={totalPriceHandler}
-                  deleteHandler={deleteItemHandler}
-                  cuantityHandler={cuantityChangeHandler}
-                />
+                {...product}
+                deleteHandler={deleteProductInShoppingCartHandler}                />
               ))}
             </IonList>
           ) : (
@@ -166,8 +125,7 @@ const ShoppingCart: React.FC<RouteComponentProps> = ({ match }) => {
                 <CartProduct
                   key={product.productId}
                   {...product}
-                  priceHandler={totalPriceHandler}
-                  deleteHandler={deleteItemHandler}
+                  deleteHandler={deleteProductInShoppingCartHandler}
                 />
               ))}
             </IonList>
@@ -197,7 +155,7 @@ const ShoppingCart: React.FC<RouteComponentProps> = ({ match }) => {
             <Link
               to={{
                 pathname: `${match.url}/checkout/shipping`,
-                state: { productList: productsInCart, total: totalPrice },
+                state: { productList: cart, total: totalPrice },
               }}
             >
               <IonButton
@@ -216,62 +174,46 @@ const ShoppingCart: React.FC<RouteComponentProps> = ({ match }) => {
   );
 };
 
+// type CartProductProps = {
+//   productId: string;
+//   productTitle: string;
+//   productPrice: number;
+//   cuantity: number;
+//   color: string;
+//   img: string;
+//   discount: number;
+//   selectedCuantity: number;
+//   priceHandler: (value: number, action: string, substract?: number) => void;
+//   deleteHandler: (id: string) => void;
+//   cuantityHandler: (id: string, cuantity: number) => void;
+// };
+
 type CartProductProps = {
+  _id: string;
+  titleProduct: string;
+  unitPrice: number;
+  quantity: number;
+  color: string | undefined;
+  image_url: string;
+  discount: number | undefined;
   productId: string;
-  productTitle: string;
-  productPrice: number;
-  cuantity: number;
-  color: string;
-  img: string;
-  discount: number;
-  selectedCuantity: number;
-  priceHandler: (value: number, action: string, substract?: number) => void;
   deleteHandler: (id: string) => void;
-  cuantityHandler: (id: string, cuantity: number) => void;
 };
 
 const CartProduct = ({
-  productId,
-  selectedCuantity,
-  productTitle,
-  productPrice,
+  _id,
+  titleProduct,
   color,
-  img,
+  image_url,
   discount,
-  priceHandler,
+  unitPrice,
+  quantity,
+  productId,
   deleteHandler,
-  cuantityHandler,
 }: CartProductProps) => {
-  const [selectCuantity, setSelectCuantity] = useState(selectedCuantity);
-  const [currentPrice, setCurrentPrice] = useState(
-    productPrice * (1 - discount / 100) * selectCuantity
-  );
-
-  useEffect(() => {
-    priceHandler(
-      productPrice * (1 - discount / 100) * selectCuantity,
-      "ADD_TOTAL",
-    );
-  }, []);
-
-  const changeHandler = (e: any) => {
-    cuantityHandler(productId, parseInt(e.detail.value!))
-    priceHandler(
-      productPrice * (1 - discount / 100) * parseInt(e.detail.value),
-      "CORRECT_PRICE",
-      currentPrice
-    );
-    setCurrentPrice(
-      productPrice * (1 - discount / 100) * parseInt(e.detail.value)
-    );
-    setSelectCuantity(parseInt(e.detail.value!));
-  };
+  // const [selectCuantity, setSelectCuantity] = useState();
 
   const clickDeleteHandler = () => {
-    priceHandler(
-      productPrice * (1 - discount / 100) * selectCuantity,
-      "SUBSTRACT_TOTAL"
-    );
     deleteHandler(productId);
   };
 
@@ -281,26 +223,21 @@ const CartProduct = ({
         <IonGrid>
           <IonRow>
             <IonCol size="4">
-              <img src={img} />
+              <img src={image_url} alt="product" />
             </IonCol>
             <IonCol size="8">
-              <IonCardTitle>{productTitle}</IonCardTitle>
-              <IonCardSubtitle>Color: {color}</IonCardSubtitle>
+              <IonCardTitle>{titleProduct}</IonCardTitle>
+              <IonCardSubtitle>Color: {color || "Desconocido"}</IonCardSubtitle>
               <IonGrid>
                 <IonRow className="ion-justify-content-center">
                   <IonCol className="ion-align-self-end" size="7">
                     <IonItem lines="none" className="ion-no-padding">
-                      <IonLabel position="floating">Cantidad</IonLabel>
-                      <IonInput
-                        value={selectCuantity}
-                        type="number"
-                        debounce={500}
-                        onIonChange={changeHandler}
-                      />
+                      <IonLabel position="stacked">Cantidad</IonLabel>
+                      <strong className="ion-padding-top">{quantity}</strong>
                     </IonItem>
                   </IonCol>
                   <IonCol size="5" className="ion-align-self-center">
-                    {discount > 0 && (
+                    {discount !== undefined ? (
                       <>
                         <IonLabel
                           className=""
@@ -310,7 +247,7 @@ const CartProduct = ({
                           {discount}% $
                           <IonText style={{ textDecoration: "line-through" }}>
                             {" "}
-                            {productPrice * selectCuantity}
+                            {unitPrice * quantity}
                           </IonText>
                         </IonLabel>
                         <br></br>
@@ -320,11 +257,18 @@ const CartProduct = ({
                           color="dark"
                         >
                           <strong>
-                            $
-                            {productPrice *
-                              (1 - discount / 100) *
-                              selectCuantity}
+                            ${unitPrice * (1 - discount / 100) * quantity}
                           </strong>
+                        </IonLabel>
+                      </>
+                    ) : (
+                      <>
+                        <IonLabel
+                          className=""
+                          style={{ fontSize: "1rem" }}
+                          color="dark"
+                        >
+                          <strong style={{ fontSize: "0.875rem", lineHeight: '0.75rem' }}>${unitPrice * quantity}</strong>
                         </IonLabel>
                       </>
                     )}

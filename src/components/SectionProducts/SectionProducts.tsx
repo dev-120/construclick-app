@@ -16,8 +16,18 @@ type imageItem = {
   img: string;
   productTitle: string;
   productPrice: number;
-  discount: number;
+  discount: number | undefined;
+  userName: string;
 };
+
+type productData = {
+  _id: number | undefined;
+  image_url: string;
+  title: string;
+  price: number;
+  discount: number | undefined;
+  userName: string;
+}
 
 interface sectionBuilder {
   sectionName: string;
@@ -34,6 +44,7 @@ const ProductCard: React.FC<imageItem> = ({
   productTitle,
   productPrice,
   discount,
+  userName,
 }) => {
   const history = useHistory();
 
@@ -45,13 +56,13 @@ const ProductCard: React.FC<imageItem> = ({
     <div className="product_item">
       <IonCard mode="md" button={true} onClick={clickHandler}>
         <IonCardHeader>
-          <IonImg src={img[0]} />
-          <IonCardSubtitle>HomeCenter</IonCardSubtitle>
+          <IonImg src={img} />
+          <IonCardSubtitle>{userName}</IonCardSubtitle>
           <IonCardTitle>${productPrice}</IonCardTitle>
         </IonCardHeader>
         <div className="conten_card_product" >
           <span className="title_product"  >{productTitle}</span>
-          <span className="discount_product" >{discount}%</span>
+          <span className="discount_product" >{discount && `${discount}%`}</span>
         </div>
       </IonCard>
     </div>
@@ -63,22 +74,17 @@ const ProductList: React.FC<productList> = ({ items }) => {
     <div className="list_Products">
       {items.map(
         (
-          item: {
-            productId: number | undefined;
-            img: string;
-            productTitle: string;
-            productPrice: number;
-            discount: number;
-          },
+          item: productData,
           index: React.Key | null | undefined
         ) => (
           <ProductCard
-            key={item.productId}
-            productId={item.productId}
-            img={item.img}
-            productTitle={item.productTitle}
-            productPrice={item.productPrice}
+            key={item._id}
+            productId={item._id}
+            img={item.image_url}
+            productTitle={item.title}
+            productPrice={item.price}
             discount={item.discount}
+            userName={item.userName}
           />
         )
       )}
@@ -87,7 +93,7 @@ const ProductList: React.FC<productList> = ({ items }) => {
 };
 
 const SectionsBuilder: React.FC<sectionBuilder> = ({ sectionName, items }) => {
-  const [section, setSections] = useState([...items]);
+  const [section] = useState([...items]);
   return (
     <div className="section_mk_products">
       <IonText>{sectionName}</IonText>
