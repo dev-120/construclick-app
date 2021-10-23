@@ -18,10 +18,6 @@ import {
   loadDatasCommonsFetch
 } from './commons.effects';
 import { LOAD_DATAS_COMMONS } from "../actions/commons.actions";
-import { addProductToShoppingcart, getShoppingCartItems, removeProductOfShoppingcart } from "./shoppingcart.effects";
-import { PRODUCT_ADD_FETCH, PRODUCT_REMOVE, SHOPPINGCART_FETCH } from "../actions/shoppingcart.actions";
-
-
 
 function* rootSagas() {
   yield takeEvery(LOGOUT_FETCH, logout);
@@ -30,9 +26,6 @@ function* rootSagas() {
   yield takeEvery(PROFILE_USER_FETCH, getUserDataProfile);
   yield takeEvery(UPDATE_PROFILE_USER_FETCH, updateUserEffect);
   yield takeEvery(LOAD_DATAS_COMMONS, loadDatasCommonsFetch);
-  yield takeEvery(SHOPPINGCART_FETCH, getShoppingCartItems);
-  yield takeEvery(PRODUCT_ADD_FETCH, addProductToShoppingcart);
-  yield takeEvery(PRODUCT_REMOVE, removeProductOfShoppingcart);
 }
 
 

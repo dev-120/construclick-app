@@ -26,8 +26,8 @@
     font-family: Nunito;
     font-style: normal;
     font-weight: 800;
-    font-size: 1.125rem;
-    line-height: 1.75rem;
+    font-size: 20px;
+    line-height: 19px;
 
     color: #00D36C;
 }
@@ -73,8 +73,8 @@ ion-card {
     font-family: Nunito;
     font-style: normal;
     font-weight: normal;
-    font-size: 0.875rem;
-    line-height: 1.25rem;
+    font-size: 17px;
+    line-height: 11px;
     font-weight: 600;
     color: #333333;
 }
