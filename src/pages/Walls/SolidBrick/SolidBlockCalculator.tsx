@@ -2,7 +2,6 @@ import {
   IonContent,
   IonItem,
   IonPage,
-  IonSelect,
   IonText,
   IonGrid,
   IonRow,
@@ -13,6 +12,7 @@ import {
 } from "@ionic/react";
 
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 import CeramicBrickImg from '../../../assets/ceramic_brick.png'
 import MortarJoint from "../../../assets/mortar_joint.png";
@@ -20,6 +20,7 @@ import Header from "../../../components/Header/Header";
 import WhatsappIcon from "../../../assets/whatsapp_icon.png";
 import EmailIcon from "../../../assets/email_icon.png";
 import TelegramIcon from "../../../assets/telegram_icon.png";
+import { SET_CALCULATOR_INFORMATION } from "../../../store/actions/calculator.actions";
 
 interface SolidBrickCalculatorProps {
   match: {
@@ -27,6 +28,7 @@ interface SolidBrickCalculatorProps {
       type: string;
     };
   };
+  location: any;
 }
 
 const menuSolidBrick = [
@@ -58,7 +60,9 @@ const menuSolidBrick = [
 
 const SolidBrickCalculator: React.FC<SolidBrickCalculatorProps> = ({
   match,
+  location,
 }) => {
+  const dispatch = useDispatch();
   const [Brick, setBrick] = useState(Object || null);
   const [calculate, setCalculate] = useState<boolean>(false);
   const [wallArea, setWallArea] = useState<number>(0);
@@ -71,7 +75,17 @@ const SolidBrickCalculator: React.FC<SolidBrickCalculatorProps> = ({
     );
   }, [match]);
 
-  const clickHandler = () => {
+  const submitHandler = (e:any) => {
+    e.preventDefault();
+    dispatch({
+      type: SET_CALCULATOR_INFORMATION,
+      payload: {
+        ...location.state,
+        wallArea,
+        wallOpenings,
+        wallThickness
+      }
+    })
     setCalculate(true);
   };
 
@@ -79,6 +93,7 @@ const SolidBrickCalculator: React.FC<SolidBrickCalculatorProps> = ({
     <IonPage>
       <Header canBack href="/calculator/walls/brick" />
       <IonContent className="Foundation-content__style">
+        <form onSubmit={submitHandler}>
         {!calculate ? (
           <>
             <IonItem
@@ -89,6 +104,7 @@ const SolidBrickCalculator: React.FC<SolidBrickCalculatorProps> = ({
                 slot="start"
                 src={CeramicBrickImg}
                 className="Foundation-sidepanel__img"
+                alt=""
               />
               <IonGrid>
                 <IonRow>
@@ -118,6 +134,8 @@ const SolidBrickCalculator: React.FC<SolidBrickCalculatorProps> = ({
                     <IonInput
                       value={wallArea}
                       type="number"
+                      required
+                      min="1"
                       onIonChange={(e) =>
                         setWallArea(parseInt(e.detail.value!))
                       }
@@ -139,6 +157,8 @@ const SolidBrickCalculator: React.FC<SolidBrickCalculatorProps> = ({
                     <IonInput
                       value={wallOpenings}
                       type="number"
+                      required
+                      min="1"
                       onIonChange={(e) =>
                         setWallOpenings(parseInt(e.detail.value!))
                       }
@@ -154,13 +174,15 @@ const SolidBrickCalculator: React.FC<SolidBrickCalculatorProps> = ({
                 </IonRow>
                 <IonRow className="ion-justify-content-center ion-align-items-center">
                   <IonCol size="6">
-                    <img src={MortarJoint} />
+                    <img src={MortarJoint} alt="" />
                   </IonCol>
                   <IonCol size="6" className="ion-text-center">
                     <IonLabel position="floating">Espesor (cm)</IonLabel>
                     <IonInput
                       type="number"
                       value={wallThickness}
+                      required
+                      min="1"
                       onIonChange={(e) =>
                         setWallThickness(parseInt(e.detail.value!))
                       }
@@ -173,7 +195,7 @@ const SolidBrickCalculator: React.FC<SolidBrickCalculatorProps> = ({
               expand="full"
               size="large"
               className="ion-margin-horizontal"
-              onClick={clickHandler}
+              type="submit"
             >
               Calcular
             </IonButton>
@@ -181,6 +203,7 @@ const SolidBrickCalculator: React.FC<SolidBrickCalculatorProps> = ({
         ) : (
           <BrickResult {...Brick} />
         )}
+        </form>
       </IonContent>
     </IonPage>
   );
@@ -204,6 +227,7 @@ const BrickResult: React.FC<BrickResultProps> = ({
           slot="start"
           src={CeramicBrickImg}
           className="Foundation-sidepanel__img"
+          alt=""
         />
         <IonGrid>
           <IonRow>
@@ -262,13 +286,13 @@ const BrickResult: React.FC<BrickResultProps> = ({
           </IonRow>
           <IonRow>
             <IonCol className="ion-text-center">
-              <img src={WhatsappIcon} className="Foundation-Result__icon" />
+              <img src={WhatsappIcon} className="Foundation-Result__icon" alt="whatsapp" />
             </IonCol>
             <IonCol className="ion-text-center">
-              <img src={TelegramIcon} className="Foundation-Result__icon" />
+              <img src={TelegramIcon} className="Foundation-Result__icon" alt="telegram" />
             </IonCol>
             <IonCol className="ion-text-center">
-              <img src={EmailIcon} className="Foundation-Result__icon" />
+              <img src={EmailIcon} className="Foundation-Result__icon" alt="email" />
             </IonCol>
           </IonRow>
         </IonGrid>

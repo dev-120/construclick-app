@@ -8,6 +8,7 @@ import {
   IonCardHeader,
   IonItem,
 } from "@ionic/react";
+import { useHistory } from "react-router";
 
 import "./Foundation.css";
 import Header from "../../../components/Header/Header";
@@ -15,26 +16,25 @@ import Beam from "../../../assets/viga.png";
 import Pile from "../../../assets/pilote.png";
 import FoundationImg from "../../../assets/zapata.png";
 
-const slideOpts = {
-  initialSlide: 0,
-  speed: 400,
-};
-
 interface FoundationProps {
   match: {
     url: string;
   };
 }
 
-const FoundationOptions = [
-  { title: "Viga cimentación", isChecked: false, imageSrc: Beam },
-  { title: "Zapata", isChecked: false, imageSrc: FoundationImg },
-  { title: "Pilote", isChecked: false, imageSrc: Pile },
-];
+// const FoundationOptions = [
+//   { title: "Viga cimentación", isChecked: false, imageSrc: Beam },
+//   { title: "Zapata", isChecked: false, imageSrc: FoundationImg },
+//   { title: "Pilote", isChecked: false, imageSrc: Pile },
+// ];
 
 
 
 const Foundation: React.FC<FoundationProps> = ({ match }) => {
+  const history = useHistory()
+  const onClickCardHandler = (path: string) => {
+    history.push({ pathname: `${match.url}/${path}`, state: { name: path } })
+  }
   return (
     <IonPage>
       <IonContent fullscreen className="Foundation-content__style">
@@ -48,12 +48,13 @@ const Foundation: React.FC<FoundationProps> = ({ match }) => {
               lines="none"
               className="ion-margin-vertical"
               button
-              routerLink={`${match.url}/beam`}
+              onClick={() => onClickCardHandler('beam')}
             >
               <img
                 src={Beam}
                 slot="start"
                 className="Foundation-image__style"
+                alt=""
               />
               <IonText>Viga cimentación</IonText>
             </IonItem>
@@ -61,12 +62,13 @@ const Foundation: React.FC<FoundationProps> = ({ match }) => {
               lines="none"
               className="ion-margin-vertical"
               button
-              routerLink={`${match.url}/zapata`}
+              onClick={() => onClickCardHandler('zapata')}
             >
               <img
                 src={FoundationImg}
                 slot="start"
                 className="Foundation-image__style"
+                alt=""
               />
               <IonText>Zapata</IonText>
             </IonItem>
@@ -80,6 +82,7 @@ const Foundation: React.FC<FoundationProps> = ({ match }) => {
                 src={Pile}
                 slot="start"
                 className="Foundation-image__style"
+                alt=""
               />
               <IonText>Pilote</IonText>
             </IonItem>

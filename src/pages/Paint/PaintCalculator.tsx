@@ -10,6 +10,7 @@ import {
   IonText,
 } from "@ionic/react";
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 import "./PaintCalculator.css";
 import Header from "../../components/Header/Header";
@@ -18,6 +19,7 @@ import ExteriorPaintImg from "../../assets/exterior_paint.png";
 import WhatsappIcon from "../../assets/whatsapp_icon.png";
 import TelegramIcon from "../../assets/telegram_icon.png";
 import EmailIcon from "../../assets/email_icon.png";
+import { SET_CALCULATOR_INFORMATION } from "../../store/actions/calculator.actions";
 
 const menuPaint= [
   { type: "Pintura interior", linkTo: "interior-painting", imgSrc: InteriorPaintImg },
@@ -30,10 +32,12 @@ interface PaintProps {
       type: string;
     };
   };
+  location: any;
 }
 
-const StuccoCalculator: React.FC<PaintProps> = ({ match }) => {
-  const [calculate, setCalculte] = useState<boolean>(false);
+const StuccoCalculator: React.FC<PaintProps> = ({ match, location }) => {
+  const dispatch = useDispatch()
+  const [calculate, setCalculate] = useState<boolean>(false);
   const [menuOption, setMenuOption] = useState(Object || null);
   const [wallArea, setWallArea] = useState<number>(0);
   const [wallOpenings, setWallOpening] = useState<number>(0);
@@ -45,14 +49,25 @@ const StuccoCalculator: React.FC<PaintProps> = ({ match }) => {
     );
   }, [match]);
 
-  const clickHandler = () => {
-    setCalculte(true);
+  const submitHandler = (e:any) => {
+    e.preventDefault();
+    dispatch({
+      type: SET_CALCULATOR_INFORMATION,
+      payload: {
+        ...location.state,
+        wallArea,
+        wallOpenings,
+        paintCoating
+      }
+    })
+    setCalculate(true);
   };
 
   return (
     <IonPage>
       <Header canBack href="/calculator/paint" />
       <IonContent className="Foundation-content__style">
+        <form onSubmit={submitHandler}>
         {!calculate ? (
           <>
             <IonItem
@@ -63,6 +78,7 @@ const StuccoCalculator: React.FC<PaintProps> = ({ match }) => {
                 slot="start"
                 src={menuOption.imgSrc}
                 className="Foundation-sidepanel__img"
+                alt=""
               />
               <IonGrid>
                 <IonRow>
@@ -90,6 +106,8 @@ const StuccoCalculator: React.FC<PaintProps> = ({ match }) => {
                         setWallArea(parseInt(e.detail.value!))
                       }
                       type="number"
+                      required
+                      min="1"
                     />
                   </IonCol>
                 </IonRow>
@@ -111,6 +129,8 @@ const StuccoCalculator: React.FC<PaintProps> = ({ match }) => {
                         setWallOpening(parseInt(e.detail.value!))
                       }
                       type="number"
+                      required
+                      min="1"
                     />
                   </IonCol>
                 </IonRow>
@@ -130,6 +150,8 @@ const StuccoCalculator: React.FC<PaintProps> = ({ match }) => {
                       value={paintCoating}
                       onIonChange={e => setPaintCoating(parseInt(e.detail.value!))}
                       type="number"
+                      required
+                      min="1"
                     />
                   </IonCol>
                 </IonRow>
@@ -139,7 +161,7 @@ const StuccoCalculator: React.FC<PaintProps> = ({ match }) => {
               expand="full"
               size="large"
               className="ion-margin-horizontal"
-              onClick={clickHandler}
+              type="submit"
             >
               Calcular
             </IonButton>
@@ -147,6 +169,7 @@ const StuccoCalculator: React.FC<PaintProps> = ({ match }) => {
         ) : (
           <PaintResult {...menuOption} />
         )}
+        </form>
       </IonContent>
     </IonPage>
   );
@@ -162,7 +185,7 @@ const PaintResult: React.FC<menuPaintProps> = ({ type, linkTo, imgSrc }) => {
   return (
     <>
       <IonItem className="ion-margin-top ion-margin-horizontal" color="primary">
-        <img slot="start" src={imgSrc} className="Foundation-sidepanel__img" />
+        <img slot="start" src={imgSrc} className="Foundation-sidepanel__img" alt="" />
         <IonGrid>
           <IonRow>
             <IonCol size="12" className="ion-text-center">
@@ -202,13 +225,13 @@ const PaintResult: React.FC<menuPaintProps> = ({ type, linkTo, imgSrc }) => {
           )}
           <IonRow>
             <IonCol className="ion-text-center">
-              <img src={WhatsappIcon} className="Foundation-Result__icon" />
+              <img src={WhatsappIcon} className="Foundation-Result__icon" alt="whatsapp" />
             </IonCol>
             <IonCol className="ion-text-center">
-              <img src={TelegramIcon} className="Foundation-Result__icon" />
+              <img src={TelegramIcon} className="Foundation-Result__icon" alt="telegram" />
             </IonCol>
             <IonCol className="ion-text-center">
-              <img src={EmailIcon} className="Foundation-Result__icon" />
+              <img src={EmailIcon} className="Foundation-Result__icon" alt="email" />
             </IonCol>
           </IonRow>
         </IonGrid>

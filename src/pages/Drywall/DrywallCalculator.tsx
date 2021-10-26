@@ -9,7 +9,8 @@ import {
   IonRow,
   IonText,
 } from "@ionic/react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import "./DrywallCalculator.css";
 import Header from "../../components/Header/Header";
@@ -17,21 +18,43 @@ import DrywallCeilingImg from "../../assets/drywall_ceiling.png";
 import WhatsappIcon from "../../assets/whatsapp_icon.png";
 import TelegramIcon from "../../assets/telegram_icon.png";
 import EmailIcon from "../../assets/email_icon.png";
+import { SET_CALCULATOR_INFORMATION } from "../../store/actions/calculator.actions";
 
-const DrywallCalculator: React.FC = () => {
-  const [calculate, setCalculte] = useState<boolean>(false);
+interface DrywallCalculatorProps {
+  match: {
+    params: {
+      size: string;
+    };
+  };
+  location: any;
+}
+
+const DrywallCalculator: React.FC<DrywallCalculatorProps> = ({ location }) => {
+  const dispatch = useDispatch()
+  const [calculate, setCalculate] = useState<boolean>(false);
   const [wallArea, setWallArea] = useState<number>(0);
   const [wallOpenings, setWallOpening] = useState<number>(0);
   const [coatingThickness, setCoatingThickness] = useState<number>(2);
 
-  const clickHandler = () => {
-    setCalculte(true);
+  const submitHandler = (e:any) => {
+    e.preventDefault();
+    dispatch({
+      type: SET_CALCULATOR_INFORMATION,
+      payload: {
+        ...location.state,
+        wallArea,
+        wallOpenings,
+        coatingThickness
+      }
+    })
+    setCalculate(true);
   };
 
   return (
     <IonPage>
       <Header canBack href="/calculator/tiles" />
       <IonContent className="Foundation-content__style">
+        <form onSubmit={submitHandler}>
         {!calculate ? (
           <>
             <IonItem
@@ -42,6 +65,7 @@ const DrywallCalculator: React.FC = () => {
                 slot="start"
                 src={DrywallCeilingImg}
                 className="Foundation-sidepanel__img"
+                alt=""
               />
               <IonGrid>
                 <IonRow>
@@ -69,6 +93,8 @@ const DrywallCalculator: React.FC = () => {
                         setWallArea(parseInt(e.detail.value!))
                       }
                       type="number"
+                      required
+                      min="1"
                     />
                   </IonCol>
                 </IonRow>
@@ -90,6 +116,8 @@ const DrywallCalculator: React.FC = () => {
                         setWallOpening(parseInt(e.detail.value!))
                       }
                       type="number"
+                      required
+                      min="1"
                     />
                   </IonCol>
                 </IonRow>
@@ -111,6 +139,8 @@ const DrywallCalculator: React.FC = () => {
                         setCoatingThickness(parseInt(e.detail.value!))
                       }
                       type="number"
+                      required
+                      min="1"
                     />
                   </IonCol>
                 </IonRow>
@@ -120,7 +150,7 @@ const DrywallCalculator: React.FC = () => {
               expand="full"
               size="large"
               className="ion-margin-horizontal"
-              onClick={clickHandler}
+              type="submit"
             >
               Calcular
             </IonButton>
@@ -128,6 +158,7 @@ const DrywallCalculator: React.FC = () => {
         ) : (
           <DrywallResult />
         )}
+        </form>
       </IonContent>
     </IonPage>
   );
@@ -141,6 +172,7 @@ const DrywallResult: React.FC = () => {
           slot="start"
           src={DrywallCeilingImg}
           className="Foundation-sidepanel__img"
+          alt=""
         />
         <IonGrid>
           <IonRow>
@@ -217,13 +249,13 @@ const DrywallResult: React.FC = () => {
           </IonRow>
           <IonRow>
             <IonCol className="ion-text-center">
-              <img src={WhatsappIcon} className="Foundation-Result__icon" />
+              <img src={WhatsappIcon} className="Foundation-Result__icon" alt="whatsapp" />
             </IonCol>
             <IonCol className="ion-text-center">
-              <img src={TelegramIcon} className="Foundation-Result__icon" />
+              <img src={TelegramIcon} className="Foundation-Result__icon" alt="telegram" />
             </IonCol>
             <IonCol className="ion-text-center">
-              <img src={EmailIcon} className="Foundation-Result__icon" />
+              <img src={EmailIcon} className="Foundation-Result__icon" alt="email" />
             </IonCol>
           </IonRow>
         </IonGrid>

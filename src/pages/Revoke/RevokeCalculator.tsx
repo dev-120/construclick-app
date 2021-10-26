@@ -5,12 +5,13 @@ import {
   IonGrid,
   IonInput,
   IonItem,
-  IonLabel,
   IonPage,
   IonRow,
   IonText,
 } from "@ionic/react";
 import { useState, useEffect } from "react";
+import { SET_CALCULATOR_INFORMATION } from "../../store/actions/calculator.actions";
+import { useDispatch } from "react-redux";
 
 import Header from "../../components/Header/Header";
 import CoatingImg from "../../assets/coating.png";
@@ -21,11 +22,15 @@ import WhatsappIcon from "../../assets/whatsapp_icon.png";
 import TelegramIcon from "../../assets/telegram_icon.png";
 import EmailIcon from "../../assets/email_icon.png"
 
+
 interface RevokeCalculatorProps {
   match: {
     params: {
       type: string;
     };
+  };
+  location: {
+    state: Object;
   };
 }
 
@@ -48,8 +53,9 @@ const menuRevoke = [
   },
 ];
 
-const RevokeCalculator: React.FC<RevokeCalculatorProps> = ({ match }) => {
-  const [calculate, setCalculte] = useState<boolean>(false);
+const RevokeCalculator: React.FC<RevokeCalculatorProps> = ({ match, location }) => {
+  const dispatch = useDispatch();
+  const [calculate, setCalculate] = useState<boolean>(false);
   const [menuOption, setMenuOption] = useState(Object || null);
   const [wallArea, setWallArea] = useState<number>(0)
   const [wallOpenings, setWallOpening] = useState<number>(0)
@@ -61,14 +67,25 @@ const RevokeCalculator: React.FC<RevokeCalculatorProps> = ({ match }) => {
     );
   }, [match]);
 
-  const clickHandler = () => {
-    setCalculte(true)
-  }
+  const submitHandler = (e:any) => {
+    e.preventDefault();
+    dispatch({
+      type: SET_CALCULATOR_INFORMATION,
+      payload: {
+        ...location.state,
+        wallArea,
+        wallOpenings,
+        coatingThickness
+      }
+    })
+    setCalculate(true);
+  };
 
   return (
     <IonPage>
       <Header canBack href="/calculator/revoke" />
       <IonContent className="Foundation-content__style">
+        <form onSubmit={submitHandler}>
         {!calculate ? (
           <>
             <IonItem
@@ -79,6 +96,7 @@ const RevokeCalculator: React.FC<RevokeCalculatorProps> = ({ match }) => {
                 slot="start"
                 src={menuOption.imgSrc}
                 className="Foundation-sidepanel__img"
+                alt=""
               />
               <IonGrid>
                 <IonRow>
@@ -104,6 +122,8 @@ const RevokeCalculator: React.FC<RevokeCalculatorProps> = ({ match }) => {
                       value={wallArea}
                       onIonChange={(e) => setWallArea(parseInt(e.detail.value!))}
                       type="number"
+                      required
+                      min="1"
                     />
                   </IonCol>
                 </IonRow>
@@ -123,6 +143,8 @@ const RevokeCalculator: React.FC<RevokeCalculatorProps> = ({ match }) => {
                       value={wallOpenings}
                       onIonChange={(e) => setWallOpening(parseInt(e.detail.value!))}
                       type="number"
+                      required
+                      min="1"
                     />
                   </IonCol>
                 </IonRow>
@@ -142,6 +164,8 @@ const RevokeCalculator: React.FC<RevokeCalculatorProps> = ({ match }) => {
                       value={coatingThickness}
                       onIonChange={e => setCoatingThickness(parseInt(e.detail.value!))}
                       type="number"
+                      required
+                      min="1"
                     />
                   </IonCol>
                 </IonRow>
@@ -151,7 +175,7 @@ const RevokeCalculator: React.FC<RevokeCalculatorProps> = ({ match }) => {
               expand="full"
               size="large"
               className="ion-margin-horizontal"
-              onClick={clickHandler}
+              type="submit"
             >
               Calcular
             </IonButton>
@@ -159,6 +183,7 @@ const RevokeCalculator: React.FC<RevokeCalculatorProps> = ({ match }) => {
         ) : (
           <RevokeResult {...menuOption} />
         )}
+        </form>
       </IonContent>
     </IonPage>
   );
@@ -186,6 +211,7 @@ const RevokeResult: React.FC<menuRevokeProps> = ({
           slot="start"
           src={imgSrc}
           className="Foundation-sidepanel__img"
+          alt=""
         />
         <IonGrid>
           <IonRow>
@@ -239,13 +265,13 @@ const RevokeResult: React.FC<menuRevokeProps> = ({
           </IonRow>
           <IonRow>
             <IonCol className="ion-text-center">
-              <img src={WhatsappIcon} className="Foundation-Result__icon" />
+              <img src={WhatsappIcon} className="Foundation-Result__icon" alt="whatsapp" />
             </IonCol>
             <IonCol className="ion-text-center">
-              <img src={TelegramIcon} className="Foundation-Result__icon" />
+              <img src={TelegramIcon} className="Foundation-Result__icon" alt="telegram" />
             </IonCol>
             <IonCol className="ion-text-center">
-              <img src={EmailIcon} className="Foundation-Result__icon" />
+              <img src={EmailIcon} className="Foundation-Result__icon" alt="email" />
             </IonCol>
           </IonRow>
         </IonGrid>

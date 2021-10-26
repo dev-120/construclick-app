@@ -13,16 +13,17 @@ import {
   IonButton,
 } from "@ionic/react";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { SET_CALCULATOR_INFORMATION } from "../../../store/actions/calculator.actions";
 
-import "./BeamCalculator.css"
+import "./BeamCalculator.css";
 import Header from "../../../components/Header/Header";
 import StructuralBeamImg from "../../../assets/structural_beam.png";
-import ConfinementBeamImg from "../../../assets/confinement_beam.png"
-import BeamDimensionImg from "../../../assets/beam_dimensions.png"
+import ConfinementBeamImg from "../../../assets/confinement_beam.png";
+import BeamDimensionImg from "../../../assets/beam_dimensions.png";
 import WhatsappIcon from "../../../assets/whatsapp_icon.png";
 import EmailIcon from "../../../assets/email_icon.png";
 import TelegramIcon from "../../../assets/telegram_icon.png";
-
 
 const FoundationOption = {
   EC: [
@@ -48,48 +49,83 @@ interface OptionFoundationProps {
   match: {
     params: {
       title: string;
-    }
-  }
+    };
+  };
+  location: {
+    state: Object;
+  };
 }
 
-
 const BeamOptions = [
-  { title: "Viga estructural", imgSrc: StructuralBeamImg, linkTo: "structural-beam", calculatorImage: BeamDimensionImg},
-  { title: "Vigueta de confinamiento", imgSrc: ConfinementBeamImg,  linkTo: "confinement-beam", calculatorImage: BeamDimensionImg},
+  {
+    title: "Viga estructural",
+    imgSrc: StructuralBeamImg,
+    linkTo: "structural-beam",
+    calculatorImage: BeamDimensionImg,
+  },
+  {
+    title: "Vigueta de confinamiento",
+    imgSrc: ConfinementBeamImg,
+    linkTo: "confinement-beam",
+    calculatorImage: BeamDimensionImg,
+  },
 ];
 
-
 const BeamCalculator: React.FC<OptionFoundationProps> = ({
-  match
+  match,
+  location,
 }) => {
-  const [typeBeam, setTypeBeam ] = useState(Object)
+  const dispatch = useDispatch();
+  const [typeBeam, setTypeBeam] = useState(Object);
   const [typeStructure, setTypeStructure] = useState<structureType>("EC");
   const [concreteResistance, setConcreteResistance] = useState<any>(
     FoundationOption[typeStructure]
   );
   const [valueConcreteResistance, setValueConcreteResistance] =
     useState<number>(0);
-  const [inputNumberRods, setInputNumberRods] = useState<number>(4);
+  const [beamDimension, setBeamDimension] = useState({
+    A: 0,
+    B: 0,
+    H: 0,
+    rodNumber: 0,
+  });
   const [inputCoating, setInputCoating] = useState<number>(5);
   const [inputDiameterRods, setInputDiameterRods] = useState<string>("1/2");
 
   const [calculate, setCalculate] = useState<boolean>(false);
 
   useEffect(() => {
-    setTypeBeam(BeamOptions.filter((option) => option.linkTo === match.params.title)[0])
+    setTypeBeam(
+      BeamOptions.filter((option) => option.linkTo === match.params.title)[0]
+    );
     setConcreteResistance(FoundationOption[typeStructure]);
   }, [typeStructure, match]);
 
-  const clickHandler=() => {
+  const submitHandler = (e: any) => {
+    e.preventDefault();
+    dispatch({
+      type: SET_CALCULATOR_INFORMATION,
+      payload: {
+        ...location.state,
+        typeOfStructure: typeStructure,
+        concreteResistance: valueConcreteResistance,
+        dimensions: {
+          ...beamDimension,
+        },
+        coating: inputCoating,
+        rodDiameter: inputDiameterRods,
+      },
+    });
+
     setCalculate(true);
-  }
+  };
 
   return (
     <IonPage>
       <Header canBack href="/calculator/concrete/beam" />
       <IonContent className="Foundation-content__style">
         {!calculate ? (
-          <>
+          <form onSubmit={submitHandler}>
             <IonItem
               className="ion-margin-top ion-margin-horizontal"
               color="primary"
@@ -98,6 +134,7 @@ const BeamCalculator: React.FC<OptionFoundationProps> = ({
                 slot="start"
                 src={typeBeam.imgSrc}
                 className="Foundation-sidepanel__img"
+                alt=""
               />
               <IonText>
                 <h4>{typeBeam.title}</h4>
@@ -128,7 +165,9 @@ const BeamCalculator: React.FC<OptionFoundationProps> = ({
               </IonSelect>
             </IonItem>
             <IonItem className="ion-margin-horizontal">
-              <IonLabel position="floating">Seleccione la resistencia del concreto</IonLabel>
+              <IonLabel position="floating">
+                Seleccione la resistencia del concreto
+              </IonLabel>
               <IonSelect
                 value={valueConcreteResistance}
                 onIonChange={(e) => setValueConcreteResistance(e.detail.value!)}
@@ -148,29 +187,67 @@ const BeamCalculator: React.FC<OptionFoundationProps> = ({
                 </IonRow>
                 <IonRow className="ion-justify-content-center ion-align-items-center">
                   <IonCol>
-                    <img src={typeBeam.calculatorImage} />
+                    <img src={typeBeam.calculatorImage} alt="" />
                   </IonCol>
                   <IonCol>
                     <h5>Dimensiones de la columna</h5>
                     <IonItem>
                       <IonLabel position="floating">A(m)</IonLabel>
-                      <IonInput type="number" />
+                      <IonInput
+                        type="number"
+                        required
+                        min="1"
+                        value={beamDimension.A}
+                        onIonChange={(e) =>
+                          setBeamDimension((data) => ({
+                            ...data,
+                            A: Number(e.detail.value!),
+                          }))
+                        }
+                      />
                     </IonItem>
                     <IonItem>
                       <IonLabel position="floating">B(m)</IonLabel>
-                      <IonInput type="number" />
+                      <IonInput
+                        type="number"
+                        required
+                        min="1"
+                        value={beamDimension.B}
+                        onIonChange={(e) =>
+                          setBeamDimension((data) => ({
+                            ...data,
+                            B: Number(e.detail.value!),
+                          }))
+                        }
+                      />
                     </IonItem>
                     <IonItem>
                       <IonLabel position="floating">H(m)</IonLabel>
-                      <IonInput type="number" />
+                      <IonInput
+                        type="number"
+                        required
+                        min="1"
+                        value={beamDimension.H}
+                        onIonChange={(e) =>
+                          setBeamDimension((data) => ({
+                            ...data,
+                            H: Number(e.detail.value!),
+                          }))
+                        }
+                      />
                     </IonItem>
                     <IonItem>
                       <IonLabel position="floating">N° varillas </IonLabel>
                       <IonInput
-                        value={inputNumberRods}
+                        value={beamDimension.rodNumber}
                         type="number"
+                        required
+                        min="1"
                         onIonChange={(e) =>
-                          setInputNumberRods(Number(e.detail.value!))
+                          setBeamDimension((data) => ({
+                            ...data,
+                            rodNumber: Number(e.detail.value!),
+                          }))
                         }
                       />
                     </IonItem>
@@ -210,11 +287,11 @@ const BeamCalculator: React.FC<OptionFoundationProps> = ({
               expand="full"
               size="large"
               className="ion-margin-horizontal"
-              onClick={clickHandler}
+              type="submit"
             >
               Calcular
             </IonButton>
-          </>
+          </form>
         ) : (
           <BeamCalculatorResult {...typeBeam} />
         )}
@@ -223,12 +300,15 @@ const BeamCalculator: React.FC<OptionFoundationProps> = ({
   );
 };
 
-interface CalculatorResultProps{
+interface CalculatorResultProps {
   title: string;
   imgSrc: string;
 }
 
-const BeamCalculatorResult: React.FC<CalculatorResultProps> = ({ title, imgSrc }) => {
+const BeamCalculatorResult: React.FC<CalculatorResultProps> = ({
+  title,
+  imgSrc,
+}) => {
   return (
     <IonContent className="Foundation-content__style">
       <IonItem className="ion-margin-top ion-margin-horizontal" color="primary">
@@ -236,6 +316,7 @@ const BeamCalculatorResult: React.FC<CalculatorResultProps> = ({ title, imgSrc }
           slot="start"
           src={imgSrc}
           className="Foundation-sidepanel__img"
+          alt=""
         />
         <IonText>
           <h4>{title}</h4>
@@ -257,17 +338,21 @@ const BeamCalculatorResult: React.FC<CalculatorResultProps> = ({ title, imgSrc }
           </IonRow>
           <IonRow>
             <IonCol className="ion-text-center">
-              {"Acero de refuerzo\nØ 1/2\""}
+              {'Acero de refuerzo\nØ 1/2"'}
             </IonCol>
             <IonCol className="ion-text-center">3,1</IonCol>
-            <IonCol className="ion-text-center">{"Varilla/barra\nX 6mt"}</IonCol>
+            <IonCol className="ion-text-center">
+              {"Varilla/barra\nX 6mt"}
+            </IonCol>
           </IonRow>
           <IonRow>
             <IonCol className="ion-text-center">
-              {"Acero de estribos\nØ 3/8\""}
+              {'Acero de estribos\nØ 3/8"'}
             </IonCol>
             <IonCol className="ion-text-center">1,9</IonCol>
-            <IonCol className="ion-text-center">{"Varilla/barra\nX 6mt"}</IonCol>
+            <IonCol className="ion-text-center">
+              {"Varilla/barra\nX 6mt"}
+            </IonCol>
           </IonRow>
           <IonRow>
             <IonCol className="ion-text-center">
@@ -293,13 +378,25 @@ const BeamCalculatorResult: React.FC<CalculatorResultProps> = ({ title, imgSrc }
           </IonRow>
           <IonRow>
             <IonCol className="ion-text-center">
-              <img src={WhatsappIcon} className="Foundation-Result__icon" />
+              <img
+                src={WhatsappIcon}
+                className="Foundation-Result__icon"
+                alt="whatsapp"
+              />
             </IonCol>
             <IonCol className="ion-text-center">
-              <img src={TelegramIcon} className="Foundation-Result__icon" />
+              <img
+                src={TelegramIcon}
+                className="Foundation-Result__icon"
+                alt="telegram"
+              />
             </IonCol>
             <IonCol className="ion-text-center">
-              <img src={EmailIcon} className="Foundation-Result__icon" />
+              <img
+                src={EmailIcon}
+                className="Foundation-Result__icon"
+                alt="email"
+              />
             </IonCol>
           </IonRow>
         </IonGrid>

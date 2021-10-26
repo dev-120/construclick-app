@@ -11,7 +11,7 @@ import {
   IonRow,
   IonText,
 } from "@ionic/react";
-import { Redirect, Route } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Header from "../../../components/Header/Header";
 
 import CeramicBrickImg from '../../../assets/ceramic_brick.png'
@@ -26,14 +26,15 @@ import CeramicBrickImg from '../../../assets/ceramic_brick.png'
 // };
 
 const menuBrick = [
-  { brickType: "3 Agujeros", size: "(10 x 20 x 40)", linkTo: "3" },
-  { brickType: "6 Agujeros", size: "(10 x 20 x 40)", linkTo: "6" },
-  { brickType: "9 Agujeros", size: "(10 x 20 x 40)", linkTo: "9" },
-  { brickType: "12 Agujeros", size: "(10 x 20 x 40)", linkTo: "12" },
+  { brickType: "3 Agujeros", size: "(10 x 20 x 40)", linkTo: "/3", subMenu: "brick-holes-3" },
+  { brickType: "6 Agujeros", size: "(10 x 20 x 40)", linkTo: "/6", subMenu: "brick-holes-6" },
+  { brickType: "9 Agujeros", size: "(10 x 20 x 40)", linkTo: "/9", subMenu: "brick-holes-9" },
+  { brickType: "12 Agujeros", size: "(10 x 20 x 40)", linkTo: "/12", subMenu: "brick-holes-12" },
   {
     brickType: "N° Agujeros",
     size: "(Selección dimensiones)",
-    linkTo: "personalized",
+    linkTo: "/personalized",
+    subMenu: "personalized"
   },
 ];
 
@@ -41,6 +42,7 @@ interface CeramicBrickProps {
   match: {
     url: string;
   };
+  location: any;
 }
 
 
@@ -48,9 +50,15 @@ interface menuCeramicBrickProps {
   brickType: string;
   size: string;
   linkTo: string;
+  subMenu: string;
 }
 
-const CeramicBrick: React.FC<CeramicBrickProps> = ({ match }) => {
+const CeramicBrick: React.FC<CeramicBrickProps> = ({ match, location }) => {
+  const history = useHistory();
+  const onClickCardHandler = (path: string, state: string) =>{
+    history.push({ pathname: `${match.url}${path}`, state: {...location.state, subMenu: state} })
+  }
+
   return (
     <IonPage>
       <IonPage>
@@ -64,18 +72,19 @@ const CeramicBrick: React.FC<CeramicBrickProps> = ({ match }) => {
             </IonCardHeader>
             <IonCardContent>
               {menuBrick.map(
-                ({ brickType, size, linkTo }: menuCeramicBrickProps) => (
+                ({ brickType, size, linkTo, subMenu }: menuCeramicBrickProps) => (
                   <IonItem
                     lines="none"
                     className="ion-margin-vertical"
                     button
-                    routerLink={`${match.url}/${linkTo}`}
+                    onClick={() => onClickCardHandler(linkTo, subMenu)}
                     key={linkTo}
                   >
                     <img
                       src={CeramicBrickImg}
                       slot="start"
                       className="SolidBrick-image__style"
+                      alt=""
                     />
                     <IonGrid>
                       <IonRow>

@@ -11,6 +11,7 @@ import {
   IonRow,
   IonText,
 } from "@ionic/react";
+import { useHistory } from "react-router";
 
 
 import "./Stucco.css"
@@ -21,7 +22,10 @@ import AcrylicStuccoImg from "../../assets/acrylic_stucco.png"
 interface StuccoProps{
   match: {
     url: string;
-  }
+  };
+  location: {
+    state: Object;
+  };
 }
 
 interface menuStuccoProps{
@@ -31,11 +35,16 @@ interface menuStuccoProps{
 }
 
 const menuStucco= [
-  { type: "Estuco Listo", linkTo: "stucco-ready", imgSrc: StuccoImg },
+  { type: "Estuco Liso", linkTo: "smooth-stucco", imgSrc: StuccoImg },
   { type: "Estuco Acrilico", linkTo: "acrylic-stucco", imgSrc: AcrylicStuccoImg }
 ]
 
 const Stucco:React.FC<StuccoProps> = ({ match }) => {
+  const history = useHistory()
+  const onClickCardHandler = (path: string) => {
+    history.push({ pathname: `${match.url}/${path}`, state: { name: path } })
+  }
+
   return (
     <IonPage>
       <IonPage>
@@ -54,13 +63,14 @@ const Stucco:React.FC<StuccoProps> = ({ match }) => {
                     lines="none"
                     className="ion-margin-vertical"
                     button
-                    routerLink={`${match.url}/${linkTo}`}
+                    onClick={() => onClickCardHandler(linkTo)}
                     key={linkTo}
                   >
                     <img
                       src={imgSrc}
                       slot="start"
                       className="Stucco-image__style"
+                      alt=""
                     />
                     <IonGrid>
                       <IonRow>

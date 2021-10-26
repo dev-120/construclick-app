@@ -18,6 +18,7 @@ import Header from "../../components/Header/Header";
 import CeramicFloorImg from "../../assets/ceramic_floor.png";
 import PorcelainFloorImg from "../../assets/porcelain_floor.png"
 import VeneerImg from "../../assets/veneer.png";
+import { useHistory } from "react-router";
 
 interface TilesProps{
   match: {
@@ -38,6 +39,12 @@ const menuTiles= [
 ]
 
 const Tiles:React.FC<TilesProps> = ({ match }) => {
+  const history = useHistory();
+
+  const onClickCardHandler = (path: string) => {
+    history.push({ pathname: `${match.url}/${path}`, state: { name: path } })
+  }
+
   return (
     <IonPage>
       <IonPage>
@@ -56,13 +63,14 @@ const Tiles:React.FC<TilesProps> = ({ match }) => {
                     lines="none"
                     className="ion-margin-vertical"
                     button
-                    routerLink={`${match.url}/${linkTo}`}
+                    onClick={() => onClickCardHandler(linkTo)}
                     key={linkTo}
                   >
                     <img
                       src={imgSrc}
                       slot="start"
                       className="Tiles-image__style"
+                      alt=""
                     />
                     <IonGrid>
                       <IonRow>

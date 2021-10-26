@@ -25,6 +25,8 @@ import EmailIcon from "../../../assets/email_icon.png";
 import TelegramIcon from "../../../assets/telegram_icon.png";
 import BlocklonImg from "../../../assets/blocklon.png";
 import StyrofoamImg from "../../../assets/styrofoam.png";
+import { SET_CALCULATOR_INFORMATION } from "../../../store/actions/calculator.actions";
+import { useDispatch } from "react-redux";
 
 const FoundationOption = {
   EC: [
@@ -51,6 +53,9 @@ interface OptionFoundationProps {
     params: {
       type: string;
     };
+  };
+  location: {
+    state: Object;
   };
 }
 
@@ -81,19 +86,37 @@ const SlabOptions = [
   },
 ];
 
-const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
+const SlabsCalculator: React.FC<OptionFoundationProps> = ({
+  match,
+  location,
+}) => {
+  const dispatch = useDispatch();
   const [typeSlab, setTypeSlab] = useState(Object);
   const [typeStructure, setTypeStructure] = useState<structureType>("EC");
   const [concreteResistance, setConcreteResistance] = useState<any>(
     FoundationOption[typeStructure]
   );
   const [valueConcreteResistance, setValueConcreteResistance] =
-    useState<number>(0);
-  const [inputNumberRods, setInputNumberRods] = useState<number>(4);
+    useState<number>(3600);
   const [inputCoating, setInputCoating] = useState<number>(5);
-  const [inputDiameterRods, setInputDiameterRods] = useState<string>("1/2");
   const [inputDiameterMesh, setInputDiameterMesh] = useState<string>("4,5");
-  const [caliberSheetMetaldeck, setCaliberSheetMetaldeck] = useState<string>("0,7")
+  const [caliberSheetMetaldeck, setCaliberSheetMetaldeck] =
+    useState<string>("0,7");
+  const [columnDimensions, setColumnDimensions] = useState({
+    A: 0,
+    B: 0,
+    thickness: 0,
+  });
+  const [blockSlabZapataDimensions, setBlockSlabZapataDimensions] = useState({
+    A: 0,
+    B: 0,
+    C: 0,
+  });
+  const [polystyreneDimensions, setPolystyreneDimensions] = useState({
+    A: 0,
+    B: 0,
+  });
+  const [areaOpenings, setAreaOpenings] = useState(0);
 
   const [calculate, setCalculate] = useState<boolean>(false);
 
@@ -104,16 +127,78 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
     setConcreteResistance(FoundationOption[typeStructure]);
   }, [typeStructure, match]);
 
-  const clickHandler = () => {
+  const submitHandler = (e: any) => {
+    e.preventDefault();
+    switch (typeSlab.linkTo) {
+      case "block-slab":
+        dispatch({
+          type: SET_CALCULATOR_INFORMATION,
+          payload: {
+            ...location.state,
+            typeStructure,
+            concreteResistance: valueConcreteResistance,
+            columnDimensions,
+            coating: inputCoating,
+            areaOpenings,
+            blockSlabZapataDimensions,
+            diameterMesh: inputDiameterMesh,
+          },
+        });
+        break;
+      case "lightened-slab":
+        dispatch({
+          type: SET_CALCULATOR_INFORMATION,
+          payload: {
+            ...location.state,
+            typeStructure,
+            concreteResistance: valueConcreteResistance,
+            columnDimensions,
+            coating: inputCoating,
+            areaOpenings,
+            polystyreneDimensions,
+            diameterMesh: inputDiameterMesh,
+          },
+        });
+        break;
+      case "solid-slab":
+        dispatch({
+          type: SET_CALCULATOR_INFORMATION,
+          payload: {
+            ...location.state,
+            typeStructure,
+            concreteResistance: valueConcreteResistance,
+            columnDimensions,
+            coating: inputCoating,
+            areaOpenings,
+            diameterMesh: inputDiameterMesh,
+          },
+        });
+        break;
+      case "metaldeck-slab":
+        dispatch({
+          type: SET_CALCULATOR_INFORMATION,
+          payload: {
+            ...location.state,
+            typeStructure,
+            concreteResistance: valueConcreteResistance,
+            columnDimensions,
+            coating: inputCoating,
+            areaOpenings,
+            diameterMesh: inputDiameterMesh,
+            caliberSheetMetaldeck,
+          },
+        });
+        break;
+    }
     setCalculate(true);
   };
-  
+
   return (
     <IonPage>
       <Header canBack href="/calculator/concrete/slabs" />
       <IonContent className="Foundation-content__style">
         {!calculate ? (
-          <>
+          <form onSubmit={submitHandler}>
             <IonItem
               className="ion-margin-top ion-margin-horizontal"
               color="primary"
@@ -122,6 +207,7 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                 slot="start"
                 src={typeSlab.imgSrc}
                 className="Foundation-sidepanel__img"
+                alt=""
               />
               <IonText>
                 <h4>{typeSlab.title}</h4>
@@ -174,21 +260,54 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                 </IonRow>
                 <IonRow className="ion-justify-content-center ion-align-items-center">
                   <IonCol>
-                    <img src={typeSlab.imgSrc} />
+                    <img src={typeSlab.imgSrc} alt="" />
                   </IonCol>
                   <IonCol>
                     <h5>Dimensiones de la columna</h5>
                     <IonItem>
                       <IonLabel position="floating">A(m)</IonLabel>
-                      <IonInput type="number" />
+                      <IonInput
+                        type="number"
+                        required
+                        min="1"
+                        value={columnDimensions.A}
+                        onIonChange={(e) =>
+                          setColumnDimensions((data) => ({
+                            ...data,
+                            A: Number(e.detail.value),
+                          }))
+                        }
+                      />
                     </IonItem>
                     <IonItem>
                       <IonLabel position="floating">B(m)</IonLabel>
-                      <IonInput type="number" />
+                      <IonInput
+                        type="number"
+                        required
+                        min="1"
+                        value={columnDimensions.B}
+                        onIonChange={(e) =>
+                          setColumnDimensions((data) => ({
+                            ...data,
+                            B: Number(e.detail.value),
+                          }))
+                        }
+                      />
                     </IonItem>
                     <IonItem>
                       <IonLabel position="floating">Espesor(m)</IonLabel>
-                      <IonInput type="number" />
+                      <IonInput
+                        type="number"
+                        required
+                        min="1"
+                        value={columnDimensions.thickness}
+                        onIonChange={(e) =>
+                          setColumnDimensions((data) => ({
+                            ...data,
+                            thickness: Number(e.detail.value),
+                          }))
+                        }
+                      />
                     </IonItem>
                   </IonCol>
                 </IonRow>
@@ -200,6 +319,8 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                 slot="end"
                 value={inputCoating}
                 type="number"
+                required
+                min="1"
                 onIonChange={(e) => setInputCoating(Number(e.detail.value!))}
               />
             </IonItem>
@@ -211,12 +332,20 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                     <IonLabel position="floating">
                       {"Área descontada\n(m2)"}
                     </IonLabel>
-                    <IonInput type="number" />
+                    <IonInput
+                      type="number"
+                      required
+                      min="1"
+                      value={areaOpenings}
+                      onIonChange={(e) =>
+                        setAreaOpenings(Number(e.detail.value))
+                      }
+                    />
                   </IonCol>
                 </IonRow>
               </IonGrid>
             </IonItem>
-            {typeSlab.linkTo === "block-slab" ? (
+            {typeSlab.linkTo === "block-slab" && (
               <>
                 <IonItem className="ion-margin-horizontal">
                   <IonGrid>
@@ -225,21 +354,54 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                     </IonRow>
                     <IonRow className="ion-justify-content-center ion-align-items-center">
                       <IonCol>
-                        <img src={typeSlab.calculatorImage} />
+                        <img src={typeSlab.calculatorImage} alt="" />
                       </IonCol>
                       <IonCol>
                         <h5>Dimensiones de zapata</h5>
                         <IonItem>
                           <IonLabel position="floating">A(m)</IonLabel>
-                          <IonInput type="number" />
+                          <IonInput
+                            type="number"
+                            required
+                            min="1"
+                            value={blockSlabZapataDimensions.A}
+                            onIonChange={(e) =>
+                              setBlockSlabZapataDimensions((data) => ({
+                                ...data,
+                                A: Number(e.detail.value),
+                              }))
+                            }
+                          />
                         </IonItem>
                         <IonItem>
                           <IonLabel position="floating">B(m)</IonLabel>
-                          <IonInput type="number" />
+                          <IonInput
+                            type="number"
+                            required
+                            min="1"
+                            value={blockSlabZapataDimensions.B}
+                            onIonChange={(e) =>
+                              setBlockSlabZapataDimensions((data) => ({
+                                ...data,
+                                B: Number(e.detail.value),
+                              }))
+                            }
+                          />
                         </IonItem>
                         <IonItem>
                           <IonLabel position="floating">C(m)</IonLabel>
-                          <IonInput type="number" />
+                          <IonInput
+                            type="number"
+                            required
+                            min="1"
+                            value={blockSlabZapataDimensions.C}
+                            onIonChange={(e) =>
+                              setBlockSlabZapataDimensions((data) => ({
+                                ...data,
+                                C: Number(e.detail.value),
+                              }))
+                            }
+                          />
                         </IonItem>
                       </IonCol>
                     </IonRow>
@@ -266,130 +428,156 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                   </IonSelect>
                 </IonItem>
               </>
-            ) : (
-              typeSlab.linkTo === "lightened-slab" && (
-                <>
-                  <IonItem className="ion-margin-horizontal">
-                    <IonGrid>
-                      <IonRow>
-                        <p>Diseño de dimensiones:</p>
-                      </IonRow>
-                      <IonRow className="ion-justify-content-center ion-align-items-center">
-                        <IonCol>
-                          <img src={typeSlab.calculatorImage} />
-                        </IonCol>
-                        <IonCol>
-                          <h5>Ingrese dimensiones</h5>
-                          <IonItem>
-                            <IonLabel position="floating">A(m)</IonLabel>
-                            <IonInput type="number" />
-                          </IonItem>
-                          <IonItem>
-                            <IonLabel position="floating">B(m)</IonLabel>
-                            <IonInput type="number" />
-                          </IonItem>
-                        </IonCol>
-                      </IonRow>
-                    </IonGrid>
-                  </IonItem>
-                  <IonItem className="ion-margin-horizontal" lines="none">
-                    <h4>Diseño del acero:</h4>
-                  </IonItem>
-                  <IonItem className="ion-margin-horizontal" lines="none">
-                    <IonLabel position="floating">
-                      Diametro de la malla electrosoldada
-                    </IonLabel>
-                    <IonSelect
-                      value={inputDiameterMesh}
-                      onIonChange={(e) => setInputDiameterMesh(e.detail.value!)}
-                      placeholder="Selecciona Uno"
-                    >
-                      <IonSelectOption value="4">Ø 4mm</IonSelectOption>
-                      <IonSelectOption value="4,5">Ø 4,5mm</IonSelectOption>
-                      <IonSelectOption value="5,0">Ø 5,0mm</IonSelectOption>
-                      <IonSelectOption value="5,5">Ø 5,5mm</IonSelectOption>
-                      <IonSelectOption value="6,0">Ø 6,0mm</IonSelectOption>
-                      <IonSelectOption value="6,5">Ø 6,5mm</IonSelectOption>
-                    </IonSelect>
-                  </IonItem>
-                </>
-              )
             )}
-            {
-              typeSlab.linkTo === "solid-slab" ?
-              (
-                <>
+            {typeSlab.linkTo === "lightened-slab" && (
+              <>
+                <IonItem className="ion-margin-horizontal">
+                  <IonGrid>
+                    <IonRow>
+                      <p>Diseño de Icopor:</p>
+                    </IonRow>
+                    <IonRow className="ion-justify-content-center ion-align-items-center">
+                      <IonCol>
+                        <img src={typeSlab.calculatorImage} alt="" />
+                      </IonCol>
+                      <IonCol>
+                        <h5>Ingrese dimensiones</h5>
+                        <IonItem>
+                          <IonLabel position="floating">A(m)</IonLabel>
+                          <IonInput
+                            type="number"
+                            value={polystyreneDimensions.A}
+                            required
+                            min="1"
+                            onIonChange={(e) =>
+                              setPolystyreneDimensions((data) => ({
+                                ...data,
+                                A: Number(e.detail.value),
+                              }))
+                            }
+                          />
+                        </IonItem>
+                        <IonItem>
+                          <IonLabel position="floating">B(m)</IonLabel>
+                          <IonInput
+                            type="number"
+                            required
+                            min="1"
+                            value={polystyreneDimensions.B}
+                            onIonChange={(e) =>
+                              setPolystyreneDimensions((data) => ({
+                                ...data,
+                                B: Number(e.detail.value),
+                              }))
+                            }
+                          />
+                        </IonItem>
+                      </IonCol>
+                    </IonRow>
+                  </IonGrid>
+                </IonItem>
                 <IonItem className="ion-margin-horizontal" lines="none">
-                    <h4>Diseño del acero:</h4>
-                  </IonItem>
-                  <IonItem className="ion-margin-horizontal" lines="none">
-                    <IonLabel position="floating">
-                      Diametro de la malla electrosoldada
-                    </IonLabel>
-                    <IonSelect
-                      value={inputDiameterMesh}
-                      onIonChange={(e) => setInputDiameterMesh(e.detail.value!)}
-                      placeholder="Selecciona Uno"
-                    >
-                      <IonSelectOption value="4">Ø 4mm</IonSelectOption>
-                      <IonSelectOption value="4,5">Ø 4,5mm</IonSelectOption>
-                      <IonSelectOption value="5,0">Ø 5,0mm</IonSelectOption>
-                      <IonSelectOption value="5,5">Ø 5,5mm</IonSelectOption>
-                      <IonSelectOption value="6,0">Ø 6,0mm</IonSelectOption>
-                      <IonSelectOption value="6,5">Ø 6,5mm</IonSelectOption>
-                    </IonSelect>
-                  </IonItem>
-                  </>
-              )
-              :
-              (
-                <>
-                  <IonItem className="ion-margin-horizontal" lines="none">
-                    <h4>Diseño del acero:</h4>
-                  </IonItem>
-                  <IonItem className="ion-margin-horizontal" lines="none">
-                    <IonLabel position="floating">
-                      Diametro de la malla electrosoldada
-                    </IonLabel>
-                    <IonSelect
-                      value={inputDiameterMesh}
-                      onIonChange={(e) => setInputDiameterMesh(e.detail.value!)}
-                      placeholder="Selecciona Uno"
-                    >
-                      <IonSelectOption value="4">Ø 4mm</IonSelectOption>
-                      <IonSelectOption value="4,5">Ø 4,5mm</IonSelectOption>
-                      <IonSelectOption value="5,0">Ø 5,0mm</IonSelectOption>
-                      <IonSelectOption value="5,5">Ø 5,5mm</IonSelectOption>
-                      <IonSelectOption value="6,0">Ø 6,0mm</IonSelectOption>
-                      <IonSelectOption value="6,5">Ø 6,5mm</IonSelectOption>
-                    </IonSelect>
-                  </IonItem>
-                  <IonItem className="ion-margin-horizontal" lines="none">
-                    <IonLabel position="floating">
-                      Diametro de la malla electrosoldada
-                    </IonLabel>
-                    <IonSelect
-                      value={caliberSheetMetaldeck}
-                      onIonChange={(e) => setCaliberSheetMetaldeck(e.detail.value!)}
-                      placeholder="Selecciona Uno"
-                    >
-                      <IonSelectOption value="0,7">Cal.22 - 0,7mm</IonSelectOption>
-                      <IonSelectOption value="0,85">Cal.20 - 0,85mm</IonSelectOption>
-                      <IonSelectOption value="1,2">Cal.18 - 1,2mm</IonSelectOption>
-                    </IonSelect>
-                  </IonItem>
-                </>
-              )
-            }
+                  <h4>Diseño del acero:</h4>
+                </IonItem>
+                <IonItem className="ion-margin-horizontal" lines="none">
+                  <IonLabel position="floating">
+                    Diametro de la malla electrosoldada
+                  </IonLabel>
+                  <IonSelect
+                    value={inputDiameterMesh}
+                    onIonChange={(e) => setInputDiameterMesh(e.detail.value!)}
+                    placeholder="Selecciona Uno"
+                  >
+                    <IonSelectOption value="4">Ø 4mm</IonSelectOption>
+                    <IonSelectOption value="4,5">Ø 4,5mm</IonSelectOption>
+                    <IonSelectOption value="5,0">Ø 5,0mm</IonSelectOption>
+                    <IonSelectOption value="5,5">Ø 5,5mm</IonSelectOption>
+                    <IonSelectOption value="6,0">Ø 6,0mm</IonSelectOption>
+                    <IonSelectOption value="6,5">Ø 6,5mm</IonSelectOption>
+                  </IonSelect>
+                </IonItem>
+              </>
+            )}
+            {typeSlab.linkTo === "solid-slab" && (
+              <>
+                <IonItem className="ion-margin-horizontal" lines="none">
+                  <h4>Diseño del acero:</h4>
+                </IonItem>
+                <IonItem className="ion-margin-horizontal" lines="none">
+                  <IonLabel position="floating">
+                    Diametro de la malla electrosoldada
+                  </IonLabel>
+                  <IonSelect
+                    value={inputDiameterMesh}
+                    onIonChange={(e) => setInputDiameterMesh(e.detail.value!)}
+                    placeholder="Selecciona Uno"
+                  >
+                    <IonSelectOption value="4">Ø 4mm</IonSelectOption>
+                    <IonSelectOption value="4,5">Ø 4,5mm</IonSelectOption>
+                    <IonSelectOption value="5,0">Ø 5,0mm</IonSelectOption>
+                    <IonSelectOption value="5,5">Ø 5,5mm</IonSelectOption>
+                    <IonSelectOption value="6,0">Ø 6,0mm</IonSelectOption>
+                    <IonSelectOption value="6,5">Ø 6,5mm</IonSelectOption>
+                  </IonSelect>
+                </IonItem>
+              </>
+            )}
+
+            {typeSlab.linkTo === "metaldeck-slab" && (
+              <>
+                <IonItem className="ion-margin-horizontal" lines="none">
+                  <h4>Diseño del acero:</h4>
+                </IonItem>
+                <IonItem className="ion-margin-horizontal" lines="none">
+                  <IonLabel position="floating">
+                    Diametro de la malla electrosoldada
+                  </IonLabel>
+                  <IonSelect
+                    value={inputDiameterMesh}
+                    onIonChange={(e) => setInputDiameterMesh(e.detail.value!)}
+                    placeholder="Selecciona Uno"
+                  >
+                    <IonSelectOption value="4">Ø 4mm</IonSelectOption>
+                    <IonSelectOption value="4,5">Ø 4,5mm</IonSelectOption>
+                    <IonSelectOption value="5,0">Ø 5,0mm</IonSelectOption>
+                    <IonSelectOption value="5,5">Ø 5,5mm</IonSelectOption>
+                    <IonSelectOption value="6,0">Ø 6,0mm</IonSelectOption>
+                    <IonSelectOption value="6,5">Ø 6,5mm</IonSelectOption>
+                  </IonSelect>
+                </IonItem>
+                <IonItem className="ion-margin-horizontal" lines="none">
+                  <IonLabel position="floating">
+                    Diametro de la malla electrosoldada
+                  </IonLabel>
+                  <IonSelect
+                    value={caliberSheetMetaldeck}
+                    onIonChange={(e) =>
+                      setCaliberSheetMetaldeck(e.detail.value!)
+                    }
+                    placeholder="Selecciona Uno"
+                  >
+                    <IonSelectOption value="0,7">
+                      Cal.22 - 0,7mm
+                    </IonSelectOption>
+                    <IonSelectOption value="0,85">
+                      Cal.20 - 0,85mm
+                    </IonSelectOption>
+                    <IonSelectOption value="1,2">
+                      Cal.18 - 1,2mm
+                    </IonSelectOption>
+                  </IonSelect>
+                </IonItem>
+              </>
+            )}
             <IonButton
               expand="full"
               size="large"
               className="ion-margin-horizontal"
-              onClick={clickHandler}
+              type="submit"
             >
               Calcular
             </IonButton>
-          </>
+          </form>
         ) : (
           <BeamCalculatorResult {...typeSlab} />
         )}
@@ -412,7 +600,12 @@ const BeamCalculatorResult: React.FC<CalculatorResultProps> = ({
   return (
     <IonContent className="Foundation-content__style">
       <IonItem className="ion-margin-top ion-margin-horizontal" color="primary">
-        <img slot="start" src={imgSrc} className="Foundation-sidepanel__img" />
+        <img
+          slot="start"
+          src={imgSrc}
+          className="Foundation-sidepanel__img"
+          alt=""
+        />
         <IonText className="ion-text-center">
           <h4>{title}</h4>
         </IonText>
@@ -536,13 +729,25 @@ const BeamCalculatorResult: React.FC<CalculatorResultProps> = ({
           </IonRow>
           <IonRow>
             <IonCol className="ion-text-center">
-              <img src={WhatsappIcon} className="Foundation-Result__icon" />
+              <img
+                src={WhatsappIcon}
+                className="Foundation-Result__icon"
+                alt="whatsapp"
+              />
             </IonCol>
             <IonCol className="ion-text-center">
-              <img src={TelegramIcon} className="Foundation-Result__icon" />
+              <img
+                src={TelegramIcon}
+                className="Foundation-Result__icon"
+                alt="telegram"
+              />
             </IonCol>
             <IonCol className="ion-text-center">
-              <img src={EmailIcon} className="Foundation-Result__icon" />
+              <img
+                src={EmailIcon}
+                className="Foundation-Result__icon"
+                alt="email"
+              />
             </IonCol>
           </IonRow>
         </IonGrid>
