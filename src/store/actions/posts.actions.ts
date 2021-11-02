@@ -1,0 +1,2 @@
+export const PUBLISH_POST = "PUBLISH_POST";
+export const PUBLISH_PROJECT = "PUBLISH_PROJECT";

@@ -8,7 +8,6 @@ import {
   IonCardHeader,
   IonItem,
 } from "@ionic/react";
-import { useHistory } from "react-router";
 
 import "./Column.css";
 import Header from "../../../components/Header/Header";
@@ -27,11 +26,6 @@ const ColumnOptions = [
 ];
 
 const Column: React.FC<ColumnProps> = ({ match }) => {
-  const history = useHistory();
-
-  const onClickCardHandler = (path: string) => {
-    history.push({ pathname: `${match.url}/${path}`, state: { name: path } })
-  }
   return (
     <IonPage>
       <IonContent fullscreen className="Foundation-content__style">
@@ -47,7 +41,7 @@ const Column: React.FC<ColumnProps> = ({ match }) => {
                 lines="none"
                 className="ion-margin-vertical"
                 button
-                onClick={() => onClickCardHandler(linkTo)}
+                routerLink={`${match.url}/${linkTo}`}
               >
                 <img
                   src={imgSrc}

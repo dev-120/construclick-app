@@ -11,7 +11,6 @@ import {
   IonRow,
   IonText,
 } from "@ionic/react";
-import { useHistory } from "react-router";
 
 import "./Paint.css"
 import Header from "../../components/Header/Header";
@@ -28,19 +27,14 @@ interface menuPaintProps{
   type: string;
   linkTo: string;
   imgSrc: string;
-  menu: string;
 }
 
 const menuPaint= [
-  { type: "Pintura interior", linkTo: "interior-painting", imgSrc: InteriorPaintImg, menu: "interior-painting" },
-  { type: "Pintura exterior", linkTo: "exterior-painting", imgSrc: ExteriorPaintImg, menu: "exterior-painting" }
+  { type: "Pintura interior", linkTo: "interior-painting", imgSrc: InteriorPaintImg },
+  { type: "Pintura exterior", linkTo: "exterior-painting", imgSrc: ExteriorPaintImg }
 ]
 
 const Paint:React.FC<PaintProps> = ({ match }) => {
-  const history = useHistory();
-  const onClickCardHandler = (path: string, state: string) =>{
-    history.push({ pathname: `${match.url}/${path}`, state: { name: state} })
-  }
   return (
     <IonPage>
       <IonPage>
@@ -54,12 +48,12 @@ const Paint:React.FC<PaintProps> = ({ match }) => {
             </IonCardHeader>
             <IonCardContent>
               {menuPaint.map(
-                ({ type, linkTo, imgSrc, menu }: menuPaintProps) => (
+                ({ type, linkTo, imgSrc }: menuPaintProps) => (
                   <IonItem
                     lines="none"
                     className="ion-margin-vertical"
                     button
-                    onClick={() => onClickCardHandler(linkTo, menu)}
+                    routerLink={`${match.url}/${linkTo}`}
                     key={linkTo}
                   >
                     <img

@@ -38,12 +38,9 @@ interface TilesProps {
       type: string;
     };
   };
-  location: {
-    state: Object;
-  };
 }
 
-const StuccoCalculator: React.FC<TilesProps> = ({ match, location }) => {
+const StuccoCalculator: React.FC<TilesProps> = ({ match }) => {
   const dispatch = useDispatch();
   const [calculate, setCalculate] = useState<boolean>(false);
   const [menuOption, setMenuOption] = useState(Object || null);
@@ -65,21 +62,25 @@ const StuccoCalculator: React.FC<TilesProps> = ({ match, location }) => {
       dispatch({
         type: SET_CALCULATOR_INFORMATION,
         payload: {
-          ...location.state,
-          wallArea,
-          wallOpenings,
-          coatingThickness,
+          name: match.params.type,
+          data: {
+            wallArea,
+            wallOpenings,
+            coatingThickness,
+          },
         },
       });
     } else {
       dispatch({
         type: SET_CALCULATOR_INFORMATION,
         payload: {
-          ...location.state,
-          floorLongitude,
-          floorWidth,
-          wallOpenings,
-          coatingThickness,
+          name: match.params.type,
+          data: {
+            floorLongitude,
+            floorWidth,
+            wallOpenings,
+            coatingThickness,
+          },
         },
       });
     }

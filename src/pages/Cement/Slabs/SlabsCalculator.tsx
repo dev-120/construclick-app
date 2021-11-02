@@ -54,9 +54,6 @@ interface OptionFoundationProps {
       type: string;
     };
   };
-  location: {
-    state: Object;
-  };
 }
 
 const SlabOptions = [
@@ -86,10 +83,7 @@ const SlabOptions = [
   },
 ];
 
-const SlabsCalculator: React.FC<OptionFoundationProps> = ({
-  match,
-  location,
-}) => {
+const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
   const dispatch = useDispatch();
   const [typeSlab, setTypeSlab] = useState(Object);
   const [typeStructure, setTypeStructure] = useState<structureType>("EC");
@@ -134,14 +128,20 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({
         dispatch({
           type: SET_CALCULATOR_INFORMATION,
           payload: {
-            ...location.state,
-            typeStructure,
-            concreteResistance: valueConcreteResistance,
-            columnDimensions,
-            coating: inputCoating,
-            areaOpenings,
-            blockSlabZapataDimensions,
-            diameterMesh: inputDiameterMesh,
+            name: match.params.type,
+            data: {
+              typeStructure,
+              concreteResistance: valueConcreteResistance,
+              columnDimensionsA: columnDimensions.A,
+              columnDimensionsB: columnDimensions.B,
+              columnDimensionsThickness: columnDimensions.thickness,
+              coating: inputCoating,
+              areaOpenings,
+              blockSlabZapataDimensionsA: blockSlabZapataDimensions.A,
+              blockSlabZapataDimensionsB: blockSlabZapataDimensions.B,
+              blockSlabZapataDimensionsC: blockSlabZapataDimensions.C,
+              diameterMesh: inputDiameterMesh,
+            },
           },
         });
         break;
@@ -149,14 +149,19 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({
         dispatch({
           type: SET_CALCULATOR_INFORMATION,
           payload: {
-            ...location.state,
-            typeStructure,
-            concreteResistance: valueConcreteResistance,
-            columnDimensions,
-            coating: inputCoating,
-            areaOpenings,
-            polystyreneDimensions,
-            diameterMesh: inputDiameterMesh,
+            name: match.params.type,
+            data: {
+              typeStructure,
+              concreteResistance: valueConcreteResistance,
+              columnDimensionsA: columnDimensions.A,
+              columnDimensionsB: columnDimensions.B,
+              columnDimensionsThickness: columnDimensions.thickness,
+              coating: inputCoating,
+              areaOpenings,
+              polystyreneDimensionsA: polystyreneDimensions.A,
+              polystyreneDimensionsB: polystyreneDimensions.B,
+              diameterMesh: inputDiameterMesh,
+            },
           },
         });
         break;
@@ -164,13 +169,17 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({
         dispatch({
           type: SET_CALCULATOR_INFORMATION,
           payload: {
-            ...location.state,
-            typeStructure,
-            concreteResistance: valueConcreteResistance,
-            columnDimensions,
-            coating: inputCoating,
-            areaOpenings,
-            diameterMesh: inputDiameterMesh,
+            name: match.params.type,
+            data: {
+              typeStructure,
+              concreteResistance: valueConcreteResistance,
+              columnDimensionsA: columnDimensions.A,
+              columnDimensionsB: columnDimensions.B,
+              columnDimensionsThickness: columnDimensions.thickness,
+              coating: inputCoating,
+              areaOpenings,
+              diameterMesh: inputDiameterMesh,
+            },
           },
         });
         break;
@@ -178,10 +187,12 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({
         dispatch({
           type: SET_CALCULATOR_INFORMATION,
           payload: {
-            ...location.state,
+            name: match.params.type,
             typeStructure,
             concreteResistance: valueConcreteResistance,
-            columnDimensions,
+            columnDimensionsA: columnDimensions.A,
+            columnDimensionsB: columnDimensions.B,
+            columnDimensionsThickness: columnDimensions.thickness,
             coating: inputCoating,
             areaOpenings,
             diameterMesh: inputDiameterMesh,

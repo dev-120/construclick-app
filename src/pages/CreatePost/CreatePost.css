@@ -1,0 +1,22 @@
+#post-slider{
+  height: 400px;
+  width: auto;
+  max-height: 500px;
+}
+
+#post-slider > ion-slide {
+  width: 100%;
+  height: auto;
+  border: 1px solid #D1D5DB;
+}
+
+#post-slider > ion-slide > img {
+  width: 100%;
+  height: auto;
+}
+
+.post-image__col{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

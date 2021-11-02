@@ -62,7 +62,9 @@ import Payments from "./pages/Checkout/Payments";
 import Review from "./pages/Checkout/Review";
 import Purchases from "./pages/Purchases/Purchases";
 import PurchaseDetail from "./pages/Purchases/PurchaseDetail";
+import CreateProject from "./pages/CreateProject/CreateProject";
 import useUser from "./hooks/useUser";
+
 
 const Router = () => {
   const { user } = useUser();
@@ -70,6 +72,7 @@ const Router = () => {
     <IonRouterOutlet id="main">
       <Route path="/view-post" component={ViewPost} />
       <Route path="/create-post" component={CreatePost} />
+      <Route path="/create-project" component={CreateProject} />
       <Route exact path="/posts" component={Posts} />
       <Route exact path="/profile" component={Profile} />
           <Route exact path="/marketplace" component={MarketPlace} />
@@ -250,7 +253,7 @@ const Router = () => {
           <Route exact path="/calculator/drywall" component={Drywall} />
           <Route
             exact
-            path="/calculator/drywall/drywall-ceiling"
+            path="/calculator/drywall/:type"
             component={DrywallCalculator}
           />
           <Route exact path="/calculator" component={Calculator} />

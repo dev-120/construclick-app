@@ -20,17 +20,13 @@ import FloorTemplateImg from "../../assets/floor_template.png";
 import WaterproofFloorTemplateImg from "../../assets/waterproof_floor_template.png";
 import WhatsappIcon from "../../assets/whatsapp_icon.png";
 import TelegramIcon from "../../assets/telegram_icon.png";
-import EmailIcon from "../../assets/email_icon.png"
-
+import EmailIcon from "../../assets/email_icon.png";
 
 interface RevokeCalculatorProps {
   match: {
     params: {
       type: string;
     };
-  };
-  location: {
-    state: Object;
   };
 }
 
@@ -53,13 +49,13 @@ const menuRevoke = [
   },
 ];
 
-const RevokeCalculator: React.FC<RevokeCalculatorProps> = ({ match, location }) => {
+const RevokeCalculator: React.FC<RevokeCalculatorProps> = ({ match }) => {
   const dispatch = useDispatch();
   const [calculate, setCalculate] = useState<boolean>(false);
   const [menuOption, setMenuOption] = useState(Object || null);
-  const [wallArea, setWallArea] = useState<number>(0)
-  const [wallOpenings, setWallOpening] = useState<number>(0)
-  const [coatingThickness, setCoatingThickness] = useState<number>(0)
+  const [wallArea, setWallArea] = useState<number>(0);
+  const [wallOpenings, setWallOpening] = useState<number>(0);
+  const [coatingThickness, setCoatingThickness] = useState<number>(0);
 
   useEffect(() => {
     setMenuOption(
@@ -67,17 +63,19 @@ const RevokeCalculator: React.FC<RevokeCalculatorProps> = ({ match, location }) 
     );
   }, [match]);
 
-  const submitHandler = (e:any) => {
+  const submitHandler = (e: any) => {
     e.preventDefault();
     dispatch({
       type: SET_CALCULATOR_INFORMATION,
       payload: {
-        ...location.state,
-        wallArea,
-        wallOpenings,
-        coatingThickness
-      }
-    })
+        name: match.params.type,
+        data: {
+          wallArea,
+          wallOpenings,
+          coatingThickness,
+        },
+      },
+    });
     setCalculate(true);
   };
 
@@ -86,110 +84,114 @@ const RevokeCalculator: React.FC<RevokeCalculatorProps> = ({ match, location }) 
       <Header canBack href="/calculator/revoke" />
       <IonContent className="Foundation-content__style">
         <form onSubmit={submitHandler}>
-        {!calculate ? (
-          <>
-            <IonItem
-              className="ion-margin-top ion-margin-horizontal"
-              color="primary"
-            >
-              <img
-                slot="start"
-                src={menuOption.imgSrc}
-                className="Foundation-sidepanel__img"
-                alt=""
-              />
-              <IonGrid>
-                <IonRow>
-                  <IonCol size="12" className="ion-text-center">
-                    <IonText>
-                      <h4>{menuOption.type}</h4>
-                    </IonText>
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
-            </IonItem>
-            <IonItem className="ion-margin-horizontal">
-              <IonGrid>
-                <IonRow>
-                  <p>Área del Muro:</p>
-                </IonRow>
-                <IonRow className="ion-justify-content-center ion-align-items-center">
-                  <IonCol size="6">
-                    <h5>Ingrese Área (m2): </h5>
-                  </IonCol>
-                  <IonCol size="6" className="ion-text-center">
-                    <IonInput
-                      value={wallArea}
-                      onIonChange={(e) => setWallArea(parseInt(e.detail.value!))}
-                      type="number"
-                      required
-                      min="1"
-                    />
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
-            </IonItem>
-            <IonItem className="ion-margin-horizontal">
-              <IonGrid>
-                <IonRow>
-                  <p>Área aperturas:</p>
-                </IonRow>
-                <IonRow className="ion-justify-content-center ion-align-items-center">
-                  <IonCol size="6">
-                    <h5>Área descontada por (Puertas, Ventanas) (m2): </h5>
-                  </IonCol>
-                  <IonCol size="6" className="ion-text-center">
-                    <IonInput
-                      value={wallOpenings}
-                      onIonChange={(e) => setWallOpening(parseInt(e.detail.value!))}
-                      type="number"
-                      required
-                      min="1"
-                    />
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
-            </IonItem>
-            <IonItem className="ion-margin-horizontal">
-              <IonGrid>
-                <IonRow>
-                  <p>Espesor del pañete:</p>
-                </IonRow>
-                <IonRow className="ion-justify-content-center ion-align-items-center">
-                  <IonCol size="6">
-                    <h5>Ingrese Espesor (cm) </h5>
-                  </IonCol>
-                  <IonCol size="6" className="ion-text-center">
-                    <IonInput
-                      value={coatingThickness}
-                      onIonChange={e => setCoatingThickness(parseInt(e.detail.value!))}
-                      type="number"
-                      required
-                      min="1"
-                    />
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
-            </IonItem>
-            <IonButton
-              expand="full"
-              size="large"
-              className="ion-margin-horizontal"
-              type="submit"
-            >
-              Calcular
-            </IonButton>
-          </>
-        ) : (
-          <RevokeResult {...menuOption} />
-        )}
+          {!calculate ? (
+            <>
+              <IonItem
+                className="ion-margin-top ion-margin-horizontal"
+                color="primary"
+              >
+                <img
+                  slot="start"
+                  src={menuOption.imgSrc}
+                  className="Foundation-sidepanel__img"
+                  alt=""
+                />
+                <IonGrid>
+                  <IonRow>
+                    <IonCol size="12" className="ion-text-center">
+                      <IonText>
+                        <h4>{menuOption.type}</h4>
+                      </IonText>
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
+              </IonItem>
+              <IonItem className="ion-margin-horizontal">
+                <IonGrid>
+                  <IonRow>
+                    <p>Área del Muro:</p>
+                  </IonRow>
+                  <IonRow className="ion-justify-content-center ion-align-items-center">
+                    <IonCol size="6">
+                      <h5>Ingrese Área (m2): </h5>
+                    </IonCol>
+                    <IonCol size="6" className="ion-text-center">
+                      <IonInput
+                        value={wallArea}
+                        onIonChange={(e) =>
+                          setWallArea(parseInt(e.detail.value!))
+                        }
+                        type="number"
+                        required
+                        min="1"
+                      />
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
+              </IonItem>
+              <IonItem className="ion-margin-horizontal">
+                <IonGrid>
+                  <IonRow>
+                    <p>Área aperturas:</p>
+                  </IonRow>
+                  <IonRow className="ion-justify-content-center ion-align-items-center">
+                    <IonCol size="6">
+                      <h5>Área descontada por (Puertas, Ventanas) (m2): </h5>
+                    </IonCol>
+                    <IonCol size="6" className="ion-text-center">
+                      <IonInput
+                        value={wallOpenings}
+                        onIonChange={(e) =>
+                          setWallOpening(parseInt(e.detail.value!))
+                        }
+                        type="number"
+                        required
+                        min="1"
+                      />
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
+              </IonItem>
+              <IonItem className="ion-margin-horizontal">
+                <IonGrid>
+                  <IonRow>
+                    <p>Espesor del pañete:</p>
+                  </IonRow>
+                  <IonRow className="ion-justify-content-center ion-align-items-center">
+                    <IonCol size="6">
+                      <h5>Ingrese Espesor (cm) </h5>
+                    </IonCol>
+                    <IonCol size="6" className="ion-text-center">
+                      <IonInput
+                        value={coatingThickness}
+                        onIonChange={(e) =>
+                          setCoatingThickness(parseInt(e.detail.value!))
+                        }
+                        type="number"
+                        required
+                        min="1"
+                      />
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
+              </IonItem>
+              <IonButton
+                expand="full"
+                size="large"
+                className="ion-margin-horizontal"
+                type="submit"
+              >
+                Calcular
+              </IonButton>
+            </>
+          ) : (
+            <RevokeResult {...menuOption} />
+          )}
         </form>
       </IonContent>
     </IonPage>
   );
 };
-
-
 
 interface menuRevokeProps {
   type: string;
@@ -197,13 +199,7 @@ interface menuRevokeProps {
   imgSrc: any;
 }
 
-
-
-const RevokeResult: React.FC<menuRevokeProps> = ({
-  type,
-  linkTo,
-  imgSrc,
-}) => {
+const RevokeResult: React.FC<menuRevokeProps> = ({ type, linkTo, imgSrc }) => {
   return (
     <>
       <IonItem className="ion-margin-top ion-margin-horizontal" color="primary">
@@ -265,13 +261,25 @@ const RevokeResult: React.FC<menuRevokeProps> = ({
           </IonRow>
           <IonRow>
             <IonCol className="ion-text-center">
-              <img src={WhatsappIcon} className="Foundation-Result__icon" alt="whatsapp" />
+              <img
+                src={WhatsappIcon}
+                className="Foundation-Result__icon"
+                alt="whatsapp"
+              />
             </IonCol>
             <IonCol className="ion-text-center">
-              <img src={TelegramIcon} className="Foundation-Result__icon" alt="telegram" />
+              <img
+                src={TelegramIcon}
+                className="Foundation-Result__icon"
+                alt="telegram"
+              />
             </IonCol>
             <IonCol className="ion-text-center">
-              <img src={EmailIcon} className="Foundation-Result__icon" alt="email" />
+              <img
+                src={EmailIcon}
+                className="Foundation-Result__icon"
+                alt="email"
+              />
             </IonCol>
           </IonRow>
         </IonGrid>

@@ -25,10 +25,10 @@ interface SolidBrickProps {
 }
 
 const menuSolidBrick = [
-  {brickType: "Ladrilo macizo", size: "(6 x 10 x 25)", linkTo: "/solid", subMenu: "solid"},
-  {brickType: "Perforado", size: "(6 x 10 x 25)", linkTo: "/perforated", subMenu: "perforated"},
-  {brickType: "Prensado", size: "(6 x 10 x 25)", linkTo: "/pressing", subMenu: "pressing"},
-  {brickType: "Ladrillo macizo", size: "(Selección dimensiones)", linkTo: "/personalized", subMenu: "personalized"},
+  {brickType: "Ladrilo macizo", size: "(6 x 10 x 25)", linkTo: "/solid", name: "solid"},
+  {brickType: "Perforado", size: "(6 x 10 x 25)", linkTo: "/perforated", name: "perforated"},
+  {brickType: "Prensado", size: "(6 x 10 x 25)", linkTo: "/pressing", name: "pressing"},
+  {brickType: "Ladrillo macizo", size: "(Selección dimensiones)", linkTo: "/personalized", name: "personalized"},
 ]
 
 
@@ -36,13 +36,13 @@ interface menuSolidBrickProps{
   brickType: string;
   size: string;
   linkTo: string;
-  subMenu: string;
+  name: string;
 }
 
 const SolidBrick: React.FC<SolidBrickProps> = ({ match, location }) => {
   const history = useHistory();
   const onClickCardHandler = (path: string, state: string) =>{
-    history.push({ pathname: `${match.url}${path}`, state: {...location.state, subMenu: state} })
+    history.push({ pathname: `${match.url}${path}`, state: {...location.state, name: state} })
   }
   return (
     <IonPage>
@@ -55,12 +55,12 @@ const SolidBrick: React.FC<SolidBrickProps> = ({ match, location }) => {
             </IonCardTitle>
           </IonCardHeader>
           <IonCardContent>
-            {menuSolidBrick.map(({brickType, size, linkTo, subMenu}: menuSolidBrickProps) => (
+            {menuSolidBrick.map(({brickType, size, linkTo, name}: menuSolidBrickProps) => (
               <IonItem
               lines="none"
               className="ion-margin-vertical"
               button
-              onClick={() => onClickCardHandler(linkTo, subMenu)}
+              onClick={() => onClickCardHandler(linkTo, name)}
               key={linkTo}
             >
               <img

@@ -73,7 +73,6 @@ const BeamOptions = [
 
 const BeamCalculator: React.FC<OptionFoundationProps> = ({
   match,
-  location,
 }) => {
   const dispatch = useDispatch();
   const [typeBeam, setTypeBeam] = useState(Object);
@@ -106,14 +105,17 @@ const BeamCalculator: React.FC<OptionFoundationProps> = ({
     dispatch({
       type: SET_CALCULATOR_INFORMATION,
       payload: {
-        ...location.state,
-        typeOfStructure: typeStructure,
-        concreteResistance: valueConcreteResistance,
-        dimensions: {
-          ...beamDimension,
+        name: match.params.title,
+        data: {
+          typeOfStructure: typeStructure,
+          concreteResistance: valueConcreteResistance,
+          beamDimensionA: beamDimension.A,
+          beamDimensionB: beamDimension.B,
+          beamDimensionH: beamDimension.H,
+          beamDimensionRodNumber: beamDimension.rodNumber,
+          coating: inputCoating,
+          rodDiameter: inputDiameterRods,
         },
-        coating: inputCoating,
-        rodDiameter: inputDiameterRods,
       },
     });
 

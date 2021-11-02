@@ -3,12 +3,10 @@ import {
   IonContent,
   IonCard,
   IonCardHeader,
-  IonCardSubtitle,
   IonCardContent,
   IonCardTitle,
   IonItem,
 } from "@ionic/react";
-import { useHistory } from 'react-router-dom'
 
 import "./Cement.css";
 import Beam from "../../assets/viga.png";
@@ -23,27 +21,27 @@ const submenuConcrete = [
   {
     submenuTitle: "Cimentación",
     imgSrc: Foundation,
-    linkTo: "/foundation",
+    linkTo: "foundation",
   },
   {
     submenuTitle: "Columna",
     imgSrc: Column,
-    linkTo: "/column",
+    linkTo: "column",
   },
   {
     submenuTitle: "Vigas",
     imgSrc: Beam,
-    linkTo: "/beam",
+    linkTo: "beam",
   },
   {
     submenuTitle: "Losas",
     imgSrc: Slabs,
-    linkTo: "/slabs",
+    linkTo: "slabs",
   },
   {
     submenuTitle: "Escaleras",
     imgSrc: Stairs,
-    linkTo: "/stairs",
+    linkTo: "stairs",
   },
 ];
 
@@ -60,7 +58,6 @@ interface cementProps{
 }
 
 const Cement:React.FC<cementProps> = ({ match }) => {
-  const history = useHistory();
   return (
     <IonPage>
       <Header canBack href="/calculator" />
@@ -68,12 +65,12 @@ const Cement:React.FC<cementProps> = ({ match }) => {
         {submenuConcrete.map(
           ({ submenuTitle, imgSrc, linkTo }: submenuProps, index) => (
             <IonItem key={index} lines="none">
-              <IonCard color="light" button routerLink={`${match.url}${linkTo}`} mode="md">
+              <IonCard color="light" button routerLink={`${match.url}/${linkTo}`} mode="md">
                 <IonCardHeader className="Concrete-card__style">
                   <IonCardTitle className="ion-text-center">{submenuTitle}</IonCardTitle>
                 </IonCardHeader>
                 <IonCardContent>
-                  <img  src={imgSrc}/>
+                  <img  src={imgSrc} alt=""/>
                 </IonCardContent>
               </IonCard>
             </IonItem>

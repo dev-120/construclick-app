@@ -13,7 +13,7 @@ import {
   IonButton,
 } from "@ionic/react";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SET_CALCULATOR_INFORMATION } from "../../../store/actions/calculator.actions";
 
 import "./Foundation.css";
@@ -81,19 +81,23 @@ const OptionFoundation: React.FC<optionFoundationProps> = ({ location }) => {
 
   const submitHandler = (e: any) => {
     e.preventDefault();
-    dispatch({
-      type: SET_CALCULATOR_INFORMATION,
-      payload: {
-        ...location.state,
-        typeStructure,
-        concreteResistance: valueConcreteResistance,
-        zapataDimensions,
-        columnDimensions,
-        coating: inputCoating,
-        rodDiameter: inputDiameterRods,
-      },
-    });
-    setCalculate(true);
+    if (location.state) {
+      dispatch({
+        type: SET_CALCULATOR_INFORMATION,
+        payload: {
+          ...location.state,
+          data: {
+            typeStructure,
+            concreteResistance: valueConcreteResistance,
+            zapataDimensions,
+            columnDimensions,
+            coating: inputCoating,
+            rodDiameter: inputDiameterRods,
+          },
+        },
+      });
+      setCalculate(true);
+    }
   };
 
   return (
@@ -339,6 +343,10 @@ const OptionFoundation: React.FC<optionFoundationProps> = ({ location }) => {
 };
 
 const OptionFoundationResult: React.FC = () => {
+  const { currentCalculator } = useSelector((state: any) => state.calculator);
+  useEffect(() => {
+    console.log(JSON.stringify(currentCalculator));
+  }, [currentCalculator]);
   return (
     <IonContent className="Foundation-content__style">
       <IonItem className="ion-margin-top ion-margin-horizontal" color="primary">

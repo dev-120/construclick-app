@@ -8,7 +8,6 @@ import {
   IonCardHeader,
   IonItem,
 } from "@ionic/react";
-import { useHistory } from "react-router";
 
 import "./Slabs.css";
 import Header from "../../../components/Header/Header";
@@ -31,10 +30,6 @@ const SlabOptions = [
 ];
 
 const Slabs: React.FC<BeamProps> = ({ match }) => {
-  const history = useHistory();
-  const onClickCardHandler = (path: string) => {
-    history.push({ pathname: `${match.url}/${path}`, state: { name: path } })
-  }
   return (
     <IonPage>
       <IonContent fullscreen className="Foundation-content__style">
@@ -50,7 +45,7 @@ const Slabs: React.FC<BeamProps> = ({ match }) => {
                 lines="none"
                 className="ion-margin-vertical"
                 button
-                onClick={() => onClickCardHandler(linkTo)}
+                routerLink={`${match.url}/${linkTo}`}
               >
                 <img
                   src={imgSrc}

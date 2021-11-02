@@ -11,7 +11,6 @@ import {
   IonRow,
   IonText,
 } from "@ionic/react";
-import { useHistory } from "react-router";
 
 import "./Drywall.css";
 import Header from "../../components/Header/Header";
@@ -25,12 +24,6 @@ interface DrywallProps {
 
 
 const Drywall: React.FC<DrywallProps> = ({ match }) => {
-  const history = useHistory();
-
-  const onClickCardHandler = (path: string, state: string) => {
-    history.push({ pathname: `${match.url}/${path}`, state: { name: state } })
-  }
-
   return (
     <IonPage>
       <IonPage>
@@ -47,7 +40,7 @@ const Drywall: React.FC<DrywallProps> = ({ match }) => {
                 lines="none"
                 className="ion-margin-vertical"
                 button
-                onClick={() => onClickCardHandler("drywall-ceiling", "drywall-ceiling")}
+                routerLink={`${match.url}/drywall-ceiling`}
               >
                 <img src={DrywallCeilingImg} slot="start" className="Drywall-image__style" alt="" />
                 <IonGrid>

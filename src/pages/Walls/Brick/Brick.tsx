@@ -27,15 +27,15 @@ import BrickImg from '../../../assets/brick.png'
 // };
 
 const menuBrick = [
-  { brickType: "Bloque N°10", size: "(10 x 20 x 40)", linkTo: "/10", subMenu: "block10" },
-  { brickType: "Bloque N°15", size: "(15 x 20 x 40)", linkTo: "/15", subMenu: "block15" },
-  { brickType: "Bloque N°20", size: "(20 x 20 x 40)", linkTo: "/20", subMenu: "block20" },
-  { brickType: "Bloque N°25", size: "(25 x 20 x 40)", linkTo: "/25", subMenu: "block25" },
+  { brickType: "Bloque N°10", size: "(10 x 20 x 40)", linkTo: "/10", name: "block10" },
+  { brickType: "Bloque N°15", size: "(15 x 20 x 40)", linkTo: "/15", name: "block15" },
+  { brickType: "Bloque N°20", size: "(20 x 20 x 40)", linkTo: "/20", name: "block20" },
+  { brickType: "Bloque N°25", size: "(25 x 20 x 40)", linkTo: "/25", name: "block25" },
   {
     brickType: "Ladrillo macizo",
     size: "(Selección dimensiones)",
     linkTo: "/personalized",
-    subMenu: "personalized",
+    name: "personalized",
   },
 ];
 
@@ -51,13 +51,13 @@ interface menuBrickProps {
   brickType: string;
   size: string;
   linkTo: string;
-  subMenu: string;
+  name: string;
 }
 
 const Brick: React.FC<BrickProps> = ({ match, location }) => {
   const history = useHistory();
   const onClickCardHandler = (path: string, state: string) =>{
-    history.push({ pathname: `${match.url}${path}`, state: {...location.state, subMenu: state} })
+    history.push({ pathname: `${match.url}${path}`, state: {...location.state, name: state} })
   }
 
   return (
@@ -73,12 +73,12 @@ const Brick: React.FC<BrickProps> = ({ match, location }) => {
             </IonCardHeader>
             <IonCardContent>
               {menuBrick.map(
-                ({ brickType, size, linkTo, subMenu}: menuBrickProps) => (
+                ({ brickType, size, linkTo, name}: menuBrickProps) => (
                   <IonItem
                     lines="none"
                     className="ion-margin-vertical"
                     button
-                    onClick={() => onClickCardHandler(linkTo, subMenu)}
+                    onClick={() => onClickCardHandler(linkTo, name)}
                     key={linkTo}
                   >
                     <img

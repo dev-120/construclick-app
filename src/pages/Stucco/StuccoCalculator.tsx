@@ -20,7 +20,6 @@ import WhatsappIcon from "../../assets/whatsapp_icon.png";
 import TelegramIcon from "../../assets/telegram_icon.png";
 import EmailIcon from "../../assets/email_icon.png";
 
-
 const menuStucco = [
   { type: "Estuco Liso", linkTo: "smooth-stucco", imgSrc: StuccoImg },
   {
@@ -36,12 +35,9 @@ interface StuccoProps {
       type: string;
     };
   };
-  location: {
-    state: object;
-  };
 }
 
-const StuccoCalculator: React.FC<StuccoProps> = ({ match, location }) => {
+const StuccoCalculator: React.FC<StuccoProps> = ({ match }) => {
   const dispath = useDispatch();
   const [calculate, setCalculate] = useState<boolean>(false);
   const [menuOption, setMenuOption] = useState(Object || null);
@@ -59,17 +55,19 @@ const StuccoCalculator: React.FC<StuccoProps> = ({ match, location }) => {
   //   setCalculte(true);
   // };
 
-  const submitHandler = (e:any) => {
+  const submitHandler = (e: any) => {
     e.preventDefault();
     dispath({
       type: SET_CALCULATOR_INFORMATION,
       payload: {
-        ...location.state,
-        wallArea,
-        wallOpenings,
-        coatingThickness
-      }
-    })
+        name: match.params.type,
+        data: {
+          wallArea,
+          wallOpenings,
+          coatingThickness,
+        },
+      },
+    });
     setCalculate(true);
   };
 
@@ -78,109 +76,109 @@ const StuccoCalculator: React.FC<StuccoProps> = ({ match, location }) => {
       <Header canBack href="/calculator/stucco" />
       <IonContent className="Foundation-content__style">
         <form onSubmit={submitHandler}>
-        {!calculate ? (
-          <>
-            <IonItem
-              className="ion-margin-top ion-margin-horizontal"
-              color="primary"
-            >
-              <img
-                slot="start"
-                src={menuOption.imgSrc}
-                className="Foundation-sidepanel__img"
-                alt=""
-              />
-              <IonGrid>
-                <IonRow>
-                  <IonCol size="12" className="ion-text-center">
-                    <IonText>
-                      <h4>{menuOption.type}</h4>
-                    </IonText>
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
-            </IonItem>
-            <IonItem className="ion-margin-horizontal">
-              <IonGrid>
-                <IonRow>
-                  <p>Área a estucar:</p>
-                </IonRow>
-                <IonRow className="ion-justify-content-center ion-align-items-center">
-                  <IonCol size="6">
-                    <h5>Ingrese Área (m2): </h5>
-                  </IonCol>
-                  <IonCol size="6" className="ion-text-center">
-                    <IonInput
-                      value={wallArea}
-                      onIonChange={(e) =>
-                        setWallArea(parseInt(e.detail.value!))
-                      }
-                      type="number"
-                      required
-                      min="1"
-                    />
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
-            </IonItem>
-            <IonItem className="ion-margin-horizontal">
-              <IonGrid>
-                <IonRow>
-                  <p>Área aperturas:</p>
-                </IonRow>
-                <IonRow className="ion-justify-content-center ion-align-items-center">
-                  <IonCol size="6">
-                    <h5>Área descontada por (Puertas, Ventanas) (m2): </h5>
-                  </IonCol>
-                  <IonCol size="6" className="ion-text-center">
-                    <IonInput
-                      value={wallOpenings}
-                      onIonChange={(e) =>
-                        setWallOpening(parseInt(e.detail.value!))
-                      }
-                      type="number"
-                      required
-                      min="1"
-                    />
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
-            </IonItem>
-            <IonItem className="ion-margin-horizontal">
-              <IonGrid>
-                <IonRow>
-                  <p>Espesor de estuco:</p>
-                </IonRow>
-                <IonRow className="ion-justify-content-center ion-align-items-center">
-                  <IonCol size="6">
-                    <h5>Ingrese Espesor (cm) </h5>
-                  </IonCol>
-                  <IonCol size="6" className="ion-text-center">
-                    <IonInput
-                      value={coatingThickness}
-                      onIonChange={(e) =>
-                        setCoatingThickness(parseInt(e.detail.value!))
-                      }
-                      type="number"
-                      required
-                      min="1"
-                    />
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
-            </IonItem>
-            <IonButton
-              expand="full"
-              size="large"
-              className="ion-margin-horizontal"
-              type="submit"
-            >
-              Calcular
-            </IonButton>
-          </>
-        ) : (
-          <StuccoResult {...menuOption} />
-        )}
+          {!calculate ? (
+            <>
+              <IonItem
+                className="ion-margin-top ion-margin-horizontal"
+                color="primary"
+              >
+                <img
+                  slot="start"
+                  src={menuOption.imgSrc}
+                  className="Foundation-sidepanel__img"
+                  alt=""
+                />
+                <IonGrid>
+                  <IonRow>
+                    <IonCol size="12" className="ion-text-center">
+                      <IonText>
+                        <h4>{menuOption.type}</h4>
+                      </IonText>
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
+              </IonItem>
+              <IonItem className="ion-margin-horizontal">
+                <IonGrid>
+                  <IonRow>
+                    <p>Área a estucar:</p>
+                  </IonRow>
+                  <IonRow className="ion-justify-content-center ion-align-items-center">
+                    <IonCol size="6">
+                      <h5>Ingrese Área (m2): </h5>
+                    </IonCol>
+                    <IonCol size="6" className="ion-text-center">
+                      <IonInput
+                        value={wallArea}
+                        onIonChange={(e) =>
+                          setWallArea(parseInt(e.detail.value!))
+                        }
+                        type="number"
+                        required
+                        min="1"
+                      />
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
+              </IonItem>
+              <IonItem className="ion-margin-horizontal">
+                <IonGrid>
+                  <IonRow>
+                    <p>Área aperturas:</p>
+                  </IonRow>
+                  <IonRow className="ion-justify-content-center ion-align-items-center">
+                    <IonCol size="6">
+                      <h5>Área descontada por (Puertas, Ventanas) (m2): </h5>
+                    </IonCol>
+                    <IonCol size="6" className="ion-text-center">
+                      <IonInput
+                        value={wallOpenings}
+                        onIonChange={(e) =>
+                          setWallOpening(parseInt(e.detail.value!))
+                        }
+                        type="number"
+                        required
+                        min="1"
+                      />
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
+              </IonItem>
+              <IonItem className="ion-margin-horizontal">
+                <IonGrid>
+                  <IonRow>
+                    <p>Espesor de estuco:</p>
+                  </IonRow>
+                  <IonRow className="ion-justify-content-center ion-align-items-center">
+                    <IonCol size="6">
+                      <h5>Ingrese Espesor (cm) </h5>
+                    </IonCol>
+                    <IonCol size="6" className="ion-text-center">
+                      <IonInput
+                        value={coatingThickness}
+                        onIonChange={(e) =>
+                          setCoatingThickness(parseInt(e.detail.value!))
+                        }
+                        type="number"
+                        required
+                        min="1"
+                      />
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
+              </IonItem>
+              <IonButton
+                expand="full"
+                size="large"
+                className="ion-margin-horizontal"
+                type="submit"
+              >
+                Calcular
+              </IonButton>
+            </>
+          ) : (
+            <StuccoResult {...menuOption} />
+          )}
         </form>
       </IonContent>
     </IonPage>
@@ -197,7 +195,12 @@ const StuccoResult: React.FC<menuStuccoProps> = ({ type, linkTo, imgSrc }) => {
   return (
     <>
       <IonItem className="ion-margin-top ion-margin-horizontal" color="primary">
-        <img slot="start" src={imgSrc} className="Foundation-sidepanel__img" alt="" />
+        <img
+          slot="start"
+          src={imgSrc}
+          className="Foundation-sidepanel__img"
+          alt=""
+        />
         <IonGrid>
           <IonRow>
             <IonCol size="12" className="ion-text-center">
@@ -238,13 +241,25 @@ const StuccoResult: React.FC<menuStuccoProps> = ({ type, linkTo, imgSrc }) => {
 
           <IonRow>
             <IonCol className="ion-text-center">
-              <img src={WhatsappIcon} className="Foundation-Result__icon" alt="whatsapp" />
+              <img
+                src={WhatsappIcon}
+                className="Foundation-Result__icon"
+                alt="whatsapp"
+              />
             </IonCol>
             <IonCol className="ion-text-center">
-              <img src={TelegramIcon} className="Foundation-Result__icon" alt="telegram" />
+              <img
+                src={TelegramIcon}
+                className="Foundation-Result__icon"
+                alt="telegram"
+              />
             </IonCol>
             <IonCol className="ion-text-center">
-              <img src={EmailIcon} className="Foundation-Result__icon" alt="email" />
+              <img
+                src={EmailIcon}
+                className="Foundation-Result__icon"
+                alt="email"
+              />
             </IonCol>
           </IonRow>
         </IonGrid>

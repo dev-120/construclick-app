@@ -11,7 +11,6 @@ import {
   IonRow,
   IonText,
 } from "@ionic/react";
-import { useHistory } from "react-router-dom";
 
 import "./Revoke.css";
 import Header from "../../components/Header/Header";
@@ -52,17 +51,6 @@ interface menuRevokeProps {
 }
 
 const Revoke: React.FC<RevokeProps> = ({ match }) => {
-  const history = useHistory();
-
-  const onClickCardHandler = (path: string) => {
-    history.push({
-      pathname: `${match.url}/${path}`,
-      state: {
-        name: path,
-      },
-    });
-  };
-
   return (
     <IonPage>
       <IonPage>
@@ -79,7 +67,7 @@ const Revoke: React.FC<RevokeProps> = ({ match }) => {
                   className="ion-margin-vertical"
                   button
                   key={linkTo}
-                  onClick={() => onClickCardHandler(linkTo)}
+                  routerLink={`${match.url}/${linkTo}`}
                 >
                   <img
                     src={imgSrc}

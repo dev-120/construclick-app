@@ -4,12 +4,10 @@ import {
   IonItem,
   IonInput,
   IonLabel,
-  IonSelect,
   IonTextarea,
   IonFab,
   IonFabButton,
   IonIcon,
-  IonSelectOption,
   IonImg,
   IonGrid,
   IonCol,
@@ -17,17 +15,12 @@ import {
 } from "@ionic/react";
 import React, { useState } from "react";
 import { imageOutline, saveOutline } from "ionicons/icons";
-import {
-  Plugins,
-  CameraResultType,
-  CameraSource,
-} from "@capacitor/core";
+import { Plugins, CameraResultType, CameraSource } from "@capacitor/core";
 import { defineCustomElements } from "@ionic/pwa-elements/loader";
 
-import { typePosts } from "../../config/constants";
 import Header from "../../components/Header/Header";
 
-import "./CreatePost.css";
+import "./CreateProject.css";
 import { uploadImage } from "../../services/image.service";
 import { dataURLtoFile } from "../../utils/image";
 import { publishPostService } from "../../services/posts.service";
@@ -43,10 +36,8 @@ interface UserPhoto {
 const CreatePost: React.FC = () => {
   const { profileUser } = useUser();
   const [title, setTitle] = useState("");
-  const [type, setType] = useState(typePosts[0].singular);
   const [description, setDescription] = useState("");
   const [photos, setPhotos] = useState<UserPhoto[]>([]);
-  const [date, setDate] = useState("");
 
   defineCustomElements(window);
 
@@ -81,45 +72,23 @@ const CreatePost: React.FC = () => {
         }
       }
 
-      if (type === "Evento") {
-        try{
-          const publishPost = await publishPostService({
-            userId: profileUser.id,
-            title,
-            type,
-            imagesUrl,
-            attributes: {
-              postDescription: description,
-              postDate: date,
-            },
-          });
+      try {
+        const publishPost = await publishPostService({
+          userId: profileUser.id,
+          title,
+          type: "Project",
+          imagesUrl,
+          attributes: {
+            postDescription: description,
+          },
+        });
 
-          if(publishPost.status === 200){
-            console.log("Post Subido")
-          }
-        }catch(e){
-          console.error(e)
+        if (publishPost.status === 200) {
+          console.log("Post Subido");
         }
-      }else{
-        try{
-          const publishPost = await publishPostService({
-            userId: profileUser.id,
-            title,
-            type,
-            imagesUrl,
-            attributes: {
-              postDescription: description,
-            },
-          });
-
-          if(publishPost.status === 200){
-            console.log("Post Subido")
-          }
-        }catch(e){
-          console.error(e)
-        }
+      } catch (e) {
+        console.error(e);
       }
-      
     }
   };
 
@@ -134,32 +103,6 @@ const CreatePost: React.FC = () => {
             onIonChange={(e) => setTitle(e.detail.value!)}
           />
         </IonItem>
-        <IonItem>
-          <IonLabel>Tipo</IonLabel>
-          <IonSelect
-            value={type}
-            placeholder="Selecciona uno"
-            onIonChange={(e) => setType(e.detail.value)}
-          >
-            {typePosts
-              .map((item) => item.singular)
-              .map((opt) => (
-                <IonSelectOption key={opt + "option_type_post"} value={opt}>
-                  {opt}
-                </IonSelectOption>
-              ))}
-          </IonSelect>
-        </IonItem>
-        {type === "Evento" && (
-          <IonItem>
-            <IonLabel>Fecha del evento</IonLabel>
-            <IonInput
-              value={date}
-              onIonChange={(e) => setDate(e.detail.value!)}
-              type="date"
-            />
-          </IonItem>
-        )}
         <IonItem>
           <IonLabel position="floating">Descripción</IonLabel>
           <IonTextarea

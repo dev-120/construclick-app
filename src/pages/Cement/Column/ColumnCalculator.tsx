@@ -26,7 +26,6 @@ import SquareColumnImg from "../../../assets/square_column.png";
 import SquareColumnCalculatorImg from "../../../assets/calculator_column.png";
 import RoundColumnCalculatorImg from "../../../assets/calculator_column_round.png";
 
-
 const FoundationOption = {
   EC: [
     { value: 3600, title: "3600PSI - 25MPa" },
@@ -51,31 +50,36 @@ interface OptionFoundationProps {
   match: {
     params: {
       title: string;
-    }
-  };
-  location: {
-    state: Object;
+    };
   };
 }
 
-
 const ColumnOptions = [
-  { title: "Columna rectangular", imgSrc: SquareColumnImg, linkTo: "square-column", calculatorImage: SquareColumnCalculatorImg },
-  { title: "Columna circular", imgSrc: RoundColumnImg,  linkTo: "round-column", calculatorImage: RoundColumnCalculatorImg },
+  {
+    title: "Columna rectangular",
+    imgSrc: SquareColumnImg,
+    linkTo: "square-column",
+    calculatorImage: SquareColumnCalculatorImg,
+  },
+  {
+    title: "Columna circular",
+    imgSrc: RoundColumnImg,
+    linkTo: "round-column",
+    calculatorImage: RoundColumnCalculatorImg,
+  },
 ];
 
 const ColumnCalculator: React.FC<OptionFoundationProps> = ({
   match,
-  location,
 }) => {
   const dispatch = useDispatch();
-  const [typeColumn, setTypeColumn ] = useState(Object)
+  const [typeColumn, setTypeColumn] = useState(Object);
   const [typeStructure, setTypeStructure] = useState<structureType>("EC");
   const [concreteResistance, setConcreteResistance] = useState<any>(
     FoundationOption[typeStructure]
   );
   const [valueConcreteResistance, setValueConcreteResistance] =
-    useState<number>(0);
+    useState<number>(3600);
   const [inputCoating, setInputCoating] = useState<number>(5);
   const [inputDiameterRods, setInputDiameterRods] = useState<string>("1/2");
 
@@ -84,12 +88,14 @@ const ColumnCalculator: React.FC<OptionFoundationProps> = ({
     B: 0,
     H: 0,
     rodNumber: 4,
-  })
+  });
 
   const [calculate, setCalculate] = useState<boolean>(false);
 
   useEffect(() => {
-    setTypeColumn(ColumnOptions.filter((option) => option.linkTo === match.params.title)[0])
+    setTypeColumn(
+      ColumnOptions.filter((option) => option.linkTo === match.params.title)[0]
+    );
     setConcreteResistance(FoundationOption[typeStructure]);
   }, [typeStructure, match]);
 
@@ -98,18 +104,21 @@ const ColumnCalculator: React.FC<OptionFoundationProps> = ({
     dispatch({
       type: SET_CALCULATOR_INFORMATION,
       payload: {
-        ...location.state,
-        typeStructure,
-        concreteResistance: valueConcreteResistance,
-        dimensions: {
-          ...columnDimensions,
+        name: match.params.title,
+        data: {
+          typeStructure,
+          concreteResistance: valueConcreteResistance,
+          columnDimensionsA: columnDimensions.A,
+          columnDimensionsB: columnDimensions.B,
+          columnDimensionsH: columnDimensions.H,
+          columnDimensionsRodNumber: columnDimensions.rodNumber,
+          coating: inputCoating,
+          rodDiameter: inputDiameterRods,
         },
-        coating: inputCoating,
-        rodDiameter: inputDiameterRods,
-      }
-    })
+      },
+    });
     setCalculate(true);
-  }
+  };
 
   return (
     <IonPage>
@@ -181,23 +190,74 @@ const ColumnCalculator: React.FC<OptionFoundationProps> = ({
                   <IonCol>
                     <h5>Dimensiones de la columna</h5>
                     <IonItem>
-                      <IonLabel slot="start" position="floating">A(m)</IonLabel>
-                      <IonInput slot="end" type="number" value={columnDimensions.A} required min="1" onIonChange={(e) => setColumnDimensions(data => ({...data, A: Number(e.detail.value)}))} />
+                      <IonLabel slot="start" position="floating">
+                        A(m)
+                      </IonLabel>
+                      <IonInput
+                        slot="end"
+                        type="number"
+                        value={columnDimensions.A}
+                        required
+                        min="1"
+                        onIonChange={(e) =>
+                          setColumnDimensions((data) => ({
+                            ...data,
+                            A: Number(e.detail.value),
+                          }))
+                        }
+                      />
                     </IonItem>
                     <IonItem>
-                      <IonLabel slot="start" position="floating">B(m)</IonLabel>
-                      <IonInput slot="end" type="number" value={columnDimensions.B} required min="1" onIonChange={(e) => setColumnDimensions(data => ({...data, B: Number(e.detail.value)}))} />
+                      <IonLabel slot="start" position="floating">
+                        B(m)
+                      </IonLabel>
+                      <IonInput
+                        slot="end"
+                        type="number"
+                        value={columnDimensions.B}
+                        required
+                        min="1"
+                        onIonChange={(e) =>
+                          setColumnDimensions((data) => ({
+                            ...data,
+                            B: Number(e.detail.value),
+                          }))
+                        }
+                      />
                     </IonItem>
                     <IonItem>
-                      <IonLabel slot="start" position="floating">H(m)</IonLabel>
-                      <IonInput slot="end" type="number" value={columnDimensions.H} required min="1" onIonChange={(e) => setColumnDimensions(data => ({...data, H: Number(e.detail.value)}))} />
+                      <IonLabel slot="start" position="floating">
+                        H(m)
+                      </IonLabel>
+                      <IonInput
+                        slot="end"
+                        type="number"
+                        value={columnDimensions.H}
+                        required
+                        min="1"
+                        onIonChange={(e) =>
+                          setColumnDimensions((data) => ({
+                            ...data,
+                            H: Number(e.detail.value),
+                          }))
+                        }
+                      />
                     </IonItem>
                     <IonItem>
-                      <IonLabel slot="start" position="floating">N° varillas </IonLabel>
+                      <IonLabel slot="start" position="floating">
+                        N° varillas{" "}
+                      </IonLabel>
                       <IonInput
                         value={columnDimensions.rodNumber}
                         type="number"
-                        required min="1" onIonChange={(e) => setColumnDimensions(data => ({...data, rodNumber: Number(e.detail.value)}))}
+                        required
+                        min="1"
+                        onIonChange={(e) =>
+                          setColumnDimensions((data) => ({
+                            ...data,
+                            rodNumber: Number(e.detail.value),
+                          }))
+                        }
                       />
                     </IonItem>
                   </IonCol>
@@ -210,7 +270,7 @@ const ColumnCalculator: React.FC<OptionFoundationProps> = ({
                 slot="end"
                 value={inputCoating}
                 type="number"
-                required 
+                required
                 min="1"
                 onIonChange={(e) => setInputCoating(Number(e.detail.value!))}
               />
@@ -251,12 +311,15 @@ const ColumnCalculator: React.FC<OptionFoundationProps> = ({
   );
 };
 
-interface CalculatorResultProps{
+interface CalculatorResultProps {
   title: string;
   imgSrc: string;
 }
 
-const ColumnCalculatorResult: React.FC<CalculatorResultProps> = ({ title, imgSrc }) => {
+const ColumnCalculatorResult: React.FC<CalculatorResultProps> = ({
+  title,
+  imgSrc,
+}) => {
   return (
     <IonContent className="Foundation-content__style">
       <IonItem className="ion-margin-top ion-margin-horizontal" color="primary">
@@ -290,9 +353,7 @@ const ColumnCalculatorResult: React.FC<CalculatorResultProps> = ({ title, imgSrc
             <IonCol className="ion-text-center">Bulto 50Kilos</IonCol>
           </IonRow>
           <IonRow>
-            <IonCol className="ion-text-center">
-              Cemento
-            </IonCol>
+            <IonCol className="ion-text-center">Cemento</IonCol>
             <IonCol className="ion-text-center">3,17</IonCol>
             <IonCol className="ion-text-center">Bulto 50Kg</IonCol>
           </IonRow>
@@ -334,13 +395,25 @@ const ColumnCalculatorResult: React.FC<CalculatorResultProps> = ({ title, imgSrc
           </IonRow>
           <IonRow>
             <IonCol className="ion-text-center">
-              <img src={WhatsappIcon} className="Foundation-Result__icon"  alt="whatsapp" />
+              <img
+                src={WhatsappIcon}
+                className="Foundation-Result__icon"
+                alt="whatsapp"
+              />
             </IonCol>
             <IonCol className="ion-text-center">
-              <img src={TelegramIcon} className="Foundation-Result__icon" alt="telegram" />
+              <img
+                src={TelegramIcon}
+                className="Foundation-Result__icon"
+                alt="telegram"
+              />
             </IonCol>
             <IonCol className="ion-text-center">
-              <img src={EmailIcon} className="Foundation-Result__icon" alt="email" />
+              <img
+                src={EmailIcon}
+                className="Foundation-Result__icon"
+                alt="email"
+              />
             </IonCol>
           </IonRow>
         </IonGrid>
