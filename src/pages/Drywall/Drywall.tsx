@@ -42,7 +42,7 @@ const Drywall: React.FC<DrywallProps> = ({ match }) => {
                 button
                 routerLink={`${match.url}/drywall-ceiling`}
               >
-                <img src={DrywallCeilingImg} slot="start" className="Drywall-image__style" />
+                <img src={DrywallCeilingImg} slot="start" className="Drywall-image__style" alt="" />
                 <IonGrid>
                   <IonRow>
                     <IonCol size="12">

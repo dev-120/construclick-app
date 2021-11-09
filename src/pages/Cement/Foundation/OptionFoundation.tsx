@@ -11,9 +11,10 @@ import {
   IonCol,
   IonInput,
   IonButton,
-  IonRouterOutlet,
 } from "@ionic/react";
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { SET_CALCULATOR_INFORMATION } from "../../../store/actions/calculator.actions";
 
 import "./Foundation.css";
 import Header from "../../../components/Header/Header";
@@ -43,20 +44,32 @@ const FoundationOption = {
 };
 
 type structureType = "EC" | "CCMR" | "ORGP" | "ER" | "EBPEC";
-interface OptionFoundationProps {
-  slideHandler: Function;
+
+interface optionFoundationProps {
+  location: {
+    state: Object;
+  };
 }
 
-const OptionFoundation: React.FC<OptionFoundationProps> = ({
-  slideHandler,
-}) => {
+const OptionFoundation: React.FC<optionFoundationProps> = ({ location }) => {
+  const dispatch = useDispatch();
   const [typeStructure, setTypeStructure] = useState<structureType>("EC");
   const [concreteResistance, setConcreteResistance] = useState<any>(
     FoundationOption[typeStructure]
   );
   const [valueConcreteResistance, setValueConcreteResistance] =
-    useState<number>(0);
-  const [inputNumberRods, setInputNumberRods] = useState<number>(4);
+    useState<number>(3600);
+  const [zapataDimensions, setZapataDimensions] = useState({
+    A: 0,
+    B: 0,
+    H: 0,
+  });
+  const [columnDimensions, setColumnDimensions] = useState({
+    A: 0,
+    B: 0,
+    H: 0,
+    rodNumber: 4,
+  });
   const [inputCoating, setInputCoating] = useState<number>(5);
   const [inputDiameterRods, setInputDiameterRods] = useState<string>("1/2");
 
@@ -66,16 +79,33 @@ const OptionFoundation: React.FC<OptionFoundationProps> = ({
     setConcreteResistance(FoundationOption[typeStructure]);
   }, [typeStructure]);
 
-  const clickHandler=() => {
-    setCalculate(true);
-  }
+  const submitHandler = (e: any) => {
+    e.preventDefault();
+    if (location.state) {
+      dispatch({
+        type: SET_CALCULATOR_INFORMATION,
+        payload: {
+          ...location.state,
+          data: {
+            typeStructure,
+            concreteResistance: valueConcreteResistance,
+            zapataDimensions,
+            columnDimensions,
+            coating: inputCoating,
+            rodDiameter: inputDiameterRods,
+          },
+        },
+      });
+      setCalculate(true);
+    }
+  };
 
   return (
     <IonPage>
       <Header canBack href="/calculator/concrete/foundation" />
       <IonContent className="Foundation-content__style">
         {!calculate ? (
-          <>
+          <form onSubmit={submitHandler}>
             <IonItem
               className="ion-margin-top ion-margin-horizontal"
               color="primary"
@@ -84,6 +114,7 @@ const OptionFoundation: React.FC<OptionFoundationProps> = ({
                 slot="start"
                 src={FoundationImg}
                 className="Foundation-sidepanel__img"
+                alt=""
               />
               <IonText>
                 <h4>Zapata</h4>
@@ -114,7 +145,9 @@ const OptionFoundation: React.FC<OptionFoundationProps> = ({
               </IonSelect>
             </IonItem>
             <IonItem className="ion-margin-horizontal">
-              <IonLabel position="floating">Seleccione la resistencia del concreto</IonLabel>
+              <IonLabel position="floating">
+                Seleccione la resistencia del concreto
+              </IonLabel>
               <IonSelect
                 value={valueConcreteResistance}
                 onIonChange={(e) => setValueConcreteResistance(e.detail.value!)}
@@ -134,21 +167,54 @@ const OptionFoundation: React.FC<OptionFoundationProps> = ({
                 </IonRow>
                 <IonRow className="ion-justify-content-center ion-align-items-center">
                   <IonCol>
-                    <img src={FoundationDimesions} />
+                    <img src={FoundationDimesions} alt="" />
                   </IonCol>
                   <IonCol>
                     <h5>Dimensiones de zapata</h5>
                     <IonItem>
                       <IonLabel position="floating">A(m)</IonLabel>
-                      <IonInput type="number" />
+                      <IonInput
+                        type="number"
+                        required
+                        min="1"
+                        value={zapataDimensions.A}
+                        onIonChange={(e) =>
+                          setZapataDimensions((data) => ({
+                            ...data,
+                            A: Number(e.detail.value),
+                          }))
+                        }
+                      />
                     </IonItem>
                     <IonItem>
                       <IonLabel position="floating">B(m)</IonLabel>
-                      <IonInput type="number" />
+                      <IonInput
+                        type="number"
+                        required
+                        min="1"
+                        value={zapataDimensions.B}
+                        onIonChange={(e) =>
+                          setZapataDimensions((data) => ({
+                            ...data,
+                            B: Number(e.detail.value),
+                          }))
+                        }
+                      />
                     </IonItem>
                     <IonItem>
                       <IonLabel position="floating">H(m)</IonLabel>
-                      <IonInput type="number" />
+                      <IonInput
+                        type="number"
+                        required
+                        min="1"
+                        value={zapataDimensions.H}
+                        onIonChange={(e) =>
+                          setZapataDimensions((data) => ({
+                            ...data,
+                            H: Number(e.detail.value),
+                          }))
+                        }
+                      />
                     </IonItem>
                   </IonCol>
                 </IonRow>
@@ -161,29 +227,67 @@ const OptionFoundation: React.FC<OptionFoundationProps> = ({
                 </IonRow>
                 <IonRow className="ion-justify-content-center ion-align-items-center">
                   <IonCol>
-                    <img src={FoundationDimesions} />
+                    <img src={FoundationDimesions} alt="" />
                   </IonCol>
                   <IonCol>
                     <h5>Dimensiones de la columna</h5>
                     <IonItem>
                       <IonLabel position="floating">A(m)</IonLabel>
-                      <IonInput type="number" />
+                      <IonInput
+                        type="number"
+                        required
+                        min="1"
+                        value={columnDimensions.A}
+                        onIonChange={(e) =>
+                          setColumnDimensions((data) => ({
+                            ...data,
+                            A: Number(e.detail.value),
+                          }))
+                        }
+                      />
                     </IonItem>
                     <IonItem>
                       <IonLabel position="floating">B(m)</IonLabel>
-                      <IonInput type="number" />
+                      <IonInput
+                        type="number"
+                        required
+                        min="1"
+                        value={columnDimensions.B}
+                        onIonChange={(e) =>
+                          setColumnDimensions((data) => ({
+                            ...data,
+                            B: Number(e.detail.value),
+                          }))
+                        }
+                      />
                     </IonItem>
                     <IonItem>
                       <IonLabel position="floating">H(m)</IonLabel>
-                      <IonInput type="number" />
+                      <IonInput
+                        type="number"
+                        required
+                        min="1"
+                        value={columnDimensions.H}
+                        onIonChange={(e) =>
+                          setColumnDimensions((data) => ({
+                            ...data,
+                            H: Number(e.detail.value),
+                          }))
+                        }
+                      />
                     </IonItem>
                     <IonItem>
                       <IonLabel position="floating">N° varillas </IonLabel>
                       <IonInput
-                        value={inputNumberRods}
                         type="number"
+                        required
+                        min="1"
+                        value={columnDimensions.rodNumber}
                         onIonChange={(e) =>
-                          setInputNumberRods(Number(e.detail.value!))
+                          setColumnDimensions((data) => ({
+                            ...data,
+                            rodNumber: Number(e.detail.value),
+                          }))
                         }
                       />
                     </IonItem>
@@ -197,6 +301,8 @@ const OptionFoundation: React.FC<OptionFoundationProps> = ({
                 slot="end"
                 value={inputCoating}
                 type="number"
+                required
+                min="1"
                 onIonChange={(e) => setInputCoating(Number(e.detail.value!))}
               />
             </IonItem>
@@ -223,11 +329,11 @@ const OptionFoundation: React.FC<OptionFoundationProps> = ({
               expand="full"
               size="large"
               className="ion-margin-horizontal"
-              onClick={clickHandler}
+              type="submit"
             >
               Calcular
             </IonButton>
-          </>
+          </form>
         ) : (
           <OptionFoundationResult />
         )}
@@ -237,6 +343,10 @@ const OptionFoundation: React.FC<OptionFoundationProps> = ({
 };
 
 const OptionFoundationResult: React.FC = () => {
+  const { currentCalculator } = useSelector((state: any) => state.calculator);
+  useEffect(() => {
+    console.log(JSON.stringify(currentCalculator));
+  }, [currentCalculator]);
   return (
     <IonContent className="Foundation-content__style">
       <IonItem className="ion-margin-top ion-margin-horizontal" color="primary">
@@ -244,6 +354,7 @@ const OptionFoundationResult: React.FC = () => {
           slot="start"
           src={FoundationImg}
           className="Foundation-sidepanel__img"
+          alt=""
         />
         <IonText>
           <h4>Zapata</h4>
@@ -306,13 +417,25 @@ const OptionFoundationResult: React.FC = () => {
           </IonRow>
           <IonRow>
             <IonCol className="ion-text-center">
-              <img src={WhatsappIcon} className="Foundation-Result__icon" />
+              <img
+                src={WhatsappIcon}
+                className="Foundation-Result__icon"
+                alt="whatsapp"
+              />
             </IonCol>
             <IonCol className="ion-text-center">
-              <img src={TelegramIcon} className="Foundation-Result__icon" />
+              <img
+                src={TelegramIcon}
+                className="Foundation-Result__icon"
+                alt="telegram"
+              />
             </IonCol>
             <IonCol className="ion-text-center">
-              <img src={EmailIcon} className="Foundation-Result__icon" />
+              <img
+                src={EmailIcon}
+                className="Foundation-Result__icon"
+                alt="email"
+              />
             </IonCol>
           </IonRow>
         </IonGrid>
@@ -321,4 +444,4 @@ const OptionFoundationResult: React.FC = () => {
   );
 };
 
-export default OptionFoundation
+export default OptionFoundation;

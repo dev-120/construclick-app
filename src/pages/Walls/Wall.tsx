@@ -3,7 +3,6 @@ import {
   IonContent,
   IonCard,
   IonCardHeader,
-  IonCardSubtitle,
   IonCardContent,
   IonCardTitle,
   IonItem,
@@ -22,16 +21,19 @@ const submenuWalls= [
     submenuTitle: "Bloque Cemento",
     imgSrc: Brick,
     linkTo: "/brick",
+    pathState: { mainMenu: "brick" }
   },
   {
     submenuTitle: "Ladrillo ceramico",
     imgSrc: CeramicBrick,
     linkTo: "/ceramic-brick",
+    pathState: { mainMenu: "ceramic-brick" }
   },
   {
     submenuTitle: "Ladrillo macizo",
     imgSrc: SolidBrick,
     linkTo: "/solid-brick",
+    pathState: { mainMenu: "solid-brick" }
   },
 ];
 
@@ -39,6 +41,7 @@ interface submenuProps {
   submenuTitle: string;
   imgSrc: string;
   linkTo: string;
+  pathState: { mainMenu: string };
 }
 
 interface wallsProps{
@@ -49,19 +52,23 @@ interface wallsProps{
 
 const Walls:React.FC<wallsProps> = ({ match }) => {
   const history = useHistory();
+
+  const onClickCardHandler = (path: string, state: { mainMenu: string }) => {
+    history.push({ pathname: `${match.url}${path}`, state})
+  }
   return (
     <IonPage>
       <Header canBack href="/calculator" />
       <IonContent className="Walls-menu__page">
         {submenuWalls.map(
-          ({ submenuTitle, imgSrc, linkTo }: submenuProps, index) => (
+          ({ submenuTitle, imgSrc, linkTo, pathState }: submenuProps, index) => (
             <IonItem key={index} lines="none">
-              <IonCard color="light" button routerLink={`${match.url}${linkTo}`} mode="md">
+              <IonCard color="light" button onClick={() => onClickCardHandler(linkTo, pathState)} mode="md">
                 <IonCardHeader className="Walls-card__style">
                   <IonCardTitle className="ion-text-center">{submenuTitle}</IonCardTitle>
                 </IonCardHeader>
                 <IonCardContent>
-                  <img  src={imgSrc}/>
+                  <img  src={imgSrc} alt="menu"/>
                 </IonCardContent>
               </IonCard>
             </IonItem>

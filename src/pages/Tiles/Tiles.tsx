@@ -63,6 +63,7 @@ const Tiles:React.FC<TilesProps> = ({ match }) => {
                       src={imgSrc}
                       slot="start"
                       className="Tiles-image__style"
+                      alt=""
                     />
                     <IonGrid>
                       <IonRow>

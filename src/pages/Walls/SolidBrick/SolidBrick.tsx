@@ -1,53 +1,34 @@
 import {
   IonPage,
   IonContent,
-  IonSlide,
-  IonSlides,
   IonText,
   IonCard,
   IonCardTitle,
-  IonCardSubtitle,
   IonCardContent,
   IonCardHeader,
   IonItem,
-  IonLabel,
-  IonSelect,
-  IonSelectOption,
   IonGrid,
   IonRow,
   IonCol,
-  IonInput,
-  IonButton,
-  IonRouterOutlet,
 } from "@ionic/react";
-import { Redirect, Route } from "react-router-dom";
-import { useRef, useEffect, useState } from "react";
-import { RouteComponentProps, Switch } from "react-router";
+import { useHistory } from "react-router-dom";
 
 import "./SolidBrick.css";
 import Header from "../../../components/Header/Header";
 import SolidBrickImg from "../../../assets/solid_brick.png";
-import WhatsappIcon from "../../../assets/whatsapp_icon.png";
-import EmailIcon from "../../../assets/email_icon.png";
-import TelegramIcon from "../../../assets/telegram_icon.png";
 
 interface SolidBrickProps {
   match: {
     url: string;
   };
-}
-
-interface CheckedOption {
-  title: string;
-  isChecked: boolean;
-  imageSrc: string;
+  location: any;
 }
 
 const menuSolidBrick = [
-  {brickType: "Ladrilo macizo", size: "(6 x 10 x 25)", linkTo: "/solid"},
-  {brickType: "Perforado", size: "(6 x 10 x 25)", linkTo: "/perforated"},
-  {brickType: "Prensado", size: "(6 x 10 x 25)", linkTo: "/pressing"},
-  {brickType: "Ladrillo macizo", size: "(Selección dimensiones)", linkTo: "/personalized"},
+  {brickType: "Ladrilo macizo", size: "(6 x 10 x 25)", linkTo: "/solid", name: "solid"},
+  {brickType: "Perforado", size: "(6 x 10 x 25)", linkTo: "/perforated", name: "perforated"},
+  {brickType: "Prensado", size: "(6 x 10 x 25)", linkTo: "/pressing", name: "pressing"},
+  {brickType: "Ladrillo macizo", size: "(Selección dimensiones)", linkTo: "/personalized", name: "personalized"},
 ]
 
 
@@ -55,9 +36,14 @@ interface menuSolidBrickProps{
   brickType: string;
   size: string;
   linkTo: string;
+  name: string;
 }
 
-const SolidBrick: React.FC<SolidBrickProps> = ({ match }) => {
+const SolidBrick: React.FC<SolidBrickProps> = ({ match, location }) => {
+  const history = useHistory();
+  const onClickCardHandler = (path: string, state: string) =>{
+    history.push({ pathname: `${match.url}${path}`, state: {...location.state, name: state} })
+  }
   return (
     <IonPage>
       <IonContent fullscreen className="SolidBrick-content__style">
@@ -69,18 +55,19 @@ const SolidBrick: React.FC<SolidBrickProps> = ({ match }) => {
             </IonCardTitle>
           </IonCardHeader>
           <IonCardContent>
-            {menuSolidBrick.map(({brickType, size, linkTo}: menuSolidBrickProps) => (
+            {menuSolidBrick.map(({brickType, size, linkTo, name}: menuSolidBrickProps) => (
               <IonItem
               lines="none"
               className="ion-margin-vertical"
               button
-              routerLink={`${match.url}${linkTo}`}
+              onClick={() => onClickCardHandler(linkTo, name)}
               key={linkTo}
             >
               <img
                 src={SolidBrickImg}
                 slot="start"
                 className="SolidBrick-image__style"
+                alt=""
               />
               <IonGrid>
                 <IonRow>

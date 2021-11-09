@@ -47,6 +47,7 @@ const Column: React.FC<ColumnProps> = ({ match }) => {
                   src={imgSrc}
                   slot="start"
                   className="Foundation-image__style"
+                  alt=""
                 />
                 <IonText>{title}</IonText>
               </IonItem>

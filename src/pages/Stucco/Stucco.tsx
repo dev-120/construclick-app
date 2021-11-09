@@ -21,7 +21,7 @@ import AcrylicStuccoImg from "../../assets/acrylic_stucco.png"
 interface StuccoProps{
   match: {
     url: string;
-  }
+  };
 }
 
 interface menuStuccoProps{
@@ -31,7 +31,7 @@ interface menuStuccoProps{
 }
 
 const menuStucco= [
-  { type: "Estuco Listo", linkTo: "stucco-ready", imgSrc: StuccoImg },
+  { type: "Estuco Liso", linkTo: "smooth-stucco", imgSrc: StuccoImg },
   { type: "Estuco Acrilico", linkTo: "acrylic-stucco", imgSrc: AcrylicStuccoImg }
 ]
 
@@ -61,6 +61,7 @@ const Stucco:React.FC<StuccoProps> = ({ match }) => {
                       src={imgSrc}
                       slot="start"
                       className="Stucco-image__style"
+                      alt=""
                     />
                     <IonGrid>
                       <IonRow>

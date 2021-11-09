@@ -12,7 +12,6 @@ import {
   IonText,
 } from "@ionic/react";
 
-
 import "./Paint.css"
 import Header from "../../components/Header/Header";
 import InteriorPaintImg from "../../assets/interior_paint.png";
@@ -61,6 +60,7 @@ const Paint:React.FC<PaintProps> = ({ match }) => {
                       src={imgSrc}
                       slot="start"
                       className="Paint-image__style"
+                      alt=""
                     />
                     <IonGrid>
                       <IonRow>

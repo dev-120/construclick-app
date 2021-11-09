@@ -47,6 +47,7 @@ const Beam: React.FC<BeamProps> = ({ match }) => {
                   src={imgSrc}
                   slot="start"
                   className="Foundation-image__style"
+                  alt=""
                 />
                 <IonText>{title}</IonText>
               </IonItem>
