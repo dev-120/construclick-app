@@ -16,10 +16,13 @@ import {
   bagAddOutline,
   bagOutline
 } from "ionicons/icons";
+import { AVATAR_IMAGE } from "../../config/constants";
+import useUser from "../../hooks/useUser";
 
 import "./Menu.css";
 
 const Menu = () => {
+  const { logout, profileUser } = useUser();
   return (
     <IonMenu side="start" contentId="main">
       <IonContent className="content_menu_side">
@@ -30,10 +33,10 @@ const Menu = () => {
           />
           <div className="cover_menu_gradient" />
           <div className="data_profile_menu_side">
-            <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
+            <img src={profileUser?.image_url? profileUser?.image_url : AVATAR_IMAGE} alt="profile" />
             <div className="data_text_profile_menu_side">
               <span className="data_text_profile_menu_side-name">
-                Johnny Pacheco
+                {profileUser?.name} {profileUser?.last_name}
               </span>
               <span className="data_text_profile_menu_side-profession">
                 Arquitecto
@@ -73,7 +76,7 @@ const Menu = () => {
           <IonIcon icon={bagOutline} color="white" slot="start" />
           Mis compras
         </IonItem>
-        <IonItem className="item_list_menu_side">
+        <IonItem className="item_list_menu_side" onClick={() => logout()}>
           <IonIcon icon={closeOutline} color="white" slot="start" />
           Salir
         </IonItem>

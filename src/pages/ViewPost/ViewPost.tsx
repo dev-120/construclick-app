@@ -17,42 +17,80 @@ import {
   IonBadge,
   IonLabel,
   IonContent,
+  IonSlides,
+  IonSlide,
 } from "@ionic/react";
 import { heartOutline, timeOutline } from "ionicons/icons";
 
 import "./ViewPost.css";
 import Header from "../../components/Header/Header";
+import { AVATAR_IMAGE } from "../../config/constants";
+import { dateFormatter } from "../../utils/dateFormatter";
+import {  useLocation } from "react-router";
 
-const ViewPost: React.FC = () => {
+interface postInterface {
+  _id: string;
+  attributes: {
+    postDescription?: string;
+    postDate?: string;
+  }[];
+  createdAt: string;
+  imagesUrl: string[];
+  title: string;
+  userId: string;
+  userImage: string;
+  userLastname: string;
+  userName: string;
+}
+
+interface viewPostInterface {
+  location: {
+    state: postInterface;
+  };
+}
+
+const ViewPost: React.FC<viewPostInterface> = () => {
+  const { state } = useLocation<postInterface>();
+  const getDate = (date: string) => {
+    let currentDate = new Date(date);
+    return `${currentDate.getDay()}/${
+      currentDate.getMonth() + 1
+    }/${currentDate.getFullYear()}`;
+  };
   return (
     <IonPage>
-      <Header />
+      <Header canBack={false} />
       <IonContent>
         <IonCard>
           <IonCardHeader>
             <IonCardSubtitle>
               <IonChip>
                 <IonAvatar>
-                  <img src="https://lh3.googleusercontent.com/a-/AOh14GhNZuKyu0lhC53Zf2pHWEkb7uP6F9YGMOaZunjR_A=s96-c" />
+                  <img
+                    src={state?.userImage ? state?.userImage : AVATAR_IMAGE}
+                    alt="profile"
+                  />
                 </IonAvatar>
-                <IonLabel>Johnny Pacheco</IonLabel>
+                <IonLabel>{`${state?.userName} ${state?.userLastname}`}</IonLabel>
               </IonChip>
             </IonCardSubtitle>
-            <IonCardTitle>DogeCoing no llego a la luna</IonCardTitle>
-            <IonBadge color="primary">Ayer</IonBadge>
+            <IonCardTitle>{state?.title}</IonCardTitle>
+            <IonBadge color="primary">{state?.createdAt && getDate(state?.createdAt)}</IonBadge>
           </IonCardHeader>
-          <IonImg src="https://i.ytimg.com/vi/s3NWyh8a5t0/maxresdefault.jpg" />
-          <IonCardContent>
-            Keep close to Nature's heart... and break clear away, once in awhile,
-            and climb a mountain or spend a week in the woods. Keep close to
-            Nature's heart... and break clear away, once in awhile, and climb a
-            mountain or spend a week in the woods. Keep close to Nature's heart...
-            and break clear away, once in awhile, and climb a mountain or spend a
-            week in the woods. Keep close to Nature's heart... and break clear
-            away, once in awhile, and climb a mountain or spend a week in the
-            woods. Keep close to Nature's heart... and break clear away, once in
-            awhile, and climb a mountain or spend a week in the woods.
-          </IonCardContent>
+          <IonSlides>
+            {state?.imagesUrl?.map((image: string) => (
+              <IonSlide key={image}>
+                <IonImg src={image} alt="" />
+              </IonSlide>
+            ))}
+          </IonSlides>
+          {state?.attributes[0] ? (
+            <IonCardContent>
+              {state?.attributes[0]?.postDescription}
+            </IonCardContent>
+          ) : (
+            <IonCardContent>Sin Descripción</IonCardContent>
+          )}
           <IonFooter>
             <IonGrid>
               <IonRow>
@@ -62,7 +100,7 @@ const ViewPost: React.FC = () => {
                 </IonCol>
                 <IonCol size="4" className="btn_footer_card">
                   <IonIcon icon={timeOutline} />
-                  <IonLabel>Hace 10 min</IonLabel>
+                  <IonLabel className="ion-text-center">{state?.createdAt && dateFormatter(state.createdAt)}</IonLabel>
                 </IonCol>
               </IonRow>
             </IonGrid>

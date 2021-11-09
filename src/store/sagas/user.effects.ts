@@ -36,8 +36,10 @@ export function* loginFetch(action : Action) : any{
 
 export function* registerFetch(action : Action) {
   yield put({ type: OPEN_LOADER });
+  console.log(action);
   try {
     yield call(register, action.payload);
+    
     yield put({ type: REGISTER_SUCCESS });
   } catch (error) {
     // TODO: ERROR MESSAGE

@@ -3,7 +3,7 @@ export interface authData {
 };
 
 export interface Profession {
-    id: string;
+    _id: string;
     name: string;
 };
 
@@ -28,4 +28,7 @@ export interface DataRegister {
     name_legal_representative?: string | null,
     phone_legal_representative?: string | null,
     email_legal_representative?: string | null,
+    linkedin: string | null;
+    facebook: string | null;
+    description: string | null;
 }

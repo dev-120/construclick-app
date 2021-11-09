@@ -1,31 +1,69 @@
-import { call, put, all } from "redux-saga/effects";
+import { call, put } from "redux-saga/effects";
 
 import { OPEN_LOADER, CLOSE_LOADER } from "../actions/commons.actions";
 
 import {
-  publishPostService
+  fetchPosts, fetchProjects,
 } from "../../services/posts.service";
 import { Action } from "../../types/store.types";
+import { EVENTS_POSTS_SUCCESS, NEWS_POSTS_SUCCESS, OPPORTUNITIES_POSTS_SUCCESS, PROJECTS_POSTS_SUCCESS } from "../actions/posts.actions";
 
 
-// export function* publishPost(action: Action) {
-//   yield put({ type: OPEN_LOADER });
+export function* fetchNewsPosts(action: Action) {
+  yield put({ type: OPEN_LOADER });
 
-//   const dataToSend = {
-//     title: 
-//   }
-//   try {
-//     const { data } = yield call(publishPostService, );
-//     console.log(data);
-//     // yield put({ type: GET_PRODUCT_SUCCESS, payload: data.data });
-//   } catch (error) {
-//     console.error(error);
-//     // TODO: ERROR MESSAGE
-//     /*swal({
-//       icon: 'error',
-//       text: error?.response?.data?.error?.[0]?.detail,
-//     });
-//     */
-//   }
-//   yield put({ type: CLOSE_LOADER });
-// }
+  try {
+    const { data } = yield call(fetchPosts, action.payload);
+    yield put({ type: NEWS_POSTS_SUCCESS, payload: data.data });
+  } catch (error) {
+    console.error(error);
+    // TODO: ERROR MESSAGE
+    /*swal({
+      icon: 'error',
+      text: error?.response?.data?.error?.[0]?.detail,
+    });
+    */
+  }
+  yield put({ type: CLOSE_LOADER });
+}
+
+export function* fetchEventsPosts(action: Action){
+  yield put({ type: OPEN_LOADER });
+
+  try{
+    const { data } =  yield call(fetchPosts, action.payload);
+    yield put({ type: EVENTS_POSTS_SUCCESS, payload: data.data });
+  }catch(e){
+    console.error(e)
+  }
+
+  yield put({ type: CLOSE_LOADER });
+}
+
+
+export function* fetchOpportunitesPosts(action: Action){
+  yield put({ type: OPEN_LOADER });
+
+  try{
+    const { data } =  yield call(fetchPosts, action.payload);
+    yield put({ type: OPPORTUNITIES_POSTS_SUCCESS, payload: data.data });
+  }catch(e){
+    console.error(e)
+  }
+
+  yield put({ type: CLOSE_LOADER });
+}
+
+export function* fetchProjectsPosts(action: Action){
+  yield put({ type: OPEN_LOADER });
+
+  try{
+    const { data } =  yield call(fetchProjects, action.payload);
+    console.log(data)
+    yield put({ type: PROJECTS_POSTS_SUCCESS, payload: data.data });
+  }catch(e){
+    console.error(e)
+  }
+
+  yield put({ type: CLOSE_LOADER });
+}

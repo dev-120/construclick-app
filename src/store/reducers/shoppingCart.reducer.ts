@@ -16,7 +16,6 @@ const initialState = {
 const reducer = (state = initialState, action: Action) => {
   switch (action.type) {
     case GET_PRODUCT_SUCCESS:
-      console.log(action.payload)
       return {
         ...state,
         cart: action.payload,

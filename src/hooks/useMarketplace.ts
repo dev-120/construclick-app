@@ -1,10 +1,10 @@
-import useUser from "./useUser";
 import { useEffect, useState } from "react";
 import { getGrillsMarketplaceService } from "../services/marketplace.service";
+import useUser from "./useUser";
 
 const useMarketplace = () => {
-  const [grills, setGrills] = useState([]);
   const { profileUser } = useUser();
+  const [grills, setGrills] = useState([]);
 
   const fetchGrills = async (id: string) => {
     try {
@@ -16,7 +16,7 @@ const useMarketplace = () => {
   };
 
   useEffect(() => {
-    if (profileUser !== null) fetchGrills(profileUser.cityId);
+    if(profileUser.city_id !== "") fetchGrills(profileUser.city_id);
   }, [profileUser]);
 
   return {
