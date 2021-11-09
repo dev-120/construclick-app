@@ -25,6 +25,8 @@ import Header from "../../components/Header/Header";
 import "./Profile.css";
 import profilePoster from "../../assets/profile__poster.png";
 import StarRating from "../../components/StarRating/StarRating";
+import useUser from "../../hooks/useUser";
+import { AVATAR_IMAGE } from "../../config/constants";
 
 const mockupProps = {
   coverPhoto:
@@ -98,6 +100,7 @@ const polishPostDescription = (text: string) => {
 
 const ProfilePosts: React.FC = () => {
   const [posts, setPosts] = useState(mockupPost);
+  
 
   return (
     <>
@@ -171,6 +174,7 @@ const Profile = () => {
   const [like, setLiked] = useState(false);
   const [rating, setRating] = useState(3.5);
   const [toggleOptions, setToggleOptions] = useState("posts");
+  const { profileUser } = useUser();
   return (
     <IonPage>
       <IonContent id="dark-content__profile">
@@ -184,7 +188,7 @@ const Profile = () => {
           <div className="data_profile_menu_middle ion-margin-horizontal">
             <IonIcon color="light" icon={logoFacebook} />
             <IonIcon color="light" icon={logoLinkedin} />
-            <img src="https://images.unsplash.com/photo-1529088746738-c4c0a152fb2c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1000&amp;q=80" />
+            <img src={profileUser?.image_url ? profileUser?.image_url : AVATAR_IMAGE} alt="" />
             <div className="data_icon_profileDetail_menu-right">
               <IonBadge className="badge-like">
                 <IonIcon icon={globe} />
@@ -208,7 +212,7 @@ const Profile = () => {
           </div>
         </div>
         <div className="ion-text-center  username_title">
-          <IonText className="user_name">Johnny Pacheco</IonText>
+          <IonText className="user_name">{profileUser?.name} {profileUser.last_name}</IonText>
           <IonText className="profession">Ingeniero</IonText>
         </div>
         <IonItem className="ion-margin-top ion-margin-horizontal ratings-profile">

@@ -41,6 +41,12 @@ const CreatePost: React.FC = () => {
 
   defineCustomElements(window);
 
+  const clearFormData = () => {
+    setTitle("");
+    setDescription("");
+    setPhotos([]);
+  }
+
   const takePicture = async () => {
     let image = await Camera.getPhoto({
       quality: 100,
@@ -84,6 +90,7 @@ const CreatePost: React.FC = () => {
         });
 
         if (publishPost.status === 200) {
+          clearFormData();
           console.log("Post Subido");
         }
       } catch (e) {

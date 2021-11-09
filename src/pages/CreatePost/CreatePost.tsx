@@ -65,6 +65,14 @@ const CreatePost: React.FC = () => {
     setPhotos(newPhotos);
   };
 
+  const clearFormData  = () => {
+    setTitle("");
+    setType(typePosts[0].singular);
+    setDescription("");
+    setPhotos([]);
+    setDate("");
+  }
+
   const handlePublishPost = async () => {
     const imagesUrl = [];
     if (photos) {
@@ -95,6 +103,7 @@ const CreatePost: React.FC = () => {
           });
 
           if(publishPost.status === 200){
+            clearFormData();
             console.log("Post Subido")
           }
         }catch(e){
@@ -113,6 +122,7 @@ const CreatePost: React.FC = () => {
           });
 
           if(publishPost.status === 200){
+            clearFormData();
             console.log("Post Subido")
           }
         }catch(e){

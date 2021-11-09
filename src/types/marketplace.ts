@@ -5,5 +5,5 @@ export interface Category {
 
 export interface City {
     name: string;
-    id: string;
+    _id: string;
 }

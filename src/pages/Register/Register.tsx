@@ -11,19 +11,17 @@ import {
   IonSlides,
   IonDatetime,
   IonAvatar,
-
+  IonTextarea,
 } from "@ionic/react";
 import { useHistory } from "react-router-dom";
 import React, { useState, useRef } from "react";
 import { Plugins, CameraResultType } from "@capacitor/core";
 
-import {
-  Slide, SlideButtons, slideOpts
-} from './Slide';
+import { Slide, SlideButtons, slideOpts } from "./Slide";
 import "./Register.css";
 import Logo from "../../assets/logo.png";
 import useUser from "../../hooks/useUser";
-import { uploadImage } from '../../services/image.service';
+import { uploadImage } from "../../services/image.service";
 import { AVATAR_IMAGE, ROLES } from "../../config/constants";
 import LogoConstruclick from "../../assets/logotipo_black.png";
 import { dataURLtoFile } from "../../utils/image";
@@ -54,6 +52,9 @@ const RegisterPage: React.FC = () => {
   const [legalAgentName, setLegalAgentName] = useState("");
   const [legalAgentPhone, setLegalAgentPhone] = useState("");
   const [legalAgentEmail, setLegalAgentEmail] = useState("");
+  const [facebookUsername, setFacebookUsername] = useState("");
+  const [linkedinUsername, setLinkedinUsername] = useState("");
+  const [professionalDescription, setProfessionalDescription] = useState("");
 
   const clickHandler = (e: { preventDefault: () => void }) => {
     slidesRef.current?.slideNext();
@@ -83,24 +84,27 @@ const RegisterPage: React.FC = () => {
     const role = registerType === "person" ? ROLES.person : ROLES.company;
     let imageUrl;
 
-    if(profilePicture){
-      const responseImage = await uploadImage(dataURLtoFile(profilePicture, 'image.png'));
+    if (profilePicture) {
+      const responseImage = await uploadImage(
+        dataURLtoFile(profilePicture, "image.png")
+      );
       imageUrl = responseImage.data.data;
     }
 
-
     registerAction({
-      ...role === ROLES.person ? {
-        birthdate: birthDate,
-        gender,
-        profession_id: profession,
-        last_name: lastName,
-      } : {
-        nit,
-        name_legal_representative: legalAgentName,
-        phone_legal_representative: legalAgentPhone,
-        email_legal_representative: legalAgentEmail,
-      },
+      ...(role === ROLES.person
+        ? {
+            birthdate: birthDate,
+            gender,
+            profession_id: profession,
+            last_name: lastName,
+          }
+        : {
+            nit,
+            name_legal_representative: legalAgentName,
+            phone_legal_representative: legalAgentPhone,
+            email_legal_representative: legalAgentEmail,
+          }),
       email,
       image_url: imageUrl,
       city_id: city,
@@ -108,6 +112,9 @@ const RegisterPage: React.FC = () => {
       password,
       phone: cellphone,
       type: role,
+      linkedin: linkedinUsername,
+      facebook: facebookUsername,
+      description: professionalDescription,
     });
   };
 
@@ -143,8 +150,15 @@ const RegisterPage: React.FC = () => {
               <IonTitle className="ion-margin ion-padding-bottom">
                 ¿Quien eres?
               </IonTitle>
-              <IonAvatar onClick={takePicture} className="avatar-profile ion-margin-bottom">
-                <img className="profile-img_register" src={profilePicture || AVATAR_IMAGE} alt="Avatar" />
+              <IonAvatar
+                onClick={takePicture}
+                className="avatar-profile ion-margin-bottom"
+              >
+                <img
+                  className="profile-img_register"
+                  src={profilePicture || AVATAR_IMAGE}
+                  alt="Avatar"
+                />
               </IonAvatar>
               <IonItem className="item-list__dark">
                 <IonLabel position="floating">
@@ -202,13 +216,11 @@ const RegisterPage: React.FC = () => {
                     setCity(e.detail.value);
                   }}
                 >
-                  <IonSelectOption value="Santa Marta">
-                    Santa Marta
-                  </IonSelectOption>
-                  <IonSelectOption value="Barranquilla">
-                    Barranquilla
-                  </IonSelectOption>
-                  <IonSelectOption value="Medellin">Medellin</IonSelectOption>
+                  {cities?.map((city) => (
+                    <IonSelectOption key={city._id} value={city._id}>
+                      {city.name}
+                    </IonSelectOption>
+                  ))}
                 </IonSelect>
               </IonItem>
               <IonItem className="ion-margin-vertical item-list__dark">
@@ -301,8 +313,8 @@ const RegisterPage: React.FC = () => {
                       placeholder="Selecciona uno"
                       onIonChange={(e) => setGender(e.detail.value!)}
                     >
-                      <IonSelectOption value="Hombre">Hombre</IonSelectOption>
-                      <IonSelectOption value="Mujer">Mujer</IonSelectOption>
+                      <IonSelectOption value="Masculino">Hombre</IonSelectOption>
+                      <IonSelectOption value="Femenino">Mujer</IonSelectOption>
                     </IonSelect>
                   </IonItem>
                   <IonItem className="ion-margin-top item-list__dark">
@@ -314,7 +326,7 @@ const RegisterPage: React.FC = () => {
                       onIonChange={(e) => setProfession(e.detail.value!)}
                     >
                       {professions?.map((item) => (
-                        <IonSelectOption value={item.id}>
+                        <IonSelectOption key={item._id} value={item._id}>
                           {item.name}
                         </IonSelectOption>
                       ))}
@@ -358,6 +370,52 @@ const RegisterPage: React.FC = () => {
                   </IonItem>
                 </>
               )}
+              <SlideButtons
+                canBack
+                clickHandler={clickHandler}
+                backSlideHandler={backSlideHandler}
+              />
+            </IonContent>
+          </Slide>
+          <Slide canBack backSlideHandler={backSlideHandler}>
+            <IonContent className="ion-padding ion-margin-vertical slide-page-dark">
+              <>
+                <IonImg
+                  src={LogoConstruclick}
+                  className="logo-image__register"
+                />
+                <IonTitle className="ion-padding">Cuentanos mas</IonTitle>
+                <IonItem className=" item-list__dark">
+                  <IonLabel position="floating">Linkedin</IonLabel>
+                  <IonInput
+                    value={linkedinUsername}
+                    onIonChange={(e) => setLinkedinUsername(e.detail.value!)}
+                    type="text"
+                    required
+                  />
+                </IonItem>
+                <IonItem className=" item-list__dark">
+                  <IonLabel position="floating">Facebook</IonLabel>
+                  <IonInput
+                    value={facebookUsername}
+                    onIonChange={(e) => setFacebookUsername(e.detail.value!)}
+                    type="text"
+                  />
+                </IonItem>
+                <IonItem className=" item-list__dark">
+                  <IonLabel position="floating">
+                    Descripción profesional
+                  </IonLabel>
+                  <IonTextarea
+                    value={professionalDescription}
+                    onIonChange={(e) =>
+                      setProfessionalDescription(e.detail.value!)
+                    }
+                    placeholder="Ingresa tu descripción profesional"
+                    required
+                  />
+                </IonItem>
+              </>
               <SlideButtons
                 canBack={true}
                 titleButton="Registrate"

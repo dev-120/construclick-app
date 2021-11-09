@@ -10,27 +10,38 @@ import {
 
 import "./MarketPlace.css";
 import useCommons from "../../hooks/useCommons";
-import { Category } from '../../types/marketplace';
+import { Category } from "../../types/marketplace";
 import Header from "../../components/Header/Header";
-import Section from '../../components/SectionProducts/SectionProducts';
+import Section from "../../components/SectionProducts/SectionProducts";
 import useMarketplace from "../../hooks/useMarketplace";
 
 const MarketPlacePage = () => {
-  const [ categorySelected, setCategorySelected ] = useState<null | Category>(null);
+  const [categorySelected, setCategorySelected] = useState<null | Category>(
+    null
+  );
   const { categories } = useCommons();
-  const { grills } = useMarketplace();
+  const { grills, } = useMarketplace();
 
   useEffect(() => {
-    console.log(grills)
-  }, [grills])
+    console.log(grills);
+  }, [grills]);
 
   const SelectCategory = () => (
-    <IonSegment mode="md" className="select_category_mk" scrollable value={categorySelected?.name || 'todo'} >
-      <IonSegmentButton onClick={() => setCategorySelected(null)} value='todo'>
-          <IonLabel>Todo</IonLabel>
-        </IonSegmentButton>
+    <IonSegment
+      mode="md"
+      className="select_category_mk"
+      scrollable
+      value={categorySelected?.name || "todo"}
+    >
+      <IonSegmentButton onClick={() => setCategorySelected(null)} value="todo">
+        <IonLabel>Todo</IonLabel>
+      </IonSegmentButton>
       {categories.map((cat) => (
-        <IonSegmentButton key={cat.name} onClick={() => setCategorySelected(cat)} value={cat.name} >
+        <IonSegmentButton
+          key={cat.name}
+          onClick={() => setCategorySelected(cat)}
+          value={cat.name}
+        >
           <IonLabel>{cat.name}</IonLabel>
         </IonSegmentButton>
       ))}
@@ -40,7 +51,7 @@ const MarketPlacePage = () => {
   return (
     <IonPage>
       <Header canBack={false} title="MarketPlace" />
-      <IonContent className="container_mk" >
+      <IonContent className="container_mk">
         <SelectCategory />
         <IonImg src="https://www.homecenter.com.co/static/landing/catalogos/img/2019/marzo/tiendas/banner-tiendas-mb.jpg?tmp=19" />
         {grills.map(({ name, products }) => (

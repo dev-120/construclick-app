@@ -6,7 +6,9 @@ const basePath = '/user';
 const { apiUrl } = configEnvirontment;
 
 export const register = (data: object) => {
-    return axios.post(`${apiUrl}${basePath}/register`, data);
+    return axios.post(`${apiUrl}${basePath}/register`, {
+        ...data
+    });
 };
 
 export const login = (data: object) => {
