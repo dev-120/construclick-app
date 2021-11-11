@@ -50,6 +50,7 @@ import ScheduleItemDetail from "./pages/Management/Schedule/ScheduleItemDetail";
 import Warehouse from "./pages/Management/Warehouse/Warehouse";
 import Recruitment from "./pages/Management/Recruitment/Recruitment";
 import PayToStaff from "./pages/Management/PayToStaff/PayToStaff";
+import CreateConstruction from "./pages/Management/CreateConstruction/CreateConstruction";
 import ScheduleExecution from "./pages/Management/ScheduleExecution/ScheduleExecution";
 import InterventionalReport from "./pages/Management/InterventionalReport/InterventionalReport";
 import ClientApprobal from "./pages/Management/ClientApprobal/ClientApprobal";
@@ -81,6 +82,11 @@ const Router = () => {
             exact
             path="/gestion/dashboard"
             component={ManagementDashboard}
+          />
+          <Route
+            exact
+            path="/gestion/create"
+            component={CreateConstruction}
           />
           <Route
             exact

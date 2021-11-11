@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import useUser from "./useUser";
-import { getMyConstructions, getOneConstructions } from "../services/constructions.service";
+import { getMyConstructions, getOneConstructions, createConstruction } from "../services/constructions.service";
 import { GET_CONSTRUCTIONS, SELECT_CONSTRUCTION } from "../store/actions/construction.actions";
 
 const useConstructions = () => {
@@ -16,7 +16,7 @@ const useConstructions = () => {
       const constructions = await getMyConstructions(profileUser?.id);
       dispatch({
         type: GET_CONSTRUCTIONS,
-        payload: constructions.data,
+        payload: constructions?.data?.data,
       });
     } catch (error) {
       console.log(error);
@@ -33,16 +33,29 @@ const useConstructions = () => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
+
+  const _createConstruction = async (data: any) => {
+    try {
+      await createConstruction({
+        userId: profileUser?.id,
+        ...data
+      });
+      await loadConstructions();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    loadConstructions()
+    if(profileUser?.id) loadConstructions()
   }, [profileUser]);
 
   return {
     constructions,
     loadConstructions,
     selectConstruction,
+    createConstruction: _createConstruction,
     constructionSelected,
   };
 };
