@@ -18,3 +18,8 @@ export const fetchPosts = (data: string) => {
 export const fetchProjects = (userId: string) => {
   return axios.get(`${apiUrl}${basePath}/projects?userId=${userId}`);
 }
+
+
+export const fetchAllPostByUserId = (userId: string) => {
+  return axios.get(`${apiUrl}${basePath}/userId?userId=${userId}`);
+}

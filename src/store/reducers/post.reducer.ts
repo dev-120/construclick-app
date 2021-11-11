@@ -1,6 +1,8 @@
 import { Action } from "../../types/store.types";
 import {
   EVENTS_POSTS_SUCCESS,
+  FETCH_USER_POSTS_SUCCESS,
+  FETCH_USER_PROJECTS_SUCCESS,
   NEWS_POSTS_SUCCESS,
   OPPORTUNITIES_POSTS_SUCCESS,
   PROJECTS_POSTS_SUCCESS,
@@ -11,6 +13,8 @@ const initialState = {
   opportunitiesPosts: [],
   newsPosts: [],
   projectsPosts: [],
+  allUserPosts: [],
+  allUserProjects: [],
 };
 
 const reducer = (state = initialState, action: Action) => {
@@ -34,6 +38,16 @@ const reducer = (state = initialState, action: Action) => {
       return {
         ...state,
         projectsPosts: [...action.payload],
+      };
+    case FETCH_USER_POSTS_SUCCESS: 
+      return {
+        ...state,
+        allUserPosts: [...action.payload] 
+      };
+    case FETCH_USER_PROJECTS_SUCCESS:
+      return {
+        ...state,
+        allUserProjects: [...action.payload]
       };
     default:
       return state;
