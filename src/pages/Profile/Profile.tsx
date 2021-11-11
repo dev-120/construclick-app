@@ -35,7 +35,7 @@ import {
   closeCircle,
 } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
-import { Plugins, AppState, Browser } from "@capacitor/core"
+import { Browser } from "@capacitor/core";
 
 import Header from "../../components/Header/Header";
 import "./Profile.css";
@@ -150,7 +150,13 @@ const ViewPostInProfile: React.FC<{
                 </IonAvatar>
                 <IonLabel>{profileFullName}</IonLabel>
               </IonChip>
-              <IonButton slot="end" onClick={() => onDismiss()} color="primary" fill="clear" size="large">
+              <IonButton
+                slot="end"
+                onClick={() => onDismiss()}
+                color="primary"
+                fill="clear"
+                size="large"
+              >
                 <IonIcon slot="icon-only" icon={closeCircle} />
               </IonButton>
             </IonItem>
@@ -199,16 +205,12 @@ const Profile = () => {
   const { profileUser } = useUser();
   const { allUserPosts, projectsPosts, fetchAllPostByUser, fetchProjects } =
     usePosts();
-  const { App } = Plugins;
 
-  const OpenApp = async (url: string) => {
-    
-    let ret = await App.canOpenUrl({ url: url });
-
-    let retx = await App.openUrl({ url: url });
-
-    console.log("Open url response: ", ret)
-  }
+  const OpenApp = async (type: string, username: string) => {
+    type === "facebook"
+      ? await Browser.open({ url: `https://www.facebook.com/${username}/` })
+      : await Browser.open({ url: `https://www.linkedin.com/in/${username}/` });
+  };
 
   useEffect(() => {
     fetchAllPostByUser();
@@ -227,12 +229,22 @@ const Profile = () => {
           />
           <div className="cover_menu_profileDetail-gradient" />
           <div className="data_profile_menu_middle ion-margin-horizontal">
-            <IonIcon onClick={() => {
-              if(profileUser?.facebook) OpenApp("com.facebook.katana")
-            }} color="light"  icon={logoFacebook} />
-            <IonIcon onClick={() => {
-              if(profileUser?.linkedin) OpenApp("com.facebook.katana")
-            }} color="light"  icon={logoLinkedin} />
+            <IonIcon
+              onClick={() => {
+                if (profileUser?.facebook)
+                  OpenApp("facebook", profileUser?.facebook);
+              }}
+              color="light"
+              icon={logoFacebook}
+            />
+            <IonIcon
+              onClick={() => {
+                if (profileUser?.linkedin)
+                  OpenApp("linkedin", profileUser?.linkedin);
+              }}
+              color="light"
+              icon={logoLinkedin}
+            />
             <img
               src={
                 profileUser?.image_url ? profileUser?.image_url : AVATAR_IMAGE
@@ -268,13 +280,9 @@ const Profile = () => {
           <IonText className="profession">Ingeniero</IonText>
         </div>
         <IonItem className="ion-margin-horizontal profile-description">
-          <p className="description_profileDetail">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five cent make a type specimen book.
-          </p>
+          <IonLabel className="description_profileDetail ion-text-center">
+            {profileUser?.description}
+          </IonLabel>
         </IonItem>
         <IonItem className="profile-followers ion-text-center">
           <IonLabel>300 Seguidores</IonLabel>

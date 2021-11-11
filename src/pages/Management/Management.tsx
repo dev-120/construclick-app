@@ -32,7 +32,7 @@ const ManagementPage: React.FC<Props> = ({ history }) => {
           <IonFabButton>
             <IonIcon
               onClick={() => {
-                history.push("/create-project");
+                history.push("/gestion/dashboard");
               }}
               icon={add}
             />
