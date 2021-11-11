@@ -1,16 +1,29 @@
 import {
+  IonAvatar,
   IonBadge,
   IonButton,
   IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
+  IonChip,
+  IonCol,
   IonContent,
+  IonFooter,
+  IonGrid,
   IonIcon,
   IonImg,
   IonItem,
   IonLabel,
   IonPage,
+  IonRow,
   IonSegment,
   IonSegmentButton,
+  IonSlide,
+  IonSlides,
   IonText,
+  useIonModal,
 } from "@ionic/react";
 import {
   logoFacebook,
@@ -18,118 +31,90 @@ import {
   globe,
   heartOutline,
   heart,
+  timeOutline,
+  closeCircle,
 } from "ionicons/icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Plugins, AppState, Browser } from "@capacitor/core"
 
 import Header from "../../components/Header/Header";
 import "./Profile.css";
-import profilePoster from "../../assets/profile__poster.png";
-import StarRating from "../../components/StarRating/StarRating";
 import useUser from "../../hooks/useUser";
 import { AVATAR_IMAGE } from "../../config/constants";
+import usePosts from "../../hooks/usePosts";
+import { dateFormatter } from "../../utils/dateFormatter";
 
-const mockupProps = {
-  coverPhoto:
-    "https://images.pexels.com/photos/3525541/pexels-photo-3525541.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
-  profilePhoto:
-    "https://images.unsplash.com/photo-1529088746738-c4c0a152fb2c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1000&amp;q=80",
-  profileName: "Johnny Pacheco",
-};
+interface postInterface {
+  attributes: {
+    postDescription?: string;
+    _id: string;
+  }[];
+  createdAt: string;
+  imagesUrl: string[];
+  title: string;
+  type: string;
+  updatedAt: string;
+  userId: string;
+  _id: string;
+}
 
-const randomInt = () => {
-  return Math.floor(Math.random() * (100 - 1) + 5);
-};
+const ViewPosts: React.FC<{
+  posts: postInterface[];
+  profileImage: string;
+  profileFullName: string;
+}> = ({ posts, profileImage, profileFullName }) => {
+  const [post, setPostToSend] = useState({});
+  const [present, dismiss] = useIonModal(ViewPostInProfile, {
+    post,
+    profileImage,
+    profileFullName,
+    onDismiss: () => dismiss(),
+  });
 
-const mockupPost = [
-  {
-    id: 1,
-    coverPhoto:
-      "https://images.pexels.com/photos/3525541/pexels-photo-3525541.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
-    profilePhoto:
-      "https://images.unsplash.com/photo-1529088746738-c4c0a152fb2c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1000&amp;q=80",
-    profileName: "Johnny Pacheco",
-    profession: "Ingeniero",
-    postDescription:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis hendrerit risus nec tincidunt convallis. Mauris ac massa diam. Fusce vel laoreet turpis, suscipit ultricies sem. Nulla facilisi. Donec vehicula ligula ut purus euismod cursus. Nunc euismod odio vel ipsum egestas, eu porttitor nisl pharetra. Donec eu ornare eros, ut convallis.",
-    postsPhoto:
-      "https://images.unsplash.com/photo-1563166423-482a8c14b2d6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80 750w",
-
-    likes: randomInt(),
-    comments: randomInt(),
-  },
-  {
-    id: 2,
-    coverPhoto:
-      "https://images.pexels.com/photos/3525541/pexels-photo-3525541.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
-    profilePhoto:
-      "https://images.unsplash.com/photo-1529088746738-c4c0a152fb2c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1000&amp;q=80",
-    profileName: "Jhonny Pacheco",
-    profession: "Ingeniero",
-    postDescription:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis hendrerit risus nec tincidunt convallis. Mauris ac massa diam. Fusce vel laoreet turpis, suscipit ultricies sem. Nulla facilisi. Donec vehicula ligula ut purus euismod cursus. Nunc euismod odio vel ipsum egestas, eu porttitor nisl pharetra. Donec eu ornare eros, ut convallis.",
-    postsPhoto:
-      "https://images.unsplash.com/photo-1563166423-482a8c14b2d6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80 750w",
-    likes: randomInt(),
-    comments: randomInt(),
-  },
-  {
-    id: 3,
-    coverPhoto:
-      "https://images.pexels.com/photos/3525541/pexels-photo-3525541.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
-    profilePhoto:
-      "https://images.unsplash.com/photo-1529088746738-c4c0a152fb2c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1000&amp;q=80",
-    profileName: "Johnny Pacheco",
-    profession: "Ingeniero",
-    postDescription:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis hendrerit risus nec tincidunt convallis. Mauris ac massa diam. Fusce vel laoreet turpis, suscipit ultricies sem. Nulla facilisi. Donec vehicula ligula ut purus euismod cursus. Nunc euismod odio vel ipsum egestas, eu porttitor nisl pharetra. Donec eu ornare eros, ut convallis.",
-    postsPhoto:
-      "https://images.unsplash.com/photo-1563166423-482a8c14b2d6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80 750w",
-    likes: randomInt(),
-    comments: randomInt(),
-  },
-];
-
-const polishPostDescription = (text: string) => {
-  let newText = text;
-  let newTextArray = newText
-    .match(/[a-zA-Z]+/g)
-    ?.slice(0, 23)
-    .join(" ");
-  return newTextArray + "...";
-};
-
-const ProfilePosts: React.FC = () => {
-  const [posts, setPosts] = useState(mockupPost);
-  
+  const handleOpenModal = (post: postInterface) => {
+    setPostToSend(post);
+    present({
+      cssClass: "modal-view__post",
+    });
+  };
 
   return (
     <>
-      {posts.map((post, index) => (
-        <IonCard key={post.id} mode="md" className="ion-margin">
+      {posts.map((post) => (
+        <IonCard
+          key={post?._id}
+          mode="md"
+          className="ion-margin"
+          onClick={() => handleOpenModal(post)}
+        >
           <IonItem lines="none" className="ion-margin-top">
             <img
-              src={post.profilePhoto}
+              src={profileImage}
               className="profile_posts_img"
               slot="start"
+              alt="profile"
             />
             <span className="profile-nameProfession">
-              <strong>{post.profileName}</strong>
-              <IonText>{post.profession}</IonText>
+              <strong>{profileFullName}</strong>
+              <IonText>Ingeniero</IonText>
             </span>
             <IonText mode="md" className="profile-post__followers">
               300 seguidores
             </IonText>
           </IonItem>
-          <IonItem lines="none" className="ion-margin-top">
-            <img className="profile-post__image" src={post.postsPhoto} />
-          </IonItem>
+          <div className="ion-margin-top profile-image__container">
+            <img
+              className="profile-post__image"
+              src={post?.imagesUrl[0]}
+              alt="post"
+            />
+          </div>
           <IonItem lines="none">
             <p className="profile-post__description ion-text-justify">
-              {polishPostDescription(post.postDescription)}
+              {post?.attributes[0]?.postDescription
+                ? post?.attributes[0]?.postDescription
+                : "Sin descripción"}
             </p>
-          </IonItem>
-          <IonItem>
-            <PostsLikes post={post} />
           </IonItem>
         </IonCard>
       ))}
@@ -137,44 +122,100 @@ const ProfilePosts: React.FC = () => {
   );
 };
 
-interface propsPostsLikes {
-  post: {
-    id: number;
-    likes: number;
-  };
-}
-
-const PostsLikes: React.FC<propsPostsLikes> = ({ post }) => {
-  const [liked, setLiked] = useState<string>("black");
-  const [postLikes, setPostLikes] = useState(post.likes);
-  const [toggleClick, setTooggleClick] = useState(false);
-
-  const textClickHandler: any = (e: Event) => {
-    if (!toggleClick) {
-      setLiked("#ef7b03");
-      setPostLikes((postlikes) => postlikes + 1);
-      setTooggleClick(true);
-    } else {
-      setLiked("black");
-      setPostLikes((postlikes) => postlikes - 1);
-      setTooggleClick(false);
-    }
+const ViewPostInProfile: React.FC<{
+  post: postInterface;
+  onDismiss: () => void;
+  profileFullName: string;
+  profileImage: string;
+}> = ({ post, onDismiss, profileFullName, profileImage }) => {
+  const getDate = (date: string) => {
+    let currentDate = new Date(date);
+    return `${currentDate.getDay()}/${
+      currentDate.getMonth() + 1
+    }/${currentDate.getFullYear()}`;
   };
 
   return (
-    <>
-      <strong slot="end" onClick={textClickHandler} style={{ color: liked }}>
-        {postLikes} Me gusta
-      </strong>
-    </>
+    <IonContent>
+      <IonCard>
+        <IonCardHeader>
+          <IonCardSubtitle>
+            <IonItem lines="none" className="ion-no-margin ion-no-padding">
+              <IonChip slot="start">
+                <IonAvatar>
+                  <img
+                    src={profileImage ? profileImage : AVATAR_IMAGE}
+                    alt="profile"
+                  />
+                </IonAvatar>
+                <IonLabel>{profileFullName}</IonLabel>
+              </IonChip>
+              <IonButton slot="end" onClick={() => onDismiss()} color="primary" fill="clear" size="large">
+                <IonIcon slot="icon-only" icon={closeCircle} />
+              </IonButton>
+            </IonItem>
+          </IonCardSubtitle>
+          <IonCardTitle>{post?.title}</IonCardTitle>
+          <IonBadge color="primary">
+            {post?.createdAt && getDate(post?.createdAt)}
+          </IonBadge>
+        </IonCardHeader>
+        {post && (
+          <IonSlides>
+            {post?.imagesUrl?.map((image: string) => (
+              <IonSlide key={image}>
+                <img src={image} alt="" />
+              </IonSlide>
+            ))}
+          </IonSlides>
+        )}
+        {post?.attributes[0] ? (
+          <IonCardContent>
+            {post?.attributes[0]?.postDescription}
+          </IonCardContent>
+        ) : (
+          <IonCardContent>Sin Descripción</IonCardContent>
+        )}
+        <IonFooter>
+          <IonGrid>
+            <IonRow>
+              <IonCol size="4" className="btn_footer_card">
+                <IonIcon icon={timeOutline} />
+                <IonLabel className="ion-text-center">
+                  {post?.createdAt && dateFormatter(post?.createdAt)}
+                </IonLabel>
+              </IonCol>
+            </IonRow>
+          </IonGrid>
+        </IonFooter>
+      </IonCard>
+    </IonContent>
   );
 };
 
 const Profile = () => {
   const [like, setLiked] = useState(false);
-  const [rating, setRating] = useState(3.5);
   const [toggleOptions, setToggleOptions] = useState("posts");
   const { profileUser } = useUser();
+  const { allUserPosts, projectsPosts, fetchAllPostByUser, fetchProjects } =
+    usePosts();
+  const { App } = Plugins;
+
+  const OpenApp = async (url: string) => {
+    
+    let ret = await App.canOpenUrl({ url: url });
+
+    let retx = await App.openUrl({ url: url });
+
+    console.log("Open url response: ", ret)
+  }
+
+  useEffect(() => {
+    fetchAllPostByUser();
+    fetchProjects();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profileUser]);
+
   return (
     <IonPage>
       <IonContent id="dark-content__profile">
@@ -182,13 +223,22 @@ const Profile = () => {
         <div className="cover_menu_profileDetail">
           <IonImg
             className="cover_menu_profileDetail_img"
-            src={profilePoster}
+            src="https://images.pexels.com/photos/3525541/pexels-photo-3525541.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260"
           />
           <div className="cover_menu_profileDetail-gradient" />
           <div className="data_profile_menu_middle ion-margin-horizontal">
-            <IonIcon color="light" icon={logoFacebook} />
-            <IonIcon color="light" icon={logoLinkedin} />
-            <img src={profileUser?.image_url ? profileUser?.image_url : AVATAR_IMAGE} alt="" />
+            <IonIcon onClick={() => {
+              if(profileUser?.facebook) OpenApp("com.facebook.katana")
+            }} color="light"  icon={logoFacebook} />
+            <IonIcon onClick={() => {
+              if(profileUser?.linkedin) OpenApp("com.facebook.katana")
+            }} color="light"  icon={logoLinkedin} />
+            <img
+              src={
+                profileUser?.image_url ? profileUser?.image_url : AVATAR_IMAGE
+              }
+              alt=""
+            />
             <div className="data_icon_profileDetail_menu-right">
               <IonBadge className="badge-like">
                 <IonIcon icon={globe} />
@@ -212,12 +262,11 @@ const Profile = () => {
           </div>
         </div>
         <div className="ion-text-center  username_title">
-          <IonText className="user_name">{profileUser?.name} {profileUser.last_name}</IonText>
+          <IonText className="user_name">
+            {profileUser?.name} {profileUser?.last_name}
+          </IonText>
           <IonText className="profession">Ingeniero</IonText>
         </div>
-        <IonItem className="ion-margin-top ion-margin-horizontal ratings-profile">
-          <StarRating rating={rating} size="large" color="warning" />
-        </IonItem>
         <IonItem className="ion-margin-horizontal profile-description">
           <p className="description_profileDetail">
             Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -242,7 +291,19 @@ const Profile = () => {
             <IonLabel>Publicaciones</IonLabel>
           </IonSegmentButton>
         </IonSegment>
-        {toggleOptions === "posts" ? <ProfilePosts /> : <ProfilePosts />}
+        {toggleOptions === "posts" ? (
+          <ViewPosts
+            posts={allUserPosts}
+            profileFullName={`${profileUser?.name} ${profileUser?.last_name}`}
+            profileImage={profileUser?.image_url}
+          />
+        ) : (
+          <ViewPosts
+            posts={projectsPosts}
+            profileFullName={`${profileUser.name} ${profileUser.last_name}`}
+            profileImage={profileUser.image_url}
+          />
+        )}
       </IonContent>
     </IonPage>
   );
@@ -250,5 +311,28 @@ const Profile = () => {
 
 export default Profile;
 
-// https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260
-// https://images.pexels.com/photos/3525541/pexels-photo-3525541.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260
+// const PostsLikes: React.FC<propsPostsLikes> = ({ post }) => {
+//   const [liked, setLiked] = useState<string>("black");
+//   const [postLikes, setPostLikes] = useState(post.likes);
+//   const [toggleClick, setTooggleClick] = useState(false);
+
+//   const textClickHandler: any = (e: Event) => {
+//     if (!toggleClick) {
+//       setLiked("#ef7b03");
+//       setPostLikes((postlikes) => postlikes + 1);
+//       setTooggleClick(true);
+//     } else {
+//       setLiked("black");
+//       setPostLikes((postlikes) => postlikes - 1);
+//       setTooggleClick(false);
+//     }
+//   };
+
+//   return (
+//     <>
+//       <strong slot="end" onClick={textClickHandler} style={{ color: liked }}>
+//         {postLikes} Me gusta
+//       </strong>
+//     </>
+//   );
+// };

@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import {
   EVENTS_POSTS_SUCCESS,
+  FETCH_ALL_USER_POSTS,
   FETCH_PROJECTS_POSTS,
   NEWS_POSTS_SUCCESS,
   OPPORTUNITIES_POSTS_SUCCESS,
@@ -15,7 +16,7 @@ const usePosts = () => {
   const [postsNews, setPostsNews] = useState([]);
   const [postsOpportunities, setPostsOpportunities] = useState([]);
   const dispatch = useDispatch();
-  const { projectsPosts } = useSelector((state: any) => state.posts);
+  const { projectsPosts, allUserPosts } = useSelector((state: any) => state.posts);
   const { profileUser } = useUser();
 
   const fetchPost = async (type: string) => {
@@ -55,17 +56,27 @@ const usePosts = () => {
   const fetchProjects = () => {
     dispatch({
       type: FETCH_PROJECTS_POSTS,
-      payload: profileUser.id,
+      payload: profileUser?.id,
     });
   };
+
+  const fetchAllPostByUser = () => {
+    if(profileUser)
+    dispatch({
+      type: FETCH_ALL_USER_POSTS,
+      payload: profileUser?.id,
+    })
+  }
 
   return {
     projectsPosts,
     postsEvent,
     postsNews,
     postsOpportunities,
+    allUserPosts,
     fetchProjects,
     fetchPost,
+    fetchAllPostByUser
   };
 };
 

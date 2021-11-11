@@ -20,8 +20,8 @@ import {
 import { LOAD_DATAS_COMMONS } from "../actions/commons.actions";
 import { addProductToShoppingcart, getShoppingCartItems, removeProductOfShoppingcart } from "./shoppingcart.effects";
 import { PRODUCT_ADD_FETCH, PRODUCT_REMOVE, SHOPPINGCART_FETCH } from "../actions/shoppingcart.actions";
-import { FETCH_EVENTS_POSTS, FETCH_NEWS_POSTS, FETCH_OPPORTUNITIES_POSTS, FETCH_PROJECTS_POSTS } from "../actions/posts.actions";
-import { fetchEventsPosts, fetchNewsPosts, fetchOpportunitesPosts, fetchProjectsPosts } from "./posts.effect";
+import { FETCH_ALL_USER_POSTS, FETCH_EVENTS_POSTS, FETCH_NEWS_POSTS, FETCH_OPPORTUNITIES_POSTS, FETCH_PROJECTS_POSTS } from "../actions/posts.actions";
+import { fetchAllPostsByUser, fetchEventsPosts, fetchNewsPosts, fetchOpportunitesPosts, fetchProjectsPosts } from "./posts.effect";
 
 
 
@@ -39,6 +39,7 @@ function* rootSagas() {
   yield takeEvery(FETCH_NEWS_POSTS, fetchNewsPosts);
   yield takeEvery(FETCH_OPPORTUNITIES_POSTS, fetchOpportunitesPosts);
   yield takeEvery(FETCH_PROJECTS_POSTS, fetchProjectsPosts);
+  yield takeEvery(FETCH_ALL_USER_POSTS, fetchAllPostsByUser);
 }
 
 
