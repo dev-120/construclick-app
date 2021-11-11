@@ -5,13 +5,15 @@ import commonsReducer from './commons.reducer';
 import shoppingCartReducer from "./shoppingCart.reducer";
 import calculatorReducer from "./calculator.reducer";
 import postsReducer from "./post.reducer";
+import constructionReducer from './constructions.reducer';
 
 const rootReducer = combineReducers({
   user: userReducer,
-  commons: commonsReducer,
-  shoppingCart: shoppingCartReducer,
-  calculator: calculatorReducer,
   posts: postsReducer,
+  commons: commonsReducer,
+  calculator: calculatorReducer,
+  shoppingCart: shoppingCartReducer,
+  constructions: constructionReducer,
 });
 
 export default rootReducer;
