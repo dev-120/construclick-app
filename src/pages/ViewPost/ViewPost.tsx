@@ -29,23 +29,23 @@ import { dateFormatter } from "../../utils/dateFormatter";
 import {  useLocation } from "react-router";
 
 interface postInterface {
-  _id: string;
+  _id: string | undefined;
   attributes: {
-    postDescription?: string;
-    postDate?: string;
+    postDescription?: string | undefined;
+    postDate?: string | undefined;
   }[];
-  createdAt: string;
-  imagesUrl: string[];
-  title: string;
-  userId: string;
-  userImage: string;
-  userLastname: string;
-  userName: string;
+  createdAt: string | undefined;
+  imagesUrl: string[] | undefined;
+  title: string | undefined;
+  userId: string | undefined;
+  userImage: string | undefined;
+  userLastname: string | undefined;
+  userName: string | undefined;
 }
 
 interface viewPostInterface {
   location: {
-    state: postInterface;
+    state: postInterface | [];
   };
 }
 

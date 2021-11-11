@@ -16,7 +16,7 @@ const useMarketplace = () => {
   };
 
   useEffect(() => {
-    if(profileUser?.cityId !== "") fetchGrills(profileUser?.cityId);
+    if(profileUser?.cityId) fetchGrills(profileUser?.cityId);
   }, [profileUser]);
 
   return {

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   IonPage,
   IonContent,
@@ -77,7 +78,7 @@ const ShoppingCart: React.FC<RouteComponentProps> = ({ match }) => {
   useEffect(() => {
     getShoppingCart()
     setSavedProducts(mockupSavedProducts);
-  },[]);
+  },[cart]);
 
   const segmentChangeHandler = (e: any) => {
     setSegment(e.detail.value!);
@@ -115,6 +116,7 @@ const ShoppingCart: React.FC<RouteComponentProps> = ({ match }) => {
             <IonList className="ShoppingCart-lists__style">
               {cart?.items.map((product: CartProductType) => (
                 <CartProduct
+                key={product._id}
                 {...product}
                 deleteHandler={deleteProductInShoppingCartHandler}                />
               ))}
