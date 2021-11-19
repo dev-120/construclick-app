@@ -45,17 +45,6 @@ const mockupSavedProducts = [
   },
 ];
 
-// type CartProduct = {
-//   _id: string;
-//   title: string;
-//   price: number;
-//   quantity: number;
-//   color: string | undefined;
-//   image_url: string;
-//   discount: number | undefined;
-//   product: any;
-// };
-
 type CartProductType = {
   _id: string;
   titleProduct: string;
@@ -67,27 +56,28 @@ type CartProductType = {
   discount: number | undefined;
 };
 
-
-
 const ShoppingCart: React.FC<RouteComponentProps> = ({ match }) => {
-  const [savedProducts, setSavedProducts] = useState<Array<any>>(mockupSavedProducts);
+  const [savedProducts, setSavedProducts] =
+    useState<Array<any>>(mockupSavedProducts);
   const [segment, setSegment] = useState("cart");
   const { cart, deleteProductOfCart, totalPrice, getShoppingCart } =
     useShoppingCart();
 
   useEffect(() => {
-    getShoppingCart()
+    getShoppingCart();
     setSavedProducts(mockupSavedProducts);
-  },[cart]);
+  }, [match]);
+
 
   const segmentChangeHandler = (e: any) => {
     setSegment(e.detail.value!);
   };
 
   const deleteProductInShoppingCartHandler = (id: string) => {
-    deleteProductOfCart(id)
+    deleteProductOfCart(id);
     getShoppingCart();
-  }
+    console.log(id)
+  };
 
   return (
     <IonPage>
@@ -116,9 +106,10 @@ const ShoppingCart: React.FC<RouteComponentProps> = ({ match }) => {
             <IonList className="ShoppingCart-lists__style">
               {cart?.items.map((product: CartProductType) => (
                 <CartProduct
-                key={product._id}
-                {...product}
-                deleteHandler={deleteProductInShoppingCartHandler}                />
+                  key={product._id}
+                  {...product}
+                  deleteHandler={deleteProductInShoppingCartHandler}
+                />
               ))}
             </IonList>
           ) : (
@@ -175,20 +166,6 @@ const ShoppingCart: React.FC<RouteComponentProps> = ({ match }) => {
     </IonPage>
   );
 };
-
-// type CartProductProps = {
-//   productId: string;
-//   productTitle: string;
-//   productPrice: number;
-//   cuantity: number;
-//   color: string;
-//   img: string;
-//   discount: number;
-//   selectedCuantity: number;
-//   priceHandler: (value: number, action: string, substract?: number) => void;
-//   deleteHandler: (id: string) => void;
-//   cuantityHandler: (id: string, cuantity: number) => void;
-// };
 
 type CartProductProps = {
   _id: string;
@@ -270,7 +247,14 @@ const CartProduct = ({
                           style={{ fontSize: "1rem" }}
                           color="dark"
                         >
-                          <strong style={{ fontSize: "0.875rem", lineHeight: '0.75rem' }}>${unitPrice * quantity}</strong>
+                          <strong
+                            style={{
+                              fontSize: "0.875rem",
+                              lineHeight: "0.75rem",
+                            }}
+                          >
+                            ${unitPrice * quantity}
+                          </strong>
                         </IonLabel>
                       </>
                     )}

@@ -28,3 +28,9 @@
   left: 40px;
   top: 6px;
 }
+.search-results__data{
+  position: absolute;
+  top: 16px;
+  right: 50px;
+  border: 1px solid black;
+}

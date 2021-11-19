@@ -22,8 +22,26 @@ type Props = {
   };
 };
 
+interface constructionInterface {
+  _id: string;
+  ubication: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+  description: string;
+  name: string;
+  phoneContact: string;
+  userId: string;
+}
+
 const ManagementPage: React.FC<Props> = ({ history }) => {
-  const { constructions } = useConstructions();
+  const { constructions, selectConstruction } = useConstructions();
+
+  const constructionSelect = (id: string) => {
+    selectConstruction(id);
+    history.push('/gestion/dashboard');
+  };
+
   return (
     <IonPage>
       <Header canBack={false} title="Gestion de obra" />
@@ -36,20 +54,19 @@ const ManagementPage: React.FC<Props> = ({ history }) => {
           ) : (
             <IonContent>
               <IonList>
-                {constructions?.map((c: any) => (
-                  <IonItem>
-                  <IonLabel className="ion-text-wrap">
-                    <IonText color="primary">
-                      <h2>{c.name}</h2>
-                    </IonText>
-                    <p>{c.description}</p>
-                    <IonText>
-                      <p>{c.ubication}</p>
-                    </IonText>
-                  </IonLabel>
-                </IonItem>
+                {constructions?.map((c: constructionInterface) => (
+                  <IonItem key={c._id} button onClick={() => constructionSelect(c._id)} >
+                    <IonLabel className="ion-text-wrap">
+                      <IonText color="primary">
+                        <h2>{c.name}</h2>
+                      </IonText>
+                      <p>{c.description}</p>
+                      <IonText>
+                        <p>{c.ubication}</p>
+                      </IonText>
+                    </IonLabel>
+                  </IonItem>
                 ))}
-                
               </IonList>
             </IonContent>
           )}
