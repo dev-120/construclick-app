@@ -42,15 +42,22 @@ interface professionals {
 const SearchListResult: React.FC<any> = ({
   results,
   onDismiss,
-  onItemClick
+  onItemClick,
+  onUserClick
 }: {
   results: professionals[] | products[];
   onDismiss: () => void;
   onItemClick: any;
+  onUserClick: any
 }) => {
 
   const handleItemClick = (id: string) => {
     onItemClick(id)
+    onDismiss()
+  }
+  
+  const handleUserClick = (id: string) => {
+    onUserClick(id)
     onDismiss()
   }
 
@@ -70,7 +77,7 @@ const SearchListResult: React.FC<any> = ({
         <>
           {results[0].hasOwnProperty("profession") &&
             results.map((result: any) => (
-              <IonItem key={result._id} button lines="full">
+              <IonItem key={result._id} button lines="full" onClick={() => handleUserClick(result._id)}>
                 <IonAvatar>
                   <img src={result.image_url} alt="" />
                 </IonAvatar>
@@ -107,6 +114,7 @@ const SearchListResult: React.FC<any> = ({
   );
 };
 
+
 const SearchButton: React.FC = () => {
   const location = useLocation();
   const history = useHistory();
@@ -117,11 +125,16 @@ const SearchButton: React.FC = () => {
     onDismiss: () => dismiss(),
     results: searchResults,
     onItemClick: (id: string) => handleItemClick(id),
+    onUserClick: (id: string) => handleUserClick(id)
   });
   const { pathname } = location;
 
   const handleItemClick = (id: string) => {
     history.push(`/marketplace/${id}`)
+  }
+
+  const handleUserClick = (id: string) => {
+    history.push(`/profile/${id}`)
   }
 
   const handleSearch = async (e: any, searchTerm: string) => {
