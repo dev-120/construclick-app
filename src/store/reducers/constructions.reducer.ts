@@ -1,7 +1,7 @@
 import { Action } from '../../types/store.types';
 import {
     GET_CONSTRUCTIONS,
-    SELECT_CONSTRUCTION
+    SELECT_CONSTRUCTION,
 } from '../actions/construction.actions';
 
 const initialState = {

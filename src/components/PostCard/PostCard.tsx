@@ -15,13 +15,14 @@ import {
   IonChip,
   IonAvatar,
   IonBadge,
+  useIonModal,
 } from "@ionic/react";
-import { heartOutline, timeOutline } from "ionicons/icons";
-import { useHistory } from "react-router";
+import { timeOutline } from "ionicons/icons";
 
 import "./PostCard.css";
 import { AVATAR_IMAGE } from "../../config/constants";
 import { dateFormatter } from "../../utils/dateFormatter";
+import ViewPostCard from "../ViewPostCard/ViewPostCard";
 
 type Props = {
   post: postInterface;
@@ -44,8 +45,12 @@ interface postInterface {
 }
 
 const PostCard: React.FC<Props> = ({ post }) => {
-
-  const history = useHistory();
+  const [present, dismiss] = useIonModal(ViewPostCard, {
+    post,
+    onDismiss: () => dismiss(),
+    profileFullName: `${post.userName} ${post.userLastname}`,
+    profileImage: post?.userImage,
+  });
 
   const getDate = (date: string) => {
     let currentDate = new Date(date);
@@ -56,9 +61,11 @@ const PostCard: React.FC<Props> = ({ post }) => {
 
   return (
     <IonCard
-      onClick={() => {
-        history.push({ pathname: `/view-post/`, state: { ...post } })
-      }}
+      onClick={() =>
+        present({
+          cssClass: "post-event__modal",
+        })
+      }
     >
       <IonCardHeader>
         <IonCardSubtitle>
@@ -86,12 +93,10 @@ const PostCard: React.FC<Props> = ({ post }) => {
         <IonGrid>
           <IonRow>
             <IonCol size="4" className="btn_footer_card">
-              <IonIcon icon={heartOutline} />
-              <IonLabel>54 Likes</IonLabel>
-            </IonCol>
-            <IonCol size="4" className="btn_footer_card">
               <IonIcon icon={timeOutline} />
-              <IonLabel className="ion-text-center">{dateFormatter(post.createdAt)}</IonLabel>
+              <IonLabel className="ion-text-center">
+                {dateFormatter(post.createdAt)}
+              </IonLabel>
             </IonCol>
           </IonRow>
         </IonGrid>

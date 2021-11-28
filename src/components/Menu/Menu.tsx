@@ -17,11 +17,13 @@ import {
   bagOutline
 } from "ionicons/icons";
 import { AVATAR_IMAGE } from "../../config/constants";
+import useCommons from "../../hooks/useCommons";
 import useUser from "../../hooks/useUser";
 
 import "./Menu.css";
 
 const Menu = () => {
+  const { professions } = useCommons();
   const { logout, profileUser } = useUser();
   return (
     <IonMenu side="start" contentId="main">
@@ -39,7 +41,7 @@ const Menu = () => {
                 {profileUser?.name} {profileUser?.last_name}
               </span>
               <span className="data_text_profile_menu_side-profession">
-                Arquitecto
+                {professions.find((profession) => profession._id === profileUser?.profession_id)?.name}
               </span>
             </div>
           </div>

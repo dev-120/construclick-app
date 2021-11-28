@@ -8,7 +8,6 @@ import {
   IonInput,
   IonLabel,
   IonText,
-  IonToggle,
   IonIcon,
   IonButton,
   IonGrid,
@@ -17,7 +16,6 @@ import {
   IonRadioGroup,
   IonListHeader,
   IonRadio,
-  IonCheckbox,
   IonSelect,
   IonSelectOption,
 } from "@ionic/react";
@@ -26,86 +24,237 @@ import { createOutline } from "ionicons/icons";
 import Header from "../../../components/Header/Header";
 
 import "./LegalAspects.css";
+import useConstructions from "../../../hooks/useConstructions";
 
-const typeOfProcedure = [
-  { val: "Licencia de urbanizacion", isChecked: false },
-  { val: "Licencia de parcelacion", isChecked: false },
-  { val: "Licencia de subdivision", isChecked: false },
-  { val: "Licencia de construccion", isChecked: false },
-  { val: "Intervención y ocupacion de espacio publico", isChecked: false },
-  {
-    val: "Reconocimiento de la existencia de una edificacion",
-    isChecked: false,
-  },
-  { val: "Otras actuaciones", isChecked: false },
+const typeOfProcedureMenu = [
+  "Licencia de urbanizacion",
+  "Licencia de parcelacion",
+  "Licencia de subdivision",
+  "Licencia de construccion",
+  "Intervención y ocupacion de espacio publico",
+  "Reconocimiento de la existencia de una edificacion",
 ];
 
-const mConstructionLicense = [
-  { val: "Subdivision rural", isChecked: false },
-  { val: "Subdivision urbana", isChecked: false },
-  { val: "Reloteo", isChecked: false },
-];
+const modeUrbanLicenseMenu = ["Desarrollo", "Saneamiento", "Reurbanización"];
 
-const modeUrbanLicenseMenu = [
-  { val: "Desarrollo", isChecked: false },
-  { val: "Saneamiento", isChecked: false },
-  { val: "Reurbanización", isChecked: false },
+const modeLicenseSubdivisionMenu = [
+  "Subdivision rural",
+  "Subdivision urbana",
+  "Reloteo",
 ];
 
 const procedureObjectiveMenu = [
-  { val: "Inicial", isChecked: false },
-  { val: "Prórroga", isChecked: false },
-  { val: "Modificación de licencia vigente", isChecked: false },
-  { val: "Revalidación", isChecked: false },
+  "Inicial",
+  "Prórroga",
+  "Modificación de licencia vigente",
+  "Revalidación",
 ];
 
-const listUseMenu = [
-  { val: "Vivivenda", isChecked: false },
-  { val: "Comercio y/o servicios", isChecked: false },
-  { val: "Institucional", isChecked: false },
-  { val: "Industrial", isChecked: false },
+const useMenuData = [
+  "Vivivenda",
+  "Comercio y/o servicios",
+  "Institucional",
+  "Industrial",
+];
+
+const modeLicenseOfConstructionData = [
+  "Obra nueva",
+  "Ampliacion",
+  "Adecuación",
+  "Modificación",
+  "Restauración",
+  "Reforzamineto Estructural",
+  "Demolicion",
+  "Reconstrucción",
+  "Cerramiento",
 ];
 
 const typeOfHousingOption = ["VIP", "VIS", "No VIS"];
 
 const LegalAspects: React.FC = () => {
-  const [typeProcedure, setTypeProcedure] =
-    useState<Array<any>>(typeOfProcedure);
-  const [modeConstructionLicense, setModeConstructionLicense] =
-    useState<Array<any>>(mConstructionLicense);
-  const [procedureObjective, setProcedureObjective] = useState<Array<any>>(
-    procedureObjectiveMenu
-  );
-  const [modeUrbanLicense, setModeUrbanLicense] =
-    useState<Array<any>>(modeUrbanLicenseMenu);
-  const [useMenu, setUseMenu] = useState<Array<any>>(listUseMenu);
-  const [typeOfHousing, setTypeOfHousing] = useState<string>("");
-  const [culturalInterest, setCulturalInterest] = useState<boolean>(true);
+  const { updateConstruction, constructionSelected } = useConstructions();
+  //Tipo de tramite
+  const [typeProcedure, setTypeProcedure] = useState("");
+  //Objetivo del tramite
+  const [procedureObjective, setProcedureObjective] = useState("");
+  //Modalidad licencia de urbanizacion
+  const [modeUrbanLicense, setModeUrbanLicense] = useState("");
+  //Modalidad en licencia de subdivision
+  const [modeLicenseSubdivision, setModeLicenseSubdivision] = useState("");
+  //Modalidad licencia de construction
+  const [modeLicenseOfConstruction, setModeLicenseOfConstruction] =
+    useState("");
+  //Usos
+  const [useMenu, setUseMenu] = useState("");
+  //Tipo de vivienda
+  const [typeOfHousing, setTypeOfHousing] = useState("");
+  //Vivienda de interes cultural
+  const [culturalInterest, setCulturalInterest] = useState("");
+  //Declaracion sobre medidas de construccion sostenible
   const [
     sustainableConstructionRegulations,
     setSustainableConstructionRegulations,
   ] = useState<string>("A");
+  //Zonificacion climatica
+  const [climateZonification, setClimateZonification] = useState("");
 
-  const checkedHandlerTypeProcedure = (i: number, val: string) => {
-    let index = typeProcedure.findIndex((element) => element.val === val);
-    let newTypeProcedure = [...typeProcedure];
-    newTypeProcedure[index] = {
-      ...newTypeProcedure[index],
-      isChecked: !newTypeProcedure[index].isChecked,
-    };
-    setTypeProcedure(newTypeProcedure);
+
+  const [addTypeProcedure, setAddTypeProcedure] = useState("");
+  const [addProcedureObjective, setAddProcedureObjective] = useState("");
+  const [addUseMenu, setAddUseMenu] = useState("");
+  const [addClimateZonification, setAddClimateZonification] = useState("")
+
+  const [actualDirection, setDirection] = useState("");
+  const [oldDirection, setOldDirection] = useState("");
+  const [realStateRegistration, setRealStateRegistration] = useState("");
+  const [cadastralInfo, setCadastalInfo] = useState("");
+  const [typeSoil, setTypeSoil] = useState("");
+  const [lotPlan, setLotPlan] = useState("");
+  const [otherLotPlan, setOtherLotPlan] = useState("");
+  const [neighborhood, setNeighborhood] = useState("");
+  const [trail, setTrail] = useState("");
+  const [township, setTownship] = useState("");
+  const [sector, setSector] = useState("");
+  const [tier, setTier] = useState("");
+  const [corregimiento, setCorregimiento] = useState("");
+  const [block, setBlock] = useState("");
+  const [batch, setBatch] = useState("");
+
+  const [getNorth, setNorth] = useState({
+    l: 0,
+    c: 0,
+  });
+  const [getSouth, setSouth] = useState({
+    l: 0,
+    c: 0,
+  });
+  const [getEast, setEast] = useState({
+    l: 0,
+    c: 0,
+  });
+  const [getWest, setWest] = useState({
+    l: 0,
+    c: 0,
+  });
+
+  const [getProfesional, setProfesional] = useState("");
+  const [getResponsibleC, setResponsibleC] = useState({
+    fullName: "",
+    signature: "",
+    responsibleCId: "",
+    registrationN: "",
+    date: "",
+    email: "",
+  });
+  const [requestOfficer, setRequestOfficer] = useState({
+    fullName: "",
+    signature: "",
+    requestOfficerId: "",
+    cellphone: "",
+    email: "",
+    address: "",
+  });
+
+  const handleNewLicenseOwner = (obj: any) => {
+    console.log("HI");
   };
 
-  const checkedHandlerModeConstruction = (i: number, val: string) => {
-    let index = modeConstructionLicense.findIndex(
-      (element) => element.val === val
-    );
-    let newModeConstructionLicense = [...modeConstructionLicense];
-    newModeConstructionLicense[index] = {
-      ...newModeConstructionLicense[index],
-      isChecked: !newModeConstructionLicense[index].isChecked,
+  const submitHandler = (e: any) => {
+    let infoAspectosLegales = {};
+    if (addTypeProcedure !== "") {
+      infoAspectosLegales = {
+        ...infoAspectosLegales,
+        typeProcedure: addTypeProcedure,
+      };
+    } else {
+      infoAspectosLegales = {
+        ...infoAspectosLegales,
+        typeProcedure,
+      };
+    }
+
+    if (addProcedureObjective !== "") {
+      infoAspectosLegales = {
+        ...infoAspectosLegales,
+        procedureObjective: addProcedureObjective,
+      };
+    } else {
+      infoAspectosLegales = {
+        ...infoAspectosLegales,
+        procedureObjective,
+      };
+    }
+
+    if(addUseMenu !== ""){
+      infoAspectosLegales={
+        ...infoAspectosLegales,
+        addUseMenu,
+      }
+    }else{
+      infoAspectosLegales = {
+        ...infoAspectosLegales,
+        useMenu,
+      }
+    }
+
+    if(addClimateZonification !== ""){
+      infoAspectosLegales= {
+        ...infoAspectosLegales,
+        climateZonification: addClimateZonification,
+      }
+    }else{
+      infoAspectosLegales = {
+        ...infoAspectosLegales,
+        climateZonification,
+      }
+    }
+
+    if(otherLotPlan !== ""){
+      infoAspectosLegales= {
+        ...infoAspectosLegales,
+        lotPlan: otherLotPlan
+      }
+    }else {
+      infoAspectosLegales = {
+        ...infoAspectosLegales,
+        lotPlan
+      }
+    }
+
+    infoAspectosLegales = {
+      ...infoAspectosLegales,
+      modeUrbanLicense,
+      modeLicenseSubdivision,
+      modeLicenseOfConstruction,
+      typeOfHousing,
+      culturalInterest,
+      sustainableConstructionRegulations,
+      actualDirection,
+      oldDirection,
+      realStateRegistration,
+      cadastralInfo,
+      typeSoil,
+      trail,
+      township,
+      sector,
+      tier,
+      corregimiento,
+      block,
+      batch,
+      getNorth,
+      getSouth,
+      getEast,
+      getWest,
+      getProfesional,
+      getResponsibleC,
+      requestOfficer,
     };
-    setModeConstructionLicense(newModeConstructionLicense);
+
+    e.preventDefault();
+    updateConstruction({
+      ...constructionSelected,
+      infoAspectosLegales,
+    });
   };
 
   return (
@@ -119,279 +268,288 @@ const LegalAspects: React.FC = () => {
           <IonItem>
             <IonText>1) Tipo de tramite</IonText>
           </IonItem>
-          {typeProcedure.map(
-            (
-              { val, isChecked }: { val: string; isChecked: boolean },
-              i: number
-            ) => (
+          <IonRadioGroup
+            value={typeProcedure}
+            onIonChange={(e) => setTypeProcedure(e.detail.value!)}
+          >
+            {typeOfProcedureMenu.map((value, i) => (
               <IonItem key={i} lines="none">
-                <IonLabel className="ion-text-wrap">{val}</IonLabel>
-                <IonCheckbox
-                  slot="start"
-                  value={val}
-                  checked={isChecked}
-                  onIonChange={() => checkedHandlerTypeProcedure(i, val)}
-                />
+                <IonLabel className="ion-text-wrap">{value}</IonLabel>
+                <IonRadio slot="start" value={value} />
               </IonItem>
-            )
-          )}
+            ))}
+            <IonItem>
+              <IonRadio slot="start" value={addTypeProcedure} />
+              <IonInput
+                value={addTypeProcedure}
+                onIonChange={(e) => setAddTypeProcedure(e.detail.value!)}
+                placeholder="¿Cual?"
+              />
+            </IonItem>
+          </IonRadioGroup>
         </IonList>
         <IonList>
           <IonItem>2) Objetivo del tramite</IonItem>
-          {procedureObjective.map(
-            (
-              { val, isChecked }: { val: string; isChecked: boolean },
-              i: number
-            ) => (
-              <IonItem key={i} lines="none">
-                <IonLabel className="ion-text-wrap">{val}</IonLabel>
-                <IonCheckbox slot="start" value={val} checked={isChecked} />
+          <IonRadioGroup
+            value={procedureObjective}
+            onIonChange={(e) => setProcedureObjective(e.detail.value!)}
+          >
+            {procedureObjectiveMenu.map((value) => (
+              <IonItem key={value} lines="none">
+                <IonLabel className="ion-text-wrap">{value}</IonLabel>
+                <IonRadio slot="start" value={value} />
               </IonItem>
-            )
-          )}
-          <IonItem>
-            <IonCheckbox slot="start" value="" checked={false} />
-            <IonLabel className="ion-text-wrap">Otras actualizaciones</IonLabel>
-            <IonInput slot="end" placeholder="¿Cual?" />
-          </IonItem>
+            ))}
+            <IonItem>
+              <IonRadio slot="start" value={addProcedureObjective} />
+              <IonInput
+                value={addProcedureObjective}
+                placeholder="¿Cual?"
+                onIonChange={(e) => setAddProcedureObjective(e.detail.value!)}
+              />
+            </IonItem>
+          </IonRadioGroup>
         </IonList>
         <IonList>
           <IonItem>
             <IonText>3) Modalidad licencia de urbanización</IonText>
           </IonItem>
-          {modeUrbanLicense.map(
-            (
-              { val, isChecked }: { val: string; isChecked: boolean },
-              i: number
-            ) => (
-              <IonItem key={i} lines="none">
-                <IonLabel className="ion-text-wrap">{val}</IonLabel>
-                <IonCheckbox slot="start" value={val} checked={isChecked} />
-              </IonItem>
-            )
-          )}
-        </IonList>
-        <IonList>
-          <IonItem>
-            <IonText>4) Modalidad licencia de subdivision</IonText>
-          </IonItem>
-          {modeConstructionLicense.map(
-            (
-              { val, isChecked }: { val: string; isChecked: boolean },
-              i: number
-            ) => (
-              <IonItem key={i} lines="none">
-                <IonLabel className="ion-text-wrap">{val}</IonLabel>
-                <IonCheckbox
-                  slot="start"
-                  value={val}
-                  checked={isChecked}
-                  onIonChange={() => checkedHandlerModeConstruction(i, val)}
-                />
-              </IonItem>
-            )
-          )}
-        </IonList>
-        <IonList>
-          <IonItem>5) Modalidad licencia de construccion</IonItem>
-          <IonItem lines="none">
-            <IonLabel className="ion-text-wrap">Obra nueva</IonLabel>
-            <IonCheckbox slot="start" />
-          </IonItem>
-          <IonItem lines="none">
-            <IonLabel className="ion-text-wrap">Ampliación</IonLabel>
-            <IonCheckbox slot="start" />
-          </IonItem>
-          <IonItem lines="none">
-            <IonLabel className="ion-text-wrap">Adecuación</IonLabel>
-            <IonCheckbox slot="start" />
-          </IonItem>
-          <IonItem lines="none">
-            <IonLabel className="ion-text-wrap">Modificación</IonLabel>
-            <IonCheckbox slot="start" />
-          </IonItem>
-          <IonItem lines="none">
-            <IonLabel className="ion-text-wrap">Restauración</IonLabel>
-            <IonCheckbox slot="start" />
-          </IonItem>
-          <IonItem lines="none">
-            <IonLabel className="ion-text-wrap">
-              Reforzamiento Estructural
-            </IonLabel>
-            <IonCheckbox slot="start" />
-          </IonItem>
-          <IonItem lines="none">
-            <IonLabel className="ion-text-wrap">Demolición</IonLabel>
-            <IonCheckbox slot="start" />
-          </IonItem>
-          <IonGrid>
-            <IonRow>
-              <IonCol>
-                <IonItem lines="none">
-                  <IonLabel className="ion-text-wrap">Parcial</IonLabel>
-                  <IonCheckbox slot="start" />
-                </IonItem>
-              </IonCol>
-              <IonCol>
-                <IonItem lines="none">
-                  <IonLabel className="ion-text-wrap">Total</IonLabel>
-                  <IonCheckbox slot="start" />
-                </IonItem>
-              </IonCol>
-            </IonRow>
-          </IonGrid>
-          <IonItem lines="none">
-            <IonLabel className="ion-text-wrap">Reconstrucción</IonLabel>
-            <IonCheckbox slot="start" />
-          </IonItem>
-          <IonItem lines="none">
-            <IonLabel className="ion-text-wrap">Cerramiento</IonLabel>
-            <IonCheckbox slot="start" />
-          </IonItem>
-        </IonList>
-        <IonList>
-          <IonItem>6) Usos</IonItem>
-          {useMenu.map(
-            (
-              { val, isChecked }: { val: string; isChecked: boolean },
-              i: number
-            ) => (
-              <IonItem key={i} lines="none">
-                <IonLabel className="ion-text-wrap">{val}</IonLabel>
-                <IonCheckbox slot="start" value={val} checked={isChecked} />
-              </IonItem>
-            )
-          )}
-          <IonItem lines="none">
-            <IonCheckbox slot="start" value="" checked={false} />
-            <IonLabel className="ion-text-wrap">Otro</IonLabel>
-            <IonInput slot="end" placeholder="¿Cual?" />
-          </IonItem>
-        </IonList>
-        <IonItem className="ion-margin-vertical">
-          <IonLabel>7) Área construida </IonLabel>
-          <IonSelect placeholder="Select">
-            <IonSelectOption>1</IonSelectOption>
-          </IonSelect>
-        </IonItem>
-        <IonList>
-          <IonListHeader>8) Tipo de vivienda</IonListHeader>
           <IonRadioGroup
-            value={typeOfHousing}
-            onIonChange={(e) => setTypeOfHousing(e.detail.value!)}
+            value={modeUrbanLicense}
+            onIonChange={(e) => setModeUrbanLicense(e.detail.value!)}
           >
-            {typeOfHousingOption.map((option, i) => (
-              <IonItem key={i}>
-                <IonLabel>{option}</IonLabel>
-                <IonRadio slot="start" value={option} />
+            {modeUrbanLicenseMenu.map((value) => (
+              <IonItem key={value} lines="none">
+                <IonLabel className="ion-text-wrap">{value}</IonLabel>
+                <IonRadio value={value} />
               </IonItem>
             ))}
           </IonRadioGroup>
         </IonList>
         <IonList>
-          <IonListHeader>9) Vivienda de interes cultural</IonListHeader>
-          <IonRadioGroup
-            value={culturalInterest}
-            onIonChange={(e) => setCulturalInterest(e.detail.value!)}
-          >
-            <IonItem>
-              <IonLabel>Si</IonLabel>
-              <IonRadio slot="start" value={true} />
-            </IonItem>
-            <IonItem>
-              <IonLabel>No</IonLabel>
-              <IonRadio slot="start" value={false} />
-            </IonItem>
-          </IonRadioGroup>
-        </IonList>
-        <IonList>
-          <IonListHeader>
-            10) Reglamentación de construcción sostenible
-          </IonListHeader>
           <IonItem>
-            Declaración sobre medidas de construcción sostenible
+            <IonText>4) Modalidad licencia de subdivision</IonText>
           </IonItem>
           <IonRadioGroup
-            value={sustainableConstructionRegulations}
-            onIonChange={(e) =>
-              setSustainableConstructionRegulations(e.detail.value!)
-            }
+            value={modeLicenseSubdivision}
+            onIonChange={(e) =>  setModeLicenseSubdivision(e.detail.value!)}
           >
-            <IonItem>
-              <IonLabel>Medidas pasivas</IonLabel>
-              <IonRadio slot="start" value="P" />
-            </IonItem>
-            <IonItem>
-              <IonLabel>Medidas activas</IonLabel>
-              <IonRadio slot="start" value="A" />
-            </IonItem>
-            <IonItem>
-              <IonLabel>Medidas activas y pasivas</IonLabel>
-              <IonRadio slot="start" value="A&P" />
-            </IonItem>
+            {modeLicenseSubdivisionMenu.map((value) => (
+              <IonItem key={value} lines="none">
+                <IonLabel className="ion-text-wrap">{value}</IonLabel>
+                <IonRadio value={value} />
+              </IonItem>
+            ))}
           </IonRadioGroup>
-          <IonItem>Zonificación climática</IonItem>
+        </IonList>
+        <IonList>
+          <IonItem>5) Modalidad licencia de construccion</IonItem>
           <IonRadioGroup
-            value={sustainableConstructionRegulations}
-            onIonChange={(e) =>
-              setSustainableConstructionRegulations(e.detail.value!)
-            }
+            value={modeLicenseOfConstruction}
+            onIonChange={(e) => setModeLicenseOfConstruction(e.detail.value!)}
           >
+            {modeLicenseOfConstructionData.map((value) => (
+              <IonItem lines="none" key={value}>
+                <IonLabel className="ion-text-wrap">{value}</IonLabel>
+                <IonRadio slot="start" value={value} />
+              </IonItem>
+            ))}
+          </IonRadioGroup>
+        </IonList>
+        <IonList>
+          <IonItem>6) Usos</IonItem>
+          <IonRadioGroup
+            value={useMenu}
+            onIonChange={(e) => setUseMenu(e.detail.value!)}
+          >
+            {useMenuData.map((value) => (
+              <IonItem key={value} lines="none">
+                <IonLabel className="ion-text-wrap">{value}</IonLabel>
+                <IonRadio slot="start" value={value} />
+              </IonItem>
+            ))}
             <IonItem>
-              <IonLabel>Frío</IonLabel>
-              <IonRadio slot="start" value="COLD" />
-            </IonItem>
-            <IonItem>
-              <IonLabel>Templado</IonLabel>
-              <IonRadio slot="start" value="MILD" />
-            </IonItem>
-            <IonItem>
-              <IonLabel>Cálido seco</IonLabel>
-              <IonRadio slot="start" value="DRYWARM" />
-            </IonItem>
-            <IonItem>
-              <IonLabel>Cálido húmedo</IonLabel>
-              <IonRadio slot="start" value="WARMHUMID" />
-            </IonItem>
-            <IonItem>
-              <IonLabel>Otro</IonLabel>
-              <IonRadio slot="start" value="OTHER" />
-              <IonInput slot="end" value="" placeholder="¿Cual?" />
+              <IonRadio slot="start" value={addUseMenu} />
+              <IonInput
+                value={addUseMenu}
+                onIonChange={(e) => setAddUseMenu(e.detail.value!)}
+                placeholder="¿Cual?"
+              />
             </IonItem>
           </IonRadioGroup>
         </IonList>
-        <InformationAboutPredio />
-        <IonItem>Linderos, dimensiones y áreas</IonItem>
-        <IonList>
-          <DimesionsComponent title="Norte:" />
-          <DimesionsComponent title="Sur:" />
-          <DimesionsComponent title="Este:" />
-          <DimesionsComponent title="Oeste:" />
-        </IonList>
-        <IonItem>Titular(es) de la licencia</IonItem>
-        <IonList>
-          <OwnerOfLicense numberOfOwner={1} />
-          <IonItem
-            lines="none"
-            className="ion-text-center ion-padding-horizontal"
-            button
-          >
-            <IonIcon icon={createOutline} slot="start" />
-            <IonText>Agregar más</IonText>
+        <form onSubmit={submitHandler}>
+          <IonItem className="ion-margin-vertical">
+            <IonLabel>7) Área construida </IonLabel>
+            <IonSelect placeholder="Select">
+              <IonSelectOption>1</IonSelectOption>
+            </IonSelect>
           </IonItem>
-        </IonList>
-        <ResponsibleProfessionals />
-        <IonButton expand="full" size="large">
-          Guardar
-        </IonButton>
+          <IonList>
+            <IonListHeader>8) Tipo de vivienda</IonListHeader>
+            <IonRadioGroup
+              value={typeOfHousing}
+              onIonChange={(e) => setTypeOfHousing(e.detail.value!)}
+            >
+              {typeOfHousingOption.map((option, i) => (
+                <IonItem key={i}>
+                  <IonLabel>{option}</IonLabel>
+                  <IonRadio slot="start" value={option} />
+                </IonItem>
+              ))}
+            </IonRadioGroup>
+          </IonList>
+          <IonList>
+            <IonListHeader>9) Vivienda de interes cultural</IonListHeader>
+            <IonRadioGroup
+              value={culturalInterest}
+              onIonChange={(e) => setCulturalInterest(e.detail.value!)}
+            >
+              <IonItem>
+                <IonLabel>Si</IonLabel>
+                <IonRadio slot="start" value="si" />
+              </IonItem>
+              <IonItem>
+                <IonLabel>No</IonLabel>
+                <IonRadio slot="start" value="no" />
+              </IonItem>
+            </IonRadioGroup>
+          </IonList>
+          <IonList>
+            <IonListHeader>
+              10) Reglamentación de construcción sostenible
+            </IonListHeader>
+            <IonItem>
+              Declaración sobre medidas de construcción sostenible
+            </IonItem>
+            <IonRadioGroup
+              value={sustainableConstructionRegulations}
+              onIonChange={(e) =>
+                setSustainableConstructionRegulations(e.detail.value!)
+              }
+            >
+              <IonItem>
+                <IonLabel>Medidas pasivas</IonLabel>
+                <IonRadio slot="start" value="P" />
+              </IonItem>
+              <IonItem>
+                <IonLabel>Medidas activas</IonLabel>
+                <IonRadio slot="start" value="A" />
+              </IonItem>
+              <IonItem>
+                <IonLabel>Medidas activas y pasivas</IonLabel>
+                <IonRadio slot="start" value="A&P" />
+              </IonItem>
+            </IonRadioGroup>
+            <IonItem>Zonificación climática</IonItem>
+            <IonRadioGroup
+              value={climateZonification}
+              onIonChange={(e) => setClimateZonification(e.detail.value!)}
+            >
+              <IonItem>
+                <IonLabel>Frío</IonLabel>
+                <IonRadio slot="start" value="COLD" />
+              </IonItem>
+              <IonItem>
+                <IonLabel>Templado</IonLabel>
+                <IonRadio slot="start" value="MILD" />
+              </IonItem>
+              <IonItem>
+                <IonLabel>Cálido seco</IonLabel>
+                <IonRadio slot="start" value="DRYWARM" />
+              </IonItem>
+              <IonItem>
+                <IonLabel>Cálido húmedo</IonLabel>
+                <IonRadio slot="start" value="WARMHUMID" />
+              </IonItem>
+              <IonItem>
+                <IonLabel>Otro</IonLabel>
+                <IonRadio slot="start" value={addClimateZonification} />
+                <IonInput slot="end" value={addClimateZonification} onIonChange={(e) => setAddClimateZonification(e.detail.value!)} placeholder="¿Cual?" />
+              </IonItem>
+            </IonRadioGroup>
+          </IonList>
+          <InformationAboutPredio
+            actualDirection={actualDirection}
+            setDirection={setDirection}
+            oldDirection={oldDirection}
+            setOldDirection={setOldDirection}
+            realStateRegistration={realStateRegistration}
+            setRealStateRegistration={setRealStateRegistration}
+            cadastralInfo={cadastralInfo}
+            setCadastalInfo={setCadastalInfo}
+            typeSoil={typeSoil}
+            setTypeSoil={setTypeSoil}
+            lotPlan={lotPlan}
+            setLotPlan={setLotPlan}
+            otherLotPlan={otherLotPlan}
+            setOtherLotPlan={setOtherLotPlan}
+            neighborhood={neighborhood}
+            setNeighborhood={setNeighborhood}
+            trail={trail}
+            setTrail={setTrail}
+            township={township}
+            setTownship={setTownship}
+            sector={sector}
+            setSector={setSector}
+            tier={tier}
+            setTier={setTier}
+            corregimiento={corregimiento}
+            setCorregimiento={setCorregimiento}
+            block={block}
+            setBlock={setBlock}
+            batch={batch}
+            setBatch={setBatch}
+          />
+          <IonItem>Linderos, dimensiones y áreas</IonItem>
+          <IonList>
+            <DimesionsComponent title="Norte:" setPlace={setNorth} />
+            <DimesionsComponent title="Sur:" setPlace={setSouth} />
+            <DimesionsComponent title="Este:" setPlace={setEast} />
+            <DimesionsComponent title="Oeste:" setPlace={setWest} />
+          </IonList>
+          <IonItem>Titular(es) de la licencia</IonItem>
+          <IonList>
+            <OwnerOfLicense
+              numberOfOwner={1}
+              saveLicenseOwner={handleNewLicenseOwner}
+            />
+            <IonItem
+              lines="none"
+              className="ion-text-center ion-padding-horizontal"
+              button
+            >
+              <IonIcon icon={createOutline} slot="start" />
+              <IonText>Agregar más</IonText>
+            </IonItem>
+          </IonList>
+          <ResponsibleProfessionals
+            getProfesional={getProfesional}
+            setProfesional={setProfesional}
+            getResponsibleC={getResponsibleC}
+            setResponsibleC={setResponsibleC}
+            requestOfficer={requestOfficer}
+            setRequestOfficer={setRequestOfficer}
+          />
+          <IonButton expand="full" size="large" type="submit">
+            Guardar
+          </IonButton>
+        </form>
       </IonContent>
     </IonPage>
   );
 };
 
-const DimesionsComponent = ({ title }: { title: string }) => {
+const DimesionsComponent = ({
+  title,
+  setPlace,
+}: {
+  title: string;
+  setPlace: any;
+}) => {
   const [longitude, setLongitude] = useState<string>("");
   const [adjoins, setAdjoining] = useState<string>("");
+
   return (
     <IonGrid>
       <IonRow>
@@ -412,6 +570,7 @@ const DimesionsComponent = ({ title }: { title: string }) => {
             value={adjoins}
             placeholder="Colinda con"
             onIonChange={(e) => setAdjoining(e.detail.value!)}
+            onBlur={() => setPlace({ l: longitude, c: adjoins })}
           />
         </IonCol>
       </IonRow>
@@ -419,12 +578,33 @@ const DimesionsComponent = ({ title }: { title: string }) => {
   );
 };
 
-const OwnerOfLicense = ({ numberOfOwner }: { numberOfOwner: number }) => {
+const OwnerOfLicense = ({
+  numberOfOwner,
+  saveLicenseOwner,
+}: {
+  numberOfOwner: number;
+  saveLicenseOwner: (obj: any) => void;
+}) => {
   const [ownerName, setOwnerName] = useState("");
   const [ownerFirm, setOwnerFirm] = useState("");
-  const [ID, setId] = useState<number>();
-  const [ownerCellphone, setOwnerCellphone] = useState<number>();
-  const [ownerEmail, setOwnerEmail] = useState<string>("");
+  const [ID, setId] = useState("");
+  const [ownerCellphone, setOwnerCellphone] = useState("");
+  const [ownerEmail, setOwnerEmail] = useState("");
+
+  const handleSaveClick = () => {
+    saveLicenseOwner({
+      ownerName,
+      ownerFirm,
+      identification: ID,
+      ownerCellphone,
+      ownerEmail,
+    });
+    setOwnerCellphone("");
+    setOwnerEmail("");
+    setOwnerFirm("");
+    setOwnerName("");
+    setId("");
+  };
 
   return (
     <IonGrid>
@@ -437,10 +617,12 @@ const OwnerOfLicense = ({ numberOfOwner }: { numberOfOwner: number }) => {
             value={ownerName}
             placeholder="Nombre completo"
             onIonChange={(e) => setOwnerName(e.detail.value!)}
+            type="text"
           />
         </IonCol>
         <IonCol>
           <IonInput
+            type="text"
             value={ownerFirm}
             placeholder="Firma"
             onIonChange={(e) => setOwnerFirm(e.detail.value!)}
@@ -452,16 +634,16 @@ const OwnerOfLicense = ({ numberOfOwner }: { numberOfOwner: number }) => {
           <IonInput
             value={ID}
             placeholder="C.C o NIT"
-            type="number"
-            onIonChange={(e) => setId(Number(e.detail.value!))}
+            type="text"
+            onIonChange={(e) => setId(e.detail.value!)}
           />
         </IonCol>
         <IonCol>
           <IonInput
             value={ownerCellphone}
             placeholder="Celular/telefono"
-            type="number"
-            onIonChange={(e) => setOwnerCellphone(Number(e.detail.value!))}
+            type="text"
+            onIonChange={(e) => setOwnerCellphone(e.detail.value!)}
           />
         </IonCol>
       </IonRow>
@@ -475,20 +657,68 @@ const OwnerOfLicense = ({ numberOfOwner }: { numberOfOwner: number }) => {
           />
         </IonCol>
       </IonRow>
+      <IonRow>
+        <IonCol>
+          <IonButton expand="block" onClick={handleSaveClick}>
+            Guargar
+          </IonButton>
+        </IonCol>
+      </IonRow>
     </IonGrid>
   );
 };
 
-const InformationAboutPredio = () => {
+const InformationAboutPredio = ({
+  actualDirection,
+  setDirection,
+  oldDirection,
+  setOldDirection,
+  realStateRegistration,
+  setRealStateRegistration,
+  cadastralInfo,
+  setCadastalInfo,
+  typeSoil,
+  setTypeSoil,
+  lotPlan,
+  setLotPlan,
+  otherLotPlan,
+  setOtherLotPlan,
+  neighborhood,
+  setNeighborhood,
+  trail,
+  setTrail,
+  township,
+  setTownship,
+  sector,
+  setSector,
+  tier,
+  setTier,
+  corregimiento,
+  setCorregimiento,
+  block,
+  setBlock,
+  batch,
+  setBatch,
+}: any) => {
   return (
     <>
       <IonList>
         <IonListHeader>1) Dirección o nomenclatura</IonListHeader>
         <IonItem>
-          <IonInput type="text" placeholder="Actual" />
+          <IonInput
+            type="text"
+            placeholder="Actual"
+            value={actualDirection}
+            onIonChange={(e) => setDirection(e.detail.value!)}
+          />
         </IonItem>
         <IonItem>
-          <IonInput type="text" placeholder="Anterior(es)" />
+          <IonInput
+            type="text"
+            placeholder="Anterior(es)"
+            value={oldDirection}
+            onIonChange={(e) => setOldDirection(e.detail.value!)}
+          />
         </IonItem>
       </IonList>
       <IonList>
@@ -497,6 +727,8 @@ const InformationAboutPredio = () => {
           <IonInput
             type="number"
             placeholder="Ingrese el numero de la matricula"
+            value={realStateRegistration}
+            onIonChange={(e) => setRealStateRegistration(e.detail.value!)}
           />
         </IonItem>
       </IonList>
@@ -506,12 +738,17 @@ const InformationAboutPredio = () => {
           <IonInput
             type="text"
             placeholder="Ingrese el numero de identificación catastral"
+            value={cadastralInfo}
+            onIonChange={setCadastalInfo}
           />
         </IonItem>
       </IonList>
       <IonList>
         <IonListHeader>4) Clasificación del suelo</IonListHeader>
-        <IonRadioGroup>
+        <IonRadioGroup
+          value={typeSoil}
+          onIonChange={(e) => setTypeSoil(e.detail.value!)}
+        >
           <IonItem>
             <IonLabel>Urbano</IonLabel>
             <IonRadio slot="start" value="COLD" />
@@ -528,7 +765,10 @@ const InformationAboutPredio = () => {
       </IonList>
       <IonList>
         <IonListHeader>5) Planimetría del lote</IonListHeader>
-        <IonRadioGroup>
+        <IonRadioGroup
+          value={lotPlan}
+          onIonChange={(e) => setLotPlan(e.detail.value!)}
+        >
           <IonItem>
             <IonLabel>Plano del loteo</IonLabel>
             <IonRadio slot="start" value="LOOTPLANE" />
@@ -539,8 +779,14 @@ const InformationAboutPredio = () => {
           </IonItem>
           <IonItem>
             <IonLabel>Otro</IonLabel>
-            <IonRadio slot="start" value="OTHER" />
-            <IonInput type="text" slot="end" placeholder="¿Cual?" />
+            <IonRadio slot="start" value={otherLotPlan} />
+            <IonInput
+              type="text"
+              slot="end"
+              placeholder="¿Cual?"
+              value={otherLotPlan}
+              onIonChange={(e) => setOtherLotPlan(e.detail.value!)}
+            />
           </IonItem>
         </IonRadioGroup>
       </IonList>
@@ -553,6 +799,8 @@ const InformationAboutPredio = () => {
                 className="ion-text-wrap"
                 type="text"
                 placeholder="Barrio o urbanización"
+                value={neighborhood}
+                onIonChange={(e) => setNeighborhood(e.detail.value!)}
               />
             </IonCol>
             <IonCol size="6">
@@ -560,6 +808,8 @@ const InformationAboutPredio = () => {
                 className="ion-text-wrap"
                 type="text"
                 placeholder="Vereda"
+                value={trail}
+                onIonChange={(e) => setTrail(e.detail.value!)}
               />
             </IonCol>
           </IonRow>
@@ -569,6 +819,8 @@ const InformationAboutPredio = () => {
                 className="ion-text-wrap"
                 type="text"
                 placeholder="Comuna"
+                value={township}
+                onIonChange={(e) => setTownship(e.detail.value!)}
               />
             </IonCol>
             <IonCol size="6">
@@ -576,6 +828,8 @@ const InformationAboutPredio = () => {
                 className="ion-text-wrap"
                 type="text"
                 placeholder="Sector"
+                value={sector}
+                onIonChange={(e) => setSector(e.detail.value!)}
               />
             </IonCol>
           </IonRow>
@@ -585,6 +839,8 @@ const InformationAboutPredio = () => {
                 className="ion-text-wrap"
                 type="text"
                 placeholder="Estrato"
+                value={tier}
+                onIonChange={(e) => setTier(e.detail.value!)}
               />
             </IonCol>
             <IonCol size="6">
@@ -592,6 +848,8 @@ const InformationAboutPredio = () => {
                 className="ion-text-wrap"
                 type="text"
                 placeholder="Corregimiento"
+                value={corregimiento}
+                onIonChange={(e) => setCorregimiento(e.detail.value!)}
               />
             </IonCol>
           </IonRow>
@@ -601,6 +859,8 @@ const InformationAboutPredio = () => {
                 className="ion-text-wrap"
                 type="text"
                 placeholder="Manzana N°"
+                value={block}
+                onIonChange={(e) => setBlock(e.detail.value!)}
               />
             </IonCol>
             <IonCol size="6">
@@ -608,6 +868,8 @@ const InformationAboutPredio = () => {
                 className="ion-text-wrap"
                 type="text"
                 placeholder="Lote N°"
+                value={batch}
+                onIonChange={(e) => setBatch(e.detail.value!)}
               />
             </IonCol>
           </IonRow>
@@ -743,7 +1005,14 @@ const InformationAboutPredio = () => {
   );
 };
 
-const ResponsibleProfessionals = () => {
+const ResponsibleProfessionals = ({
+  getProfesional,
+  setProfesional,
+  getResponsibleC,
+  setResponsibleC,
+  requestOfficer,
+  setRequestOfficer,
+}: any) => {
   return (
     <>
       <IonItem lines="none">
@@ -751,7 +1020,12 @@ const ResponsibleProfessionals = () => {
       </IonItem>
       <IonItem>
         <IonLabel>Seleccione profesional:</IonLabel>
-        <IonSelect className="ion-text-wrap" interface="action-sheet">
+        <IonSelect
+          className="ion-text-wrap"
+          interface="action-sheet"
+          value={getProfesional}
+          onIonChange={(e) => setProfesional(e.detail.value!)}
+        >
           <IonSelectOption>
             Urbanizador o constructor responsable
           </IonSelectOption>
@@ -776,26 +1050,84 @@ const ResponsibleProfessionals = () => {
         </IonRow>
         <IonRow>
           <IonCol>
-            <IonInput placeholder="Nombre completo" />
+            <IonInput
+              placeholder="Nombre completo"
+              value={getResponsibleC?.fullName}
+              onIonChange={(e) =>
+                setResponsibleC((data: any) => ({
+                  ...data,
+                  fullName: e.detail.value!,
+                }))
+              }
+            />
           </IonCol>
           <IonCol>
-            <IonInput placeholder="Firma" />
+            <IonInput
+              placeholder="Firma"
+              value={getResponsibleC?.signature}
+              onIonChange={(e) =>
+                setResponsibleC((data: any) => ({
+                  ...data,
+                  signature: e.detail.value!,
+                }))
+              }
+            />
           </IonCol>
         </IonRow>
         <IonRow>
           <IonCol>
-            <IonInput placeholder="C.C o NIT" type="number" />
+            <IonInput
+              placeholder="C.C o NIT"
+              type="text"
+              value={getResponsibleC?.responsibleCId}
+              onIonChange={(e) =>
+                setResponsibleC((data: any) => ({
+                  ...data,
+                  responsibleCId: e.detail.value!,
+                }))
+              }
+            />
           </IonCol>
           <IonCol>
-            <IonInput placeholder="N° Matricula Profesional" type="number" />
+            <IonInput
+              placeholder="N° Matricula Profesional"
+              type="text"
+              value={getResponsibleC?.registrationN}
+              onIonChange={(e) =>
+                setResponsibleC((data: any) => ({
+                  ...data,
+                  registrationN: e.detail.value!,
+                }))
+              }
+            />
           </IonCol>
         </IonRow>
         <IonRow>
           <IonCol>
-            <IonInput placeholder="Fecha expedicion matricula" type="date" />
+            <IonInput
+              placeholder="Fecha expedicion matricula"
+              type="date"
+              value={getResponsibleC?.date}
+              onIonChange={(e) =>
+                setResponsibleC((data: any) => ({
+                  ...data,
+                  date: e.detail.value!,
+                }))
+              }
+            />
           </IonCol>
           <IonCol>
-            <IonInput placeholder="Correo@mail.com" type="email" />
+            <IonInput
+              placeholder="Correo@mail.com"
+              type="email"
+              value={getResponsibleC?.email}
+              onIonChange={(e) =>
+                setResponsibleC((data: any) => ({
+                  ...data,
+                  email: e.detail.value!,
+                }))
+              }
+            />
           </IonCol>
         </IonRow>
       </IonGrid>
@@ -805,26 +1137,84 @@ const ResponsibleProfessionals = () => {
         </IonRow>
         <IonRow>
           <IonCol>
-            <IonInput placeholder="Nombre completo" />
+            <IonInput
+              placeholder="Nombre completo"
+              value={requestOfficer?.fullName}
+              onIonChange={(e) =>
+                setRequestOfficer((data: any) => ({
+                  ...data,
+                  fullName: e.detail.value!,
+                }))
+              }
+            />
           </IonCol>
           <IonCol>
-            <IonInput placeholder="Firma" />
+            <IonInput
+              placeholder="Firma"
+              value={requestOfficer?.signature}
+              onIonChange={(e) =>
+                setRequestOfficer((data: any) => ({
+                  ...data,
+                  signature: e.detail.value!,
+                }))
+              }
+            />
           </IonCol>
         </IonRow>
         <IonRow>
           <IonCol>
-            <IonInput placeholder="C.C o NIT" type="number" />
+            <IonInput
+              placeholder="C.C o NIT"
+              type="text"
+              value={requestOfficer?.requestOfficerId}
+              onIonChange={(e) =>
+                setRequestOfficer((data: any) => ({
+                  ...data,
+                  requestOfficerId: e.detail.value!,
+                }))
+              }
+            />
           </IonCol>
           <IonCol>
-            <IonInput placeholder="Celular/telefono" type="number" />
+            <IonInput
+              placeholder="Celular/telefono"
+              type="text"
+              value={requestOfficer?.cellphone}
+              onIonChange={(e) =>
+                setRequestOfficer((data: any) => ({
+                  ...data,
+                  cellphone: e.detail.value!,
+                }))
+              }
+            />
           </IonCol>
         </IonRow>
         <IonRow>
           <IonCol>
-            <IonInput placeholder="Correo@mail.com" type="email" />
+            <IonInput
+              placeholder="Correo@mail.com"
+              type="email"
+              value={requestOfficer?.email}
+              onIonChange={(e) =>
+                setRequestOfficer((data: any) => ({
+                  ...data,
+                  email: e.detail.value!,
+                }))
+              }
+            />
           </IonCol>
           <IonCol>
-            <IonInput type="text" placeholder="Dirección de correspondecia" />
+            <IonInput
+              type="text"
+              placeholder="Dirección de correspondecia"
+              value={requestOfficer?.address}
+              onIonChange={(e) =>
+                setRequestOfficer((data: any) => ({
+                  ...data,
+                  address: e.detail.value!,
+                }))
+              }
+            />
           </IonCol>
         </IonRow>
       </IonGrid>

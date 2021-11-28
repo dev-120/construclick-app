@@ -38,11 +38,12 @@ import React, { useEffect, useState } from "react";
 import { Browser } from "@capacitor/core";
 
 import Header from "../../components/Header/Header";
-import "./Profile.css";
-import useUser from "../../hooks/useUser";
+import "./UsersProfile.css";
 import { AVATAR_IMAGE } from "../../config/constants";
-import usePosts from "../../hooks/usePosts";
 import { dateFormatter } from "../../utils/dateFormatter";
+import { loadDataUserBasic } from "../../services/auth.service";
+import { fetchAllPostByUserId } from "../../services/posts.service";
+import useCommons from "../../hooks/useCommons";
 
 interface postInterface {
   attributes: {
@@ -80,44 +81,52 @@ const ViewPosts: React.FC<{
 
   return (
     <>
-      {posts.map((post) => (
-        <IonCard
-          key={post?._id}
-          mode="md"
-          className="ion-margin"
-          onClick={() => handleOpenModal(post)}
-        >
-          <IonItem lines="none" className="ion-margin-top">
-            <img
-              src={profileImage}
-              className="profile_posts_img"
-              slot="start"
-              alt="profile"
-            />
-            <span className="profile-nameProfession">
-              <strong>{profileFullName}</strong>
-              <IonText>Ingeniero</IonText>
-            </span>
-            <IonText mode="md" className="profile-post__followers">
-              300 seguidores
-            </IonText>
-          </IonItem>
-          <div className="ion-margin-top profile-image__container">
-            <img
-              className="profile-post__image"
-              src={post?.imagesUrl[0]}
-              alt="post"
-            />
-          </div>
-          <IonItem lines="none">
-            <p className="profile-post__description ion-text-justify">
-              {post?.attributes[0]?.postDescription
-                ? post?.attributes[0]?.postDescription
-                : "Sin descripción"}
-            </p>
-          </IonItem>
-        </IonCard>
-      ))}
+      {posts.length === 0 ? (
+        <IonItem className="ion-text-center">
+          <IonLabel className="ion-text-center">Sin Posts</IonLabel>
+        </IonItem>
+      ) : (
+        <>
+          {posts.map((post) => (
+            <IonCard
+              key={post?._id}
+              mode="md"
+              className="ion-margin"
+              onClick={() => handleOpenModal(post)}
+            >
+              <IonItem lines="none" className="ion-margin-top">
+                <img
+                  src={profileImage}
+                  className="profile_posts_img"
+                  slot="start"
+                  alt="profile"
+                />
+                <span className="profile-nameProfession">
+                  <strong>{profileFullName}</strong>
+                  <IonText>Ingeniero</IonText>
+                </span>
+                <IonText mode="md" className="profile-post__followers">
+                  300 seguidores
+                </IonText>
+              </IonItem>
+              <div className="ion-margin-top profile-image__container">
+                <img
+                  className="profile-post__image"
+                  src={post?.imagesUrl[0]}
+                  alt="post"
+                />
+              </div>
+              <IonItem lines="none">
+                <p className="profile-post__description ion-text-justify">
+                  {post?.attributes[0]?.postDescription
+                    ? post?.attributes[0]?.postDescription
+                    : "Sin descripción"}
+                </p>
+              </IonItem>
+            </IonCard>
+          ))}
+        </>
+      )}
     </>
   );
 };
@@ -199,12 +208,38 @@ const ViewPostInProfile: React.FC<{
   );
 };
 
-const Profile = () => {
+interface userProfileProps {
+  match: {
+    params: {
+      userId: string;
+    };
+  };
+}
+
+interface profileUserInterface {
+  birthDate: string;
+  cityId: string;
+  description: string;
+  email: string;
+  facebook: string;
+  featured: Boolean;
+  gender: string;
+  id: string;
+  last_name: string;
+  linkedin: string;
+  name: string;
+  phone: string;
+  profession_id: string;
+  type: string;
+  image_url?: string;
+}
+
+const UsersProfile: React.FC<userProfileProps> = ({ match }) => {
   const [like, setLiked] = useState(false);
+  const { professions } = useCommons();
   const [toggleOptions, setToggleOptions] = useState("posts");
-  const { profileUser } = useUser();
-  const { allUserPosts, projectsPosts, fetchAllPostByUser, fetchProjects } =
-    usePosts();
+  const [profileUser, setProfileUser] = useState<profileUserInterface>();
+  const [allPosts, setAllPosts] = useState<Array<any>>([]);
 
   const OpenApp = async (type: string, username: string) => {
     type === "facebook"
@@ -213,10 +248,15 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    fetchAllPostByUser();
-    fetchProjects();
+    const getProfileUser = async () => {
+      const response = await loadDataUserBasic(match.params.userId);
+      setProfileUser(response.data.data);
+      const { data } = await fetchAllPostByUserId(match.params.userId);
+      setAllPosts(data.data);
+    };
+    getProfileUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [profileUser]);
+  }, [match.params.userId]);
 
   return (
     <IonPage>
@@ -277,7 +317,13 @@ const Profile = () => {
           <IonText className="user_name">
             {profileUser?.name} {profileUser?.last_name}
           </IonText>
-          <IonText className="profession">Ingeniero</IonText>
+          <IonText className="profession">
+            {
+              professions.find(
+                (profession) => profession._id === profileUser?.profession_id
+              )?.name
+            }
+          </IonText>
         </div>
         <IonItem className="ion-margin-horizontal profile-description">
           <IonLabel className="description_profileDetail ion-text-center">
@@ -301,15 +347,15 @@ const Profile = () => {
         </IonSegment>
         {toggleOptions === "posts" ? (
           <ViewPosts
-            posts={allUserPosts}
+            posts={allPosts?.filter((post) => post.type !== "Project")}
             profileFullName={`${profileUser?.name} ${profileUser?.last_name}`}
-            profileImage={profileUser?.image_url}
+            profileImage={profileUser?.image_url || ""}
           />
         ) : (
           <ViewPosts
-            posts={projectsPosts}
-            profileFullName={`${profileUser.name} ${profileUser.last_name}`}
-            profileImage={profileUser.image_url}
+            posts={allPosts?.filter((post) => post.type === "Project")}
+            profileFullName={`${profileUser?.name} ${profileUser?.last_name}`}
+            profileImage={profileUser?.image_url || ""}
           />
         )}
       </IonContent>
@@ -317,30 +363,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
-
-// const PostsLikes: React.FC<propsPostsLikes> = ({ post }) => {
-//   const [liked, setLiked] = useState<string>("black");
-//   const [postLikes, setPostLikes] = useState(post.likes);
-//   const [toggleClick, setTooggleClick] = useState(false);
-
-//   const textClickHandler: any = (e: Event) => {
-//     if (!toggleClick) {
-//       setLiked("#ef7b03");
-//       setPostLikes((postlikes) => postlikes + 1);
-//       setTooggleClick(true);
-//     } else {
-//       setLiked("black");
-//       setPostLikes((postlikes) => postlikes - 1);
-//       setTooggleClick(false);
-//     }
-//   };
-
-//   return (
-//     <>
-//       <strong slot="end" onClick={textClickHandler} style={{ color: liked }}>
-//         {postLikes} Me gusta
-//       </strong>
-//     </>
-//   );
-// };
+export default UsersProfile;

@@ -19,3 +19,17 @@
   --border-radius: 8px;
   --background: #E1E1E1;
 }
+
+#results-list__menu{
+  position: absolute;
+  z-index: 9999;
+  right: 0px;
+  background-color: aqua;
+}
+
+.container-search__input{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}

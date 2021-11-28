@@ -39,7 +39,7 @@ const Header: React.FC<Props> = ({ title, canBack = true, href = "/" }) => {
               lines="none"
               className="ion-text-center Header-logo__style"
             >
-              <img src={Logo} />
+              <img src={Logo} alt="" />
             </IonItem>
           </>
         ) : (
@@ -51,7 +51,7 @@ const Header: React.FC<Props> = ({ title, canBack = true, href = "/" }) => {
               lines="none"
               className="ion-text-center Header-logo__style"
             >
-              <img src={Logo} />
+              <img src={Logo} alt="" />
             </IonItem>
           </>
         )}

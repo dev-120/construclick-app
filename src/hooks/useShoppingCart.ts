@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   PRODUCT_ADD_FETCH,
@@ -9,8 +8,6 @@ import {
 
 import useUser from "./useUser";
 
-// import useCommons from "./useCommons";
-
 const useShoppingCart = () => {
   const dispatch = useDispatch();
   const { profileUser } = useUser();
@@ -18,25 +15,31 @@ const useShoppingCart = () => {
     (state: any) => state.shoppingCart
   );
 
-  useEffect(() => {
-    dispatch({
-      type: SHOPPINGCART_FETCH,
-      payload: profileUser?.id,
-    });
-    if(cart !== null){
-      dispatch({
-        type: PRODUCT_LIST_FETCH,
-        payload: cart?.items,
-      });
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, profileUser]);
+  // useEffect(() => {
+  //   dispatch({
+  //     type: SHOPPINGCART_FETCH,
+  //     payload: profileUser?.id,
+  //   });
+  //   if (cart !== null) {
+  //     dispatch({
+  //       type: PRODUCT_LIST_FETCH,
+  //       payload: cart?.items,
+  //     });
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [profileUser]);
 
   const getShoppingCart = () => {
     dispatch({
       type: SHOPPINGCART_FETCH,
       payload: profileUser?.id,
     });
+    if (cart !== null) {
+      dispatch({
+        type: PRODUCT_LIST_FETCH,
+        payload: cart?.items,
+      });
+    }
   };
 
   // const fetchItemsInShoppingCart = async (products: any) => {
@@ -61,10 +64,6 @@ const useShoppingCart = () => {
         quantity,
       },
     });
-    dispatch({
-      type: SHOPPINGCART_FETCH,
-      payload: profileUser?.id,
-    });
   };
 
   const deleteProductOfCart = (productId: string) => {
@@ -74,10 +73,6 @@ const useShoppingCart = () => {
         shoppingCartId,
         productId,
       },
-    });
-    dispatch({
-      type: SHOPPINGCART_FETCH,
-      payload: profileUser?.id,
     });
   };
 
