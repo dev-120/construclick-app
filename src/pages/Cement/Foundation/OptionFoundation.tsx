@@ -11,10 +11,14 @@ import {
   IonCol,
   IonInput,
   IonButton,
+  IonSkeletonText,
 } from "@ionic/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { SET_CALCULATOR_INFORMATION } from "../../../store/actions/calculator.actions";
+import {
+  GET_CALCULATOR_RESULT_FETCH,
+  SET_CALCULATOR_INFORMATION,
+} from "../../../store/actions/calculator.actions";
 
 import "./Foundation.css";
 import Header from "../../../components/Header/Header";
@@ -23,6 +27,8 @@ import FoundationDimesions from "../../../assets/dimensiones_zapata.png";
 import WhatsappIcon from "../../../assets/whatsapp_icon.png";
 import EmailIcon from "../../../assets/email_icon.png";
 import TelegramIcon from "../../../assets/telegram_icon.png";
+import useCommons from "../../../hooks/useCommons";
+import { dataFormatter } from "../../../utils/dataFormatter";
 
 const FoundationOption = {
   EC: [
@@ -53,6 +59,7 @@ interface optionFoundationProps {
 
 const OptionFoundation: React.FC<optionFoundationProps> = ({ location }) => {
   const dispatch = useDispatch();
+  const { loading } = useCommons();
   const [typeStructure, setTypeStructure] = useState<structureType>("EC");
   const [concreteResistance, setConcreteResistance] = useState<any>(
     FoundationOption[typeStructure]
@@ -84,6 +91,25 @@ const OptionFoundation: React.FC<optionFoundationProps> = ({ location }) => {
     if (location.state) {
       dispatch({
         type: SET_CALCULATOR_INFORMATION,
+        payload: {
+          ...location.state,
+          data: {
+            typeStructure,
+            concreteResistance: valueConcreteResistance,
+            zapataDimensionsA: zapataDimensions.A,
+            zapataDimensionsB: zapataDimensions.B,
+            zapataDimensinsH: zapataDimensions.H,
+            columnDimensionsA: columnDimensions.A,
+            columnDimensionsB: columnDimensions.B,
+            columnDimensionsH: columnDimensions.H,
+            columnRodNumber: columnDimensions.rodNumber,
+            coating: inputCoating,
+            rodDiameter: inputDiameterRods,
+          },
+        },
+      });
+      dispatch({
+        type: GET_CALCULATOR_RESULT_FETCH,
         payload: {
           ...location.state,
           data: {
@@ -340,15 +366,19 @@ const OptionFoundation: React.FC<optionFoundationProps> = ({ location }) => {
             </IonButton>
           </form>
         ) : (
-          <OptionFoundationResult />
+          <OptionFoundationResult loading={loading}/>
         )}
       </IonContent>
     </IonPage>
   );
 };
 
-const OptionFoundationResult: React.FC = () => {
-  const { currentCalculator } = useSelector((state: any) => state.calculator);
+const OptionFoundationResult: React.FC<{ loading: boolean }> = ({
+  loading,
+}: {
+  loading: boolean;
+}): JSX.Element => {
+  const { currentCalculator, result } = useSelector((state: any) => state.calculator);
   useEffect(() => {
     console.log(JSON.stringify(currentCalculator));
   }, [currentCalculator]);
@@ -374,52 +404,44 @@ const OptionFoundationResult: React.FC = () => {
               </IonItem>
             </IonCol>
           </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">Descripción</IonCol>
-            <IonCol className="ion-text-center">Cantidad</IonCol>
-            <IonCol className="ion-text-center">Unidad</IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">Cemento</IonCol>
-            <IonCol className="ion-text-center">3,17</IonCol>
-            <IonCol className="ion-text-center">Bulto 50Kilos</IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">
-              Acero de refuerzo Ø 1/2"
-            </IonCol>
-            <IonCol className="ion-text-center">3,1</IonCol>
-            <IonCol className="ion-text-center">Varilla/barra X 6mt</IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">
-              Acero de estribos Ø 1/2"
-            </IonCol>
-            <IonCol className="ion-text-center">1,9</IonCol>
-            <IonCol className="ion-text-center">Varilla/barra X 6mt</IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">
-              Alambre negro para amarrar
-            </IonCol>
-            <IonCol className="ion-text-center">0,5</IonCol>
-            <IonCol className="ion-text-center">Kilos</IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">Arena</IonCol>
-            <IonCol className="ion-text-center">3,08 171,4</IonCol>
-            <IonCol className="ion-text-center">m3 Latas 18L</IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">Piedra</IonCol>
-            <IonCol className="ion-text-center">1,80 101,4</IonCol>
-            <IonCol className="ion-text-center">m3 Latas 18L</IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">Formaleta</IonCol>
-            <IonCol className="ion-text-center">1,0</IonCol>
-            <IonCol className="ion-text-center">Unidad</IonCol>
-          </IonRow>
+          {loading ? (
+            <>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+            </>
+          ) : (
+            <>
+              {result.map(({ name, cuantity, unit }: { name: string; cuantity: string; unit: string; }) => (
+                <IonRow key={name} className="ion-padding-vertical">
+                  <IonCol className="ion-text-center">{dataFormatter[name]}</IonCol>
+                  <IonCol className="ion-text-center">{cuantity}</IonCol>
+                  <IonCol className="ion-text-center">{unit}</IonCol>
+                </IonRow>
+              ))}
+            </>
+          )}
           <IonRow>
             <IonCol className="ion-text-center">
               <img

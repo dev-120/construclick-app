@@ -66,6 +66,7 @@ import PurchaseDetail from "./pages/Purchases/PurchaseDetail";
 import CreateProject from "./pages/CreateProject/CreateProject";
 import useUser from "./hooks/useUser";
 import UsersProfile from "./pages/UsersProfile/UsersProfile";
+import EditProfile from "./pages/EditProfile/EditProfile";
 
 
 const Router = () => {
@@ -77,6 +78,7 @@ const Router = () => {
       <Route path="/create-project" component={CreateProject} />
       <Route exact path="/posts" component={Posts} />
       <Route exact path="/profile" component={Profile} />
+      <Route exact path="/edit-profile" component={EditProfile} />
       <Route exact path="/profile/:userId" component={UsersProfile} />
           <Route exact path="/marketplace" component={MarketPlace} />
           <Route exact path="/sell" component={MarketPlaceSell} />

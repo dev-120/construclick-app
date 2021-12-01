@@ -28,11 +28,11 @@ import {
 import {
   logoFacebook,
   logoLinkedin,
-  globe,
   heartOutline,
   heart,
   timeOutline,
   closeCircle,
+  settingsSharp,
 } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
 import { Browser } from "@capacitor/core";
@@ -43,6 +43,7 @@ import useUser from "../../hooks/useUser";
 import { AVATAR_IMAGE } from "../../config/constants";
 import usePosts from "../../hooks/usePosts";
 import { dateFormatter } from "../../utils/dateFormatter";
+import { Link } from "react-router-dom";
 
 interface postInterface {
   attributes: {
@@ -253,7 +254,9 @@ const Profile = () => {
             />
             <div className="data_icon_profileDetail_menu-right">
               <IonBadge className="badge-like">
-                <IonIcon icon={globe} />
+                <Link to="/edit-profile">
+                  <IonIcon color="light" icon={settingsSharp} />
+                </Link>
               </IonBadge>
               {like ? (
                 <IonBadge
