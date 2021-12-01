@@ -8,9 +8,10 @@ import {
   IonPage,
   IonRow,
   IonText,
+  IonSkeletonText,
 } from "@ionic/react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./DrywallCalculator.css";
 import Header from "../../components/Header/Header";
@@ -18,7 +19,9 @@ import DrywallCeilingImg from "../../assets/drywall_ceiling.png";
 import WhatsappIcon from "../../assets/whatsapp_icon.png";
 import TelegramIcon from "../../assets/telegram_icon.png";
 import EmailIcon from "../../assets/email_icon.png";
-import { SET_CALCULATOR_INFORMATION } from "../../store/actions/calculator.actions";
+import { GET_CALCULATOR_RESULT_FETCH, SET_CALCULATOR_INFORMATION } from "../../store/actions/calculator.actions";
+import useCommons from "../../hooks/useCommons";
+import { dataFormatter } from "../../utils/dataFormatter";
 
 interface DrywallCalculatorProps {
   match: {
@@ -31,6 +34,8 @@ interface DrywallCalculatorProps {
 
 const DrywallCalculator: React.FC<DrywallCalculatorProps> = ({ match }) => {
   const dispatch = useDispatch();
+  const { loading } = useCommons();
+  const { result } = useSelector((state: any) => state.calculator);
   const [calculate, setCalculate] = useState<boolean>(false);
   const [wallArea, setWallArea] = useState<number>(0);
   const [wallOpenings, setWallOpening] = useState<number>(0);
@@ -49,6 +54,17 @@ const DrywallCalculator: React.FC<DrywallCalculatorProps> = ({ match }) => {
         },
       },
     });
+    dispatch({
+      type: GET_CALCULATOR_RESULT_FETCH,
+      payload: {
+        name: match.params.type,
+        data: {
+          wallArea,
+          wallOpenings,
+          coatingThickness,
+        },
+      },
+    })
     setCalculate(true);
   };
 
@@ -158,7 +174,7 @@ const DrywallCalculator: React.FC<DrywallCalculatorProps> = ({ match }) => {
               </IonButton>
             </>
           ) : (
-            <DrywallResult />
+            <DrywallResult loading={loading} result={result} />
           )}
         </form>
       </IonContent>
@@ -166,7 +182,12 @@ const DrywallCalculator: React.FC<DrywallCalculatorProps> = ({ match }) => {
   );
 };
 
-const DrywallResult: React.FC = () => {
+interface resultProps{
+  loading: boolean;
+  result: any;
+}
+
+const DrywallResult: React.FC<resultProps> = ({ loading, result }) => {
   return (
     <>
       <IonItem className="ion-margin-top ion-margin-horizontal" color="primary">
@@ -200,7 +221,7 @@ const DrywallResult: React.FC = () => {
             <IonCol className="ion-text-center">Cantidad</IonCol>
             <IonCol className="ion-text-center">Unidad</IonCol>
           </IonRow>
-          <IonRow>
+          {/* <IonRow>
             <IonCol className="ion-text-center">
               {"Placa drywall\n(1,22m x 2,44m)"}
             </IonCol>
@@ -246,7 +267,57 @@ const DrywallResult: React.FC = () => {
             <IonCol className="ion-text-center">{"Cinta Malla\nx 30m"}</IonCol>
             <IonCol className="ion-text-center">3,2</IonCol>
             <IonCol className="ion-text-center">Unidad</IonCol>
-          </IonRow>
+          </IonRow> */}
+          {loading ? (
+            <>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+            </>
+          ) : (
+            <>
+              {result.map(
+                ({
+                  name,
+                  cuantity,
+                  unit,
+                }: {
+                  name: string;
+                  cuantity: string;
+                  unit: string;
+                }) => (
+                  <IonRow key={name} className="ion-padding-vertical">
+                    <IonCol className="ion-text-center">
+                      {dataFormatter[name]}
+                    </IonCol>
+                    <IonCol className="ion-text-center">{cuantity}</IonCol>
+                    <IonCol className="ion-text-center">{unit}</IonCol>
+                  </IonRow>
+                )
+              )}
+            </>
+          )}
           <IonRow>
             <IonCol className="ion-text-center">
               <img

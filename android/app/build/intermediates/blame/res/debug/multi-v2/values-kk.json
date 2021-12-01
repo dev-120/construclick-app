@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-kk/values-kk.xml",
+            "outputFile": "/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-kk/values-kk.xml",
             "map": [
                 {
                     "source": "/home/yosoyjp/.gradle/caches/transforms-2/files-2.1/9fbada88fa325291a82eb809c2064dc7/jetified-firebase-messaging-20.1.2/res/values-kk/values.xml",

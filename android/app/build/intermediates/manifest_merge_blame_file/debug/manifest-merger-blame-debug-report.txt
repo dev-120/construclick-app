@@ -6,196 +6,196 @@
 6
 7    <uses-sdk
 8        android:minSdkVersion="21"
-8-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml
+8-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml
 9        android:targetSdkVersion="29" />
-9-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml
+9-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml
 10
 11    <!-- Permissions -->
 12
 13    <uses-permission android:name="android.permission.INTERNET" />
-13-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:47:5-67
-13-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:47:22-64
+13-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:47:5-67
+13-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:47:22-64
 14    <!-- Camera, Photos, input file -->
 15    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-15-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:49:5-79
-15-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:49:22-77
+15-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:49:5-79
+15-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:49:22-77
 16    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-16-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:50:5-81
-16-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:50:22-78
+16-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:50:5-81
+16-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:50:22-78
 17    <!-- Geolocation API -->
 18    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-18-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:52:5-81
-18-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:52:22-78
+18-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:52:5-81
+18-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:52:22-78
 19    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-19-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:53:5-79
-19-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:53:22-76
+19-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:53:5-79
+19-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:53:22-76
 20
 21    <uses-feature android:name="android.hardware.location.gps" />
-21-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:54:5-66
-21-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:54:19-63
+21-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:54:5-66
+21-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:54:19-63
 22    <!-- Network API -->
 23    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-23-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:56:5-79
-23-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:56:22-76
+23-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:56:5-79
+23-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:56:22-76
 24    <!-- Navigator.getUserMedia -->
 25    <!-- Video -->
 26    <uses-permission android:name="android.permission.CAMERA" />
-26-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:59:5-65
-26-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:59:22-62
+26-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:59:5-65
+26-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:59:22-62
 27    <!-- Audio -->
 28    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-28-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:61:5-71
-28-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:61:22-68
+28-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:61:5-71
+28-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:61:22-68
 29    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-29-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:62:5-79
-29-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:62:22-77
+29-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:62:5-79
+29-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:62:22-77
 30
 31    <uses-feature
-31-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-13:36
+31-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-13:36
 32        android:name="android.hardware.camera"
-32-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:9-47
+32-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:9-47
 33        android:required="false" />
-33-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:9-33
+33-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:9-33
 34
 35    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-35-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:5-81
-35-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:22-78
+35-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:5-81
+35-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:22-78
 36    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Required by older versions of Google Play services to create IID tokens -->
-36-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:5-68
-36-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:22-65
+36-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:5-68
+36-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:22-65
 37    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 37-->[com.google.firebase:firebase-iid:20.1.1] /home/yosoyjp/.gradle/caches/transforms-2/files-2.1/65f174b01524df0d4bd637d7360a2e28/jetified-firebase-iid-20.1.1/AndroidManifest.xml:26:5-82
 37-->[com.google.firebase:firebase-iid:20.1.1] /home/yosoyjp/.gradle/caches/transforms-2/files-2.1/65f174b01524df0d4bd637d7360a2e28/jetified-firebase-iid-20.1.1/AndroidManifest.xml:26:22-79
 38
 39    <application
-39-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:5:5-43:19
+39-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:5:5-43:19
 40        android:allowBackup="true"
-40-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:6:9-35
+40-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:6:9-35
 41        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 41-->[androidx.core:core:1.2.0] /home/yosoyjp/.gradle/caches/transforms-2/files-2.1/cf23515831a30cf8e0e5ff774beb1451/core-1.2.0/AndroidManifest.xml:24:18-86
 42        android:debuggable="true"
 43        android:icon="@mipmap/ic_launcher"
-43-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:7:9-43
+43-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:7:9-43
 44        android:label="@string/app_name"
-44-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:8:9-41
+44-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:8:9-41
 45        android:roundIcon="@mipmap/ic_launcher_round"
-45-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:9:9-54
+45-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:9:9-54
 46        android:supportsRtl="true"
-46-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:10:9-35
+46-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:10:9-35
 47        android:theme="@style/AppTheme" >
-47-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:11:9-40
+47-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:11:9-40
 48        <activity
-48-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:13:9-32:20
+48-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:13:9-32:20
 49            android:name="com.construclick.app.MainActivity"
-49-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:15:13-61
+49-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:15:13-61
 50            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode"
-50-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:14:13-129
+50-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:14:13-129
 51            android:label="@string/title_activity_main"
-51-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:16:13-56
+51-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:16:13-56
 52            android:launchMode="singleTask"
-52-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:18:13-44
+52-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:18:13-44
 53            android:theme="@style/AppTheme.NoActionBarLaunch" >
-53-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:17:13-62
+53-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:17:13-62
 54            <intent-filter>
-54-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:20:13-23:29
+54-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:20:13-23:29
 55                <action android:name="android.intent.action.MAIN" />
-55-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:21:17-69
-55-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:21:25-66
+55-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:21:17-69
+55-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:21:25-66
 56
 57                <category android:name="android.intent.category.LAUNCHER" />
-57-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:22:17-77
-57-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:22:27-74
+57-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:22:17-77
+57-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:22:27-74
 58            </intent-filter>
 59            <intent-filter>
-59-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:25:13-30:29
+59-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:25:13-30:29
 60                <action android:name="android.intent.action.VIEW" />
-60-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:26:17-69
-60-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:26:25-66
+60-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:26:17-69
+60-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:26:25-66
 61
 62                <category android:name="android.intent.category.DEFAULT" />
-62-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:27:17-76
-62-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:27:27-73
+62-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:27:17-76
+62-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:27:27-73
 63                <category android:name="android.intent.category.BROWSABLE" />
-63-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:28:17-78
-63-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:28:27-75
+63-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:28:17-78
+63-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:28:27-75
 64
 65                <data android:scheme="@string/custom_url_scheme" />
-65-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:29:17-68
-65-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:29:23-65
+65-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:29:17-68
+65-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:29:23-65
 66            </intent-filter>
 67        </activity>
 68
 69        <provider
 70            android:name="androidx.core.content.FileProvider"
-70-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:35:13-62
+70-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:35:13-62
 71            android:authorities="com.construclick.app.fileprovider"
-71-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:36:13-64
+71-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:36:13-64
 72            android:exported="false"
-72-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:37:13-37
+72-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:37:13-37
 73            android:grantUriPermissions="true" >
-73-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:38:13-47
+73-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:38:13-47
 74            <meta-data
-74-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:39:13-41:64
+74-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:39:13-41:64
 75                android:name="android.support.FILE_PROVIDER_PATHS"
-75-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:40:17-67
+75-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:40:17-67
 76                android:resource="@xml/file_paths" />
-76-->/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/AndroidManifest.xml:41:17-51
+76-->/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/AndroidManifest.xml:41:17-51
 77        </provider>
 78
 79        <service
-79-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:9-21:40
+79-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:9-21:40
 80            android:name="com.getcapacitor.plugin.background.BackgroundTaskService"
-80-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:13-84
+80-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:13-84
 81            android:exported="false" />
-81-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:21:13-37
+81-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:21:13-37
 82
 83        <receiver android:name="com.getcapacitor.plugin.notification.TimedNotificationPublisher" />
-83-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:9-100
-83-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:19-97
+83-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:9-100
+83-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:19-97
 84        <receiver android:name="com.getcapacitor.plugin.notification.NotificationDismissReceiver" />
-84-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:9-101
-84-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:19-98
+84-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:9-101
+84-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:19-98
 85
 86        <meta-data
-86-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:26:9-28:37
+86-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:26:9-28:37
 87            android:name="firebase_messaging_auto_init_enabled"
-87-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:27:13-64
+87-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:27:13-64
 88            android:value="false" />
-88-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:28:13-34
+88-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:28:13-34
 89
 90        <service
-90-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:30:9-36:19
+90-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:30:9-36:19
 91            android:name="com.getcapacitor.CapacitorFirebaseMessagingService"
-91-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:31:13-78
+91-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:31:13-78
 92            android:stopWithTask="false" >
-92-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:32:13-41
+92-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:32:13-41
 93            <intent-filter>
-93-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:33:13-35:29
+93-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:33:13-35:29
 94                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-94-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:34:17-78
-94-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:34:25-75
+94-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:34:17-78
+94-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:34:25-75
 95            </intent-filter>
 96        </service>
 97
 98        <receiver
-98-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:38:9-47:20
+98-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:38:9-47:20
 99            android:name="com.getcapacitor.plugin.notification.LocalNotificationRestoreReceiver"
-99-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:39:13-97
+99-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:39:13-97
 100            android:directBootAware="true"
-100-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:40:13-43
+100-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:40:13-43
 101            android:exported="false" >
-101-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:41:13-37
+101-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:41:13-37
 102            <intent-filter>
-102-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:42:13-46:29
+102-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:42:13-46:29
 103                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
-103-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:43:17-86
-103-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:43:25-83
+103-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:43:17-86
+103-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:43:25-83
 104                <action android:name="android.intent.action.BOOT_COMPLETED" />
-104-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:44:17-79
-104-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:44:25-76
+104-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:44:17-79
+104-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:44:25-76
 105                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
-105-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:45:17-82
-105-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:45:25-79
+105-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:45:17-82
+105-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:45:25-79
 106            </intent-filter>
 107        </receiver>
 108        <!--
@@ -209,10 +209,10 @@
 114            android:exported="false" >
 114-->[com.google.firebase:firebase-messaging:20.1.2] /home/yosoyjp/.gradle/caches/transforms-2/files-2.1/9fbada88fa325291a82eb809c2064dc7/jetified-firebase-messaging-20.1.2/AndroidManifest.xml:30:13-37
 115            <intent-filter android:priority="-500" >
-115-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:33:13-35:29
+115-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:33:13-35:29
 116                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-116-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:34:17-78
-116-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:34:25-75
+116-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:34:17-78
+116-->[:capacitor-android] /home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/library_manifest/debug/AndroidManifest.xml:34:25-75
 117            </intent-filter>
 118        </service>
 119        <service

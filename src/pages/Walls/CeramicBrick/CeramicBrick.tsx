@@ -16,15 +16,6 @@ import Header from "../../../components/Header/Header";
 
 import CeramicBrickImg from '../../../assets/ceramic_brick.png'
 
-// const BrickPage: React.FC = () => {
-//   return (
-//     <>
-//       <Route path="/calculator/walls/brick" component={Brick} />
-//       <Route exact path="calculator/walls/brick/:size" />
-//     </>
-//   );
-// };
-
 const menuBrick = [
   { brickType: "3 Agujeros", size: "(10 x 20 x 40)", linkTo: "/3", name: "brick-holes-3" },
   { brickType: "6 Agujeros", size: "(10 x 20 x 40)", linkTo: "/6", name: "brick-holes-6" },
@@ -57,6 +48,8 @@ const CeramicBrick: React.FC<CeramicBrickProps> = ({ match, location }) => {
   const history = useHistory();
   const onClickCardHandler = (path: string, state: string) =>{
     history.push({ pathname: `${match.url}${path}`, state: {...location.state, name: state} })
+    localStorage.removeItem("brick-size");
+    localStorage.setItem("brick-size", state);
   }
 
   return (

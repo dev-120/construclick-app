@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-en-rIN/values-en-rIN.xml",
+            "outputFile": "/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-en-rIN/values-en-rIN.xml",
             "map": [
                 {
                     "source": "/home/yosoyjp/.gradle/caches/transforms-2/files-2.1/72755d8593c3ca1ed00b11907b10c688/appcompat-1.1.0/res/values-en-rIN/values-en-rIN.xml",

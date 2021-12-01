@@ -43,6 +43,8 @@ const SolidBrick: React.FC<SolidBrickProps> = ({ match, location }) => {
   const history = useHistory();
   const onClickCardHandler = (path: string, state: string) =>{
     history.push({ pathname: `${match.url}${path}`, state: {...location.state, name: state} })
+    localStorage.removeItem("brick-size");
+    localStorage.setItem("brick-size", state);
   }
   return (
     <IonPage>

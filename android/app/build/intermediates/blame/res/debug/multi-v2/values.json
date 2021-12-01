@@ -1,44 +1,8 @@
 {
     "logs": [
         {
-            "outputFile": "/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+            "outputFile": "/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
             "map": [
-                {
-                    "source": "/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/res/values/ic_launcher_background.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "56",
-                        "endOffsets": "107"
-                    },
-                    "to": {
-                        "startLines": "171",
-                        "startColumns": "4",
-                        "startOffsets": "10935",
-                        "endColumns": "56",
-                        "endOffsets": "10987"
-                    }
-                },
-                {
-                    "source": "/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/res/values/styles.xml",
-                    "from": {
-                        "startLines": "4,11,18",
-                        "startColumns": "4,4,4",
-                        "startOffsets": "93,413,655",
-                        "endLines": "9,15,20",
-                        "endColumns": "12,12,12",
-                        "endOffsets": "407,648,803"
-                    },
-                    "to": {
-                        "startLines": "770,776,781",
-                        "startColumns": "4,4,4",
-                        "startOffsets": "56062,56381,56621",
-                        "endLines": "775,780,783",
-                        "endColumns": "12,12,12",
-                        "endOffsets": "56376,56616,56769"
-                    }
-                },
                 {
                     "source": "/home/yosoyjp/.gradle/caches/transforms-2/files-2.1/f720b24cc490c109d50c0a0a1e6bf186/jetified-play-services-basement-17.0.0/res/values/values.xml",
                     "from": {
@@ -112,23 +76,6 @@
                     }
                 },
                 {
-                    "source": "/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/src/main/res/values/strings.xml",
-                    "from": {
-                        "startLines": "2,5,4,3",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "55,228,166,105",
-                        "endColumns": "49,66,61,60",
-                        "endOffsets": "100,290,223,161"
-                    },
-                    "to": {
-                        "startLines": "672,700,746,756",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "43321,46542,53886,54997",
-                        "endColumns": "49,66,61,60",
-                        "endOffsets": "43366,46604,53943,55053"
-                    }
-                },
-                {
                     "source": "/home/yosoyjp/.gradle/caches/transforms-2/files-2.1/c1420d47df5e117932bba76e098a3816/browser-1.2.0/res/values/values.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11",
@@ -181,6 +128,23 @@
                         "endLines": "56,355,356,357,365,366,367,584,6310",
                         "endColumns": "55,58,47,55,74,75,71,65,24",
                         "endOffsets": "3241,23229,23277,23333,24019,24095,24167,38079,398008"
+                    }
+                },
+                {
+                    "source": "/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/res/values/ic_launcher_background.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "56",
+                        "endOffsets": "107"
+                    },
+                    "to": {
+                        "startLines": "171",
+                        "startColumns": "4",
+                        "startOffsets": "10935",
+                        "endColumns": "56",
+                        "endOffsets": "10987"
                     }
                 },
                 {
@@ -258,7 +222,24 @@
                     }
                 },
                 {
-                    "source": "/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/node_modules/@capacitor/android/capacitor/build/intermediates/packaged_res/debug/values/values.xml",
+                    "source": "/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/res/values/strings.xml",
+                    "from": {
+                        "startLines": "2,5,4,3",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,228,166,105",
+                        "endColumns": "49,66,61,60",
+                        "endOffsets": "100,290,223,161"
+                    },
+                    "to": {
+                        "startLines": "672,700,746,756",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "43321,46542,53886,54997",
+                        "endColumns": "49,66,61,60",
+                        "endOffsets": "43366,46604,53943,55053"
+                    }
+                },
+                {
+                    "source": "/home/yosoyjp/develop/yosoyjp/120/construclick/app/node_modules/@capacitor/android/capacitor/build/intermediates/packaged_res/debug/values/values.xml",
                     "from": {
                         "startLines": "2,3,4,6,7,8,9,20",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -312,6 +293,25 @@
                         "endLines": "192,193,299,300,301,302,303,304,305,518,519,520,521,522,523,524,525,526,527,528,529,530,531,532,542,543,544,545,546,547,548,549,550,551,552,553,554,555,556,557,558,559,560,561,562,563,564,565,566,567,568,569,570,571,572,573,574,575,576,585,586,598,599,600,601,602,603,604,605,606,607,611,640,755,3056,3060,3061,3065,3066,3589,3590,5468,5728,5760,5802,5809",
                         "endColumns": "68,62,69,67,71,69,60,73,72,60,60,61,63,61,60,67,99,59,65,72,68,56,51,61,71,75,64,58,58,59,59,59,59,59,59,59,59,59,59,58,59,59,59,59,59,59,59,59,59,59,58,59,59,58,58,58,58,58,58,34,34,54,62,54,57,56,49,60,56,33,34,34,69,70,116,12,109,12,128,71,66,24,24,24,24,24",
                         "endOffsets": "12293,12356,19569,19637,19709,19779,19840,19914,19987,34129,34190,34252,34316,34378,34439,34507,34607,34667,34733,34806,34875,34932,34984,35046,35636,35712,35777,35836,35895,35955,36015,36075,36135,36195,36255,36315,36375,36435,36495,36554,36614,36674,36734,36794,36854,36914,36974,37034,37094,37154,37213,37273,37333,37392,37451,37510,37569,37628,37687,38114,38149,38755,38818,38873,38931,38988,39038,39099,39156,39190,39225,39403,41130,54992,207665,207866,207976,208177,208306,245622,245689,353202,368154,370219,372199,372576"
+                    }
+                },
+                {
+                    "source": "/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/src/main/res/values/styles.xml",
+                    "from": {
+                        "startLines": "4,11,18",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "93,413,655",
+                        "endLines": "9,15,20",
+                        "endColumns": "12,12,12",
+                        "endOffsets": "407,648,803"
+                    },
+                    "to": {
+                        "startLines": "770,776,781",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "56062,56381,56621",
+                        "endLines": "775,780,783",
+                        "endColumns": "12,12,12",
+                        "endOffsets": "56376,56616,56769"
                     }
                 }
             ]

@@ -17,14 +17,6 @@ import Header from "../../../components/Header/Header";
 import "./Brick.css";
 import BrickImg from '../../../assets/brick.png'
 
-// const BrickPage: React.FC = () => {
-//   return (
-//     <>
-//       <Route path="/calculator/walls/brick" component={Brick} />
-//       <Route exact path="calculator/walls/brick/:size" />
-//     </>
-//   );
-// };
 
 const menuBrick = [
   { brickType: "Bloque N°10", size: "(10 x 20 x 40)", linkTo: "/10", name: "block10" },
@@ -58,6 +50,8 @@ const Brick: React.FC<BrickProps> = ({ match, location }) => {
   const history = useHistory();
   const onClickCardHandler = (path: string, state: string) =>{
     history.push({ pathname: `${match.url}${path}`, state: {...location.state, name: state} })
+    localStorage.removeItem("brick-size");
+    localStorage.setItem("brick-size", state);
   }
 
   return (

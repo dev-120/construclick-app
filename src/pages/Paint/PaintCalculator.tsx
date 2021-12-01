@@ -8,9 +8,10 @@ import {
   IonPage,
   IonRow,
   IonText,
+  IonSkeletonText,
 } from "@ionic/react";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./PaintCalculator.css";
 import Header from "../../components/Header/Header";
@@ -19,7 +20,9 @@ import ExteriorPaintImg from "../../assets/exterior_paint.png";
 import WhatsappIcon from "../../assets/whatsapp_icon.png";
 import TelegramIcon from "../../assets/telegram_icon.png";
 import EmailIcon from "../../assets/email_icon.png";
-import { SET_CALCULATOR_INFORMATION } from "../../store/actions/calculator.actions";
+import { GET_CALCULATOR_RESULT_FETCH, SET_CALCULATOR_INFORMATION } from "../../store/actions/calculator.actions";
+import useCommons from "../../hooks/useCommons";
+import { dataFormatter } from "../../utils/dataFormatter";
 
 const menuPaint = [
   {
@@ -44,6 +47,8 @@ interface PaintProps {
 
 const StuccoCalculator: React.FC<PaintProps> = ({ match }) => {
   const dispatch = useDispatch();
+  const { loading } = useCommons();
+  const { result } = useSelector((state: any) => state.calculator)
   const [calculate, setCalculate] = useState<boolean>(false);
   const [menuOption, setMenuOption] = useState(Object || null);
   const [wallArea, setWallArea] = useState<number>(0);
@@ -69,6 +74,17 @@ const StuccoCalculator: React.FC<PaintProps> = ({ match }) => {
         },
       },
     });
+    dispatch({
+      type: GET_CALCULATOR_RESULT_FETCH,
+      payload: {
+        name: match.params.type,
+        data: {
+          wallArea,
+          wallOpenings,
+          paintCoating,
+        },
+      },
+    })
     setCalculate(true);
   };
 
@@ -178,7 +194,7 @@ const StuccoCalculator: React.FC<PaintProps> = ({ match }) => {
               </IonButton>
             </>
           ) : (
-            <PaintResult {...menuOption} />
+            <PaintResult {...menuOption} loading={loading} result={result} />
           )}
         </form>
       </IonContent>
@@ -190,9 +206,11 @@ interface menuPaintProps {
   type: string;
   linkTo: string;
   imgSrc: any;
+  loading: boolean;
+  result: any;
 }
 
-const PaintResult: React.FC<menuPaintProps> = ({ type, linkTo, imgSrc }) => {
+const PaintResult: React.FC<menuPaintProps> = ({ type, linkTo, imgSrc, loading, result }) => {
   return (
     <>
       <IonItem className="ion-margin-top ion-margin-horizontal" color="primary">
@@ -226,7 +244,7 @@ const PaintResult: React.FC<menuPaintProps> = ({ type, linkTo, imgSrc }) => {
             <IonCol className="ion-text-center">Cantidad</IonCol>
             <IonCol className="ion-text-center">Unidad</IonCol>
           </IonRow>
-          {linkTo === "interior-painting" ? (
+          {/* {linkTo === "interior-painting" ? (
             <IonRow>
               <IonCol className="ion-text-center">Pintura Interior</IonCol>
               <IonCol className="ion-text-center">6,2</IonCol>
@@ -238,6 +256,35 @@ const PaintResult: React.FC<menuPaintProps> = ({ type, linkTo, imgSrc }) => {
               <IonCol className="ion-text-center">6,2</IonCol>
               <IonCol className="ion-text-center">Cuñete</IonCol>
             </IonRow>
+          )} */}
+          {loading ? (
+            <>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+            </>
+          ) : (
+            <>
+              {result.map(
+                ({
+                  name,
+                  cuantity,
+                  unit,
+                }: {
+                  name: string;
+                  cuantity: string;
+                  unit: string;
+                }) => (
+                  <IonRow key={name} className="ion-padding-vertical">
+                    <IonCol className="ion-text-center">
+                      {dataFormatter[name]}
+                    </IonCol>
+                    <IonCol className="ion-text-center">{cuantity}</IonCol>
+                    <IonCol className="ion-text-center">{unit}</IonCol>
+                  </IonRow>
+                )
+              )}
+            </>
           )}
           <IonRow>
             <IonCol className="ion-text-center">

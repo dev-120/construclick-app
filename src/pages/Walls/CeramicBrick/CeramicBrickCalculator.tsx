@@ -9,18 +9,21 @@ import {
   IonLabel,
   IonInput,
   IonButton,
+  IonSkeletonText,
 } from "@ionic/react";
 
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { SET_CALCULATOR_INFORMATION } from "../../../store/actions/calculator.actions";
+import { useDispatch, useSelector } from "react-redux";
+import { GET_CALCULATOR_RESULT_FETCH, SET_CALCULATOR_INFORMATION } from "../../../store/actions/calculator.actions";
 
-import SolidBrickImg from "../../../assets/solid_brick.png";
+import CeramicBrickImg from "../../../assets/ceramic_brick.png"
 import MortarJoint from "../../../assets/mortar_joint.png";
 import Header from "../../../components/Header/Header";
 import WhatsappIcon from "../../../assets/whatsapp_icon.png";
 import EmailIcon from "../../../assets/email_icon.png";
 import TelegramIcon from "../../../assets/telegram_icon.png";
+import { dataFormatter } from "../../../utils/dataFormatter";
+import useCommons from "../../../hooks/useCommons";
 
 interface SolidBrickCalculatorProps {
   match: {
@@ -49,10 +52,14 @@ const CeramicBrickCalculator: React.FC<SolidBrickCalculatorProps> = ({
 }) => {
   const dispatch = useDispatch();
   const [Brick, setBrick] = useState(Object || null);
+  const { loading } = useCommons();
+  const { result } = useSelector((state: any) => state.calculator)
   const [calculate, setCalculate] = useState<boolean>(false);
   const [wallArea, setWallArea] = useState<number>(0);
   const [wallOpenings, setWallOpenings] = useState<number>(0);
   const [wallThickness, setWallThickness] = useState<number>(0);
+  let calculatorName = localStorage.getItem("brick-name") as string;
+  let calculatorSize = localStorage.getItem("brick-size") as string;
 
   useEffect(() => {
     setBrick(
@@ -65,7 +72,18 @@ const CeramicBrickCalculator: React.FC<SolidBrickCalculatorProps> = ({
     dispatch({
       type: SET_CALCULATOR_INFORMATION,
       payload: {
-        ...location.state,
+        name: `${calculatorName}-${calculatorSize}`,
+        data: {
+          wallArea,
+          wallOpenings,
+          wallThickness,
+        },
+      },
+    });
+    dispatch({
+      type: GET_CALCULATOR_RESULT_FETCH,
+      payload: {
+        name: `${calculatorName}-${calculatorSize}`,
         data: {
           wallArea,
           wallOpenings,
@@ -89,7 +107,7 @@ const CeramicBrickCalculator: React.FC<SolidBrickCalculatorProps> = ({
               >
                 <img
                   slot="start"
-                  src={SolidBrickImg}
+                  src={CeramicBrickImg}
                   className="Foundation-sidepanel__img"
                   alt=""
                 />
@@ -188,7 +206,7 @@ const CeramicBrickCalculator: React.FC<SolidBrickCalculatorProps> = ({
               </IonButton>
             </>
           ) : (
-            <CeramicBrickResult {...Brick} />
+            <CeramicBrickResult {...Brick} loading={loading} result={result} />
           )}
         </form>
       </IonContent>
@@ -200,19 +218,23 @@ interface CeramicBrickResultProps {
   brickType: string;
   size: string;
   sizeBrick: string;
+  loading: boolean;
+  result: any;
 }
 
 const CeramicBrickResult: React.FC<CeramicBrickResultProps> = ({
   brickType,
   size,
   sizeBrick,
+  loading,
+  result,
 }) => {
   return (
     <>
       <IonItem className="ion-margin-top ion-margin-horizontal" color="primary">
         <img
           slot="start"
-          src={SolidBrickImg}
+          src={CeramicBrickImg}
           className="Foundation-sidepanel__img"
           alt=""
         />
@@ -245,32 +267,50 @@ const CeramicBrickResult: React.FC<CeramicBrickResultProps> = ({
             <IonCol className="ion-text-center">Cantidad</IonCol>
             <IonCol className="ion-text-center">Unidad</IonCol>
           </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">Bloques</IonCol>
-            <IonCol className="ion-text-center">5357</IonCol>
-            <IonCol className="ion-text-center">357</IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">Cemento</IonCol>
-            <IonCol className="ion-text-center">9,4</IonCol>
-            <IonCol className="ion-text-center">Bulto 50Kg</IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center" size="4">
-              Arena
-            </IonCol>
-            <IonCol className="ion-text-center" size="4">
-              3,085 171,4
-            </IonCol>
-            <IonCol className="ion-text-center" size="4">
-              m3 Latas 18L
-            </IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">Agua</IonCol>
-            <IonCol className="ion-text-center">1249,6</IonCol>
-            <IonCol className="ion-text-center">Litros</IonCol>
-          </IonRow>
+          {loading ? (
+            <>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+            </>
+          ) : (
+            <>
+              {result.map(
+                ({
+                  name,
+                  cuantity,
+                  unit,
+                }: {
+                  name: string;
+                  cuantity: string;
+                  unit: string;
+                }) => (
+                  <IonRow key={name} className="ion-padding-vertical">
+                    <IonCol className="ion-text-center">
+                      {dataFormatter[name]}
+                    </IonCol>
+                    <IonCol className="ion-text-center">{cuantity}</IonCol>
+                    <IonCol className="ion-text-center">{unit}</IonCol>
+                  </IonRow>
+                )
+              )}
+            </>
+          )}
           <IonRow>
             <IonCol className="ion-text-center">
               <img

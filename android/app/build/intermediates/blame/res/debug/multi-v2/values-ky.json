@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/yosoyjp/develop/yosoyjp/construclick/Construclick_prototype/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ky/values-ky.xml",
+            "outputFile": "/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ky/values-ky.xml",
             "map": [
                 {
                     "source": "/home/yosoyjp/.gradle/caches/transforms-2/files-2.1/38b6c4b545e39be84f8fef63d737cf6b/jetified-play-services-base-17.0.0/res/values-ky/values.xml",
