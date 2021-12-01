@@ -11,6 +11,7 @@ import {
   IonCol,
   IonInput,
   IonButton,
+  IonSkeletonText,
 } from "@ionic/react";
 import { useEffect, useState } from "react";
 
@@ -25,8 +26,10 @@ import EmailIcon from "../../../assets/email_icon.png";
 import TelegramIcon from "../../../assets/telegram_icon.png";
 import BlocklonImg from "../../../assets/blocklon.png";
 import StyrofoamImg from "../../../assets/styrofoam.png";
-import { SET_CALCULATOR_INFORMATION } from "../../../store/actions/calculator.actions";
-import { useDispatch } from "react-redux";
+import { GET_CALCULATOR_RESULT_FETCH, SET_CALCULATOR_INFORMATION } from "../../../store/actions/calculator.actions";
+import { useDispatch, useSelector } from "react-redux";
+import { dataFormatter } from "../../../utils/dataFormatter";
+import useCommons from "../../../hooks/useCommons";
 
 const FoundationOption = {
   EC: [
@@ -85,6 +88,8 @@ const SlabOptions = [
 
 const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
   const dispatch = useDispatch();
+  const { loading } = useCommons();
+  const { result } = useSelector((state: any) => state.calculator);
   const [typeSlab, setTypeSlab] = useState(Object);
   const [typeStructure, setTypeStructure] = useState<structureType>("EC");
   const [concreteResistance, setConcreteResistance] = useState<any>(
@@ -144,6 +149,25 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
             },
           },
         });
+        dispatch({
+          type: GET_CALCULATOR_RESULT_FETCH,
+          payload:  {
+            name: match.params.type,
+            data: {
+              typeStructure,
+              concreteResistance: valueConcreteResistance,
+              columnDimensionsA: columnDimensions.A,
+              columnDimensionsB: columnDimensions.B,
+              columnDimensionsThickness: columnDimensions.thickness,
+              coating: inputCoating,
+              areaOpenings,
+              blockSlabZapataDimensionsA: blockSlabZapataDimensions.A,
+              blockSlabZapataDimensionsB: blockSlabZapataDimensions.B,
+              blockSlabZapataDimensionsC: blockSlabZapataDimensions.C,
+              diameterMesh: inputDiameterMesh,
+            },
+          },
+        })
         break;
       case "lightened-slab":
         dispatch({
@@ -164,6 +188,24 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
             },
           },
         });
+        dispatch({
+          type: GET_CALCULATOR_RESULT_FETCH,
+          payload:  {
+            name: match.params.type,
+            data: {
+              typeStructure,
+              concreteResistance: valueConcreteResistance,
+              columnDimensionsA: columnDimensions.A,
+              columnDimensionsB: columnDimensions.B,
+              columnDimensionsThickness: columnDimensions.thickness,
+              coating: inputCoating,
+              areaOpenings,
+              polystyreneDimensionsA: polystyreneDimensions.A,
+              polystyreneDimensionsB: polystyreneDimensions.B,
+              diameterMesh: inputDiameterMesh,
+            },
+          },
+        })
         break;
       case "solid-slab":
         dispatch({
@@ -182,6 +224,22 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
             },
           },
         });
+        dispatch({
+          type: GET_CALCULATOR_RESULT_FETCH,
+          payload:  {
+            name: match.params.type,
+            data: {
+              typeStructure,
+              concreteResistance: valueConcreteResistance,
+              columnDimensionsA: columnDimensions.A,
+              columnDimensionsB: columnDimensions.B,
+              columnDimensionsThickness: columnDimensions.thickness,
+              coating: inputCoating,
+              areaOpenings,
+              diameterMesh: inputDiameterMesh,
+            },
+          },
+        })
         break;
       case "metaldeck-slab":
         dispatch({
@@ -199,8 +257,24 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
             caliberSheetMetaldeck,
           },
         });
+        dispatch({
+          type: GET_CALCULATOR_RESULT_FETCH,
+          payload: {
+            name: match.params.type,
+            typeStructure,
+            concreteResistance: valueConcreteResistance,
+            columnDimensionsA: columnDimensions.A,
+            columnDimensionsB: columnDimensions.B,
+            columnDimensionsThickness: columnDimensions.thickness,
+            coating: inputCoating,
+            areaOpenings,
+            diameterMesh: inputDiameterMesh,
+            caliberSheetMetaldeck,
+          },
+        })
         break;
     }
+    
     setCalculate(true);
   };
 
@@ -590,7 +664,7 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
             </IonButton>
           </form>
         ) : (
-          <BeamCalculatorResult {...typeSlab} />
+          <BeamCalculatorResult {...typeSlab} loading={loading} result={result} />
         )}
       </IonContent>
     </IonPage>
@@ -600,13 +674,15 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
 interface CalculatorResultProps {
   title: string;
   imgSrc: string;
-  linkTo: string;
+  loading: boolean;
+  result: any;
 }
 
 const BeamCalculatorResult: React.FC<CalculatorResultProps> = ({
   title,
   imgSrc,
-  linkTo,
+  loading,
+  result
 }) => {
   return (
     <IonContent className="Foundation-content__style">
@@ -635,7 +711,7 @@ const BeamCalculatorResult: React.FC<CalculatorResultProps> = ({
             <IonCol className="ion-text-center">Cantidad</IonCol>
             <IonCol className="ion-text-center">Unidad</IonCol>
           </IonRow>
-          <IonRow>
+          {/* <IonRow>
             <IonCol className="ion-text-center">Cemento</IonCol>
             <IonCol className="ion-text-center">30,17</IonCol>
             <IonCol className="ion-text-center">Bulto 50Kilos</IonCol>
@@ -737,7 +813,57 @@ const BeamCalculatorResult: React.FC<CalculatorResultProps> = ({
             <IonCol className="ion-text-center">Piedra</IonCol>
             <IonCol className="ion-text-center">{"1,80\n101,4"}</IonCol>
             <IonCol className="ion-text-center">m3 Latas 18L</IonCol>
-          </IonRow>
+          </IonRow> */}
+          {loading ? (
+            <>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+            </>
+          ) : (
+            <>
+              {result.map(
+                ({
+                  name,
+                  cuantity,
+                  unit,
+                }: {
+                  name: string;
+                  cuantity: string;
+                  unit: string;
+                }) => (
+                  <IonRow key={name} className="ion-padding-vertical">
+                    <IonCol className="ion-text-center">
+                      {dataFormatter[name]}
+                    </IonCol>
+                    <IonCol className="ion-text-center">{cuantity}</IonCol>
+                    <IonCol className="ion-text-center">{unit}</IonCol>
+                  </IonRow>
+                )
+              )}
+            </>
+          )}
           <IonRow>
             <IonCol className="ion-text-center">
               <img

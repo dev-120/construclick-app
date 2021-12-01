@@ -20,5 +20,7 @@ export const loadDataUserBasic = (id:string) => {
 };
 
 export const update = ({id, newData}:{id: string, newData: any}) => {
-    return axios.put(`${apiUrl}${basePath}/${id}`, newData);
+    return axios.put(`${apiUrl}${basePath}/${id}`, {
+        newData,
+    });
 };

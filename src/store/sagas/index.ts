@@ -22,6 +22,8 @@ import { addProductToShoppingcart, getShoppingCartItems, removeProductOfShopping
 import { PRODUCT_ADD_FETCH, PRODUCT_REMOVE, SHOPPINGCART_FETCH } from "../actions/shoppingcart.actions";
 import { FETCH_ALL_USER_POSTS, FETCH_EVENTS_POSTS, FETCH_NEWS_POSTS, FETCH_OPPORTUNITIES_POSTS, FETCH_PROJECTS_POSTS } from "../actions/posts.actions";
 import { fetchAllPostsByUser, fetchEventsPosts, fetchNewsPosts, fetchOpportunitesPosts, fetchProjectsPosts } from "./posts.effect";
+import { loadCalculatorResult } from "./calculator.effect";
+import { GET_CALCULATOR_RESULT_FETCH } from "../actions/calculator.actions";
 
 
 
@@ -40,6 +42,7 @@ function* rootSagas() {
   yield takeEvery(FETCH_OPPORTUNITIES_POSTS, fetchOpportunitesPosts);
   yield takeEvery(FETCH_PROJECTS_POSTS, fetchProjectsPosts);
   yield takeEvery(FETCH_ALL_USER_POSTS, fetchAllPostsByUser);
+  yield takeEvery(GET_CALCULATOR_RESULT_FETCH, loadCalculatorResult);
 }
 
 
