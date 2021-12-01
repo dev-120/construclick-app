@@ -7,11 +7,12 @@ import {
   IonItem,
   IonPage,
   IonRow,
+  IonSkeletonText,
   IonText,
 } from "@ionic/react";
 import { useState, useEffect } from "react";
-import { SET_CALCULATOR_INFORMATION } from "../../store/actions/calculator.actions";
-import { useDispatch } from "react-redux";
+import { GET_CALCULATOR_RESULT_FETCH, SET_CALCULATOR_INFORMATION } from "../../store/actions/calculator.actions";
+import { useDispatch, useSelector } from "react-redux";
 
 import Header from "../../components/Header/Header";
 import CoatingImg from "../../assets/coating.png";
@@ -21,6 +22,8 @@ import WaterproofFloorTemplateImg from "../../assets/waterproof_floor_template.p
 import WhatsappIcon from "../../assets/whatsapp_icon.png";
 import TelegramIcon from "../../assets/telegram_icon.png";
 import EmailIcon from "../../assets/email_icon.png";
+import { dataFormatter } from "../../utils/dataFormatter";
+import useCommons from "../../hooks/useCommons";
 
 interface RevokeCalculatorProps {
   match: {
@@ -51,6 +54,8 @@ const menuRevoke = [
 
 const RevokeCalculator: React.FC<RevokeCalculatorProps> = ({ match }) => {
   const dispatch = useDispatch();
+  const { loading } = useCommons();
+  const { result } = useSelector((state: any) => state.calculator)
   const [calculate, setCalculate] = useState<boolean>(false);
   const [menuOption, setMenuOption] = useState(Object || null);
   const [wallArea, setWallArea] = useState<number>(0);
@@ -76,6 +81,17 @@ const RevokeCalculator: React.FC<RevokeCalculatorProps> = ({ match }) => {
         },
       },
     });
+    dispatch({
+      type: GET_CALCULATOR_RESULT_FETCH,
+      payload: {
+        name: match.params.type,
+        data: {
+          wallArea,
+          wallOpenings,
+          coatingThickness,
+        },
+      },
+    })
     setCalculate(true);
   };
 
@@ -185,7 +201,7 @@ const RevokeCalculator: React.FC<RevokeCalculatorProps> = ({ match }) => {
               </IonButton>
             </>
           ) : (
-            <RevokeResult {...menuOption} />
+            <RevokeResult {...menuOption} loading={loading} result={result} />
           )}
         </form>
       </IonContent>
@@ -197,9 +213,11 @@ interface menuRevokeProps {
   type: string;
   linkTo: string;
   imgSrc: any;
+  loading: boolean;
+  result: any;
 }
 
-const RevokeResult: React.FC<menuRevokeProps> = ({ type, linkTo, imgSrc }) => {
+const RevokeResult: React.FC<menuRevokeProps> = ({ type, linkTo, imgSrc, loading, result }) => {
   return (
     <>
       <IonItem className="ion-margin-top ion-margin-horizontal" color="primary">
@@ -233,32 +251,50 @@ const RevokeResult: React.FC<menuRevokeProps> = ({ type, linkTo, imgSrc }) => {
             <IonCol className="ion-text-center">Cantidad</IonCol>
             <IonCol className="ion-text-center">Unidad</IonCol>
           </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">Cemento</IonCol>
-            <IonCol className="ion-text-center">24</IonCol>
-            <IonCol className="ion-text-center">Bulto 50Kg</IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">Sika 1</IonCol>
-            <IonCol className="ion-text-center">34,3</IonCol>
-            <IonCol className="ion-text-center">Kilos</IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center" size="4">
-              Arena
-            </IonCol>
-            <IonCol className="ion-text-center" size="4">
-              3,085 171,4
-            </IonCol>
-            <IonCol className="ion-text-center" size="4">
-              m3 Latas 18L
-            </IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">Agua</IonCol>
-            <IonCol className="ion-text-center">1249,6</IonCol>
-            <IonCol className="ion-text-center">Litros</IonCol>
-          </IonRow>
+          {loading ? (
+            <>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+            </>
+          ) : (
+            <>
+              {result.map(
+                ({
+                  name,
+                  cuantity,
+                  unit,
+                }: {
+                  name: string;
+                  cuantity: string;
+                  unit: string;
+                }) => (
+                  <IonRow key={name} className="ion-padding-vertical">
+                    <IonCol className="ion-text-center">
+                      {dataFormatter[name]}
+                    </IonCol>
+                    <IonCol className="ion-text-center">{cuantity}</IonCol>
+                    <IonCol className="ion-text-center">{unit}</IonCol>
+                  </IonRow>
+                )
+              )}
+            </>
+          )}
           <IonRow>
             <IonCol className="ion-text-center">
               <img

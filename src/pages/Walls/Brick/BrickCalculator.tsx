@@ -9,6 +9,7 @@ import {
   IonLabel,
   IonInput,
   IonButton,
+  IonSkeletonText,
 } from "@ionic/react";
 
 import { useEffect, useState } from "react";
@@ -20,8 +21,13 @@ import Header from "../../../components/Header/Header";
 import WhatsappIcon from "../../../assets/whatsapp_icon.png";
 import EmailIcon from "../../../assets/email_icon.png";
 import TelegramIcon from "../../../assets/telegram_icon.png";
-import { useDispatch } from "react-redux";
-import { SET_CALCULATOR_INFORMATION } from "../../../store/actions/calculator.actions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  GET_CALCULATOR_RESULT_FETCH,
+  SET_CALCULATOR_INFORMATION,
+} from "../../../store/actions/calculator.actions";
+import { dataFormatter } from "../../../utils/dataFormatter";
+import useCommons from "../../../hooks/useCommons";
 
 interface BrickCalculatorProps {
   match: {
@@ -64,13 +70,20 @@ const menuBrick = [
   },
 ];
 
-const BrickCalculator: React.FC<BrickCalculatorProps> = ({ match, location }) => {
-  const dispatch = useDispatch()
+const BrickCalculator: React.FC<BrickCalculatorProps> = ({
+  match,
+  location,
+}) => {
+  const dispatch = useDispatch();
+  const { loading } = useCommons();
+  const { result } = useSelector((state: any) => state.calculator)
   const [Brick, setBrick] = useState(Object || null);
   const [calculate, setCalculate] = useState<boolean>(false);
   const [wallArea, setWallArea] = useState<number>(0);
   const [wallOpenings, setWallOpenings] = useState<number>(0);
   const [wallThickness, setWallThickness] = useState<number>(0);
+  let calculatorName = localStorage.getItem("brick-name") as string;
+  let calculatorSize = localStorage.getItem("brick-size") as string;
 
   useEffect(() => {
     setBrick(
@@ -78,17 +91,31 @@ const BrickCalculator: React.FC<BrickCalculatorProps> = ({ match, location }) =>
     );
   }, [match]);
 
-  const submitHandler = (e:any) => {
+  const submitHandler = (e: any) => {
     e.preventDefault();
+    console.log(location.state)
     dispatch({
       type: SET_CALCULATOR_INFORMATION,
       payload: {
-        ...location.state,
-        wallArea,
-        wallOpenings,
-        wallThickness
-      }
-    })
+        name: `${calculatorName}-${calculatorSize}`,
+        data: {
+          wallArea,
+          wallOpenings,
+          wallThickness,
+        },
+      },
+    });
+    dispatch({
+      type: GET_CALCULATOR_RESULT_FETCH,
+      payload: {
+        name: `${calculatorName}-${calculatorSize}`,
+        data: {
+          wallArea,
+          wallOpenings,
+          wallThickness,
+        },
+      },
+    });
     setCalculate(true);
   };
 
@@ -97,115 +124,115 @@ const BrickCalculator: React.FC<BrickCalculatorProps> = ({ match, location }) =>
       <Header canBack href="/calculator/walls/brick" />
       <IonContent className="Foundation-content__style">
         <form onSubmit={submitHandler}>
-        {!calculate ? (
-          <>
-            <IonItem
-              className="ion-margin-top ion-margin-horizontal"
-              color="primary"
-            >
-              <img
-                slot="start"
-                src={BrickImg}
-                alt=""
-                className="Foundation-sidepanel__img"
-              />
-              <IonGrid>
-                <IonRow>
-                  <IonCol size="12" className="ion-text-center">
-                    <IonText>
-                      <h4>{Brick.brickType}</h4>
-                    </IonText>
-                  </IonCol>
-                  <IonCol className="ion-text-center">
-                    <IonText>
-                      <h6>{Brick.size}</h6>
-                    </IonText>
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
-            </IonItem>
-            <IonItem className="ion-margin-horizontal">
-              <IonGrid>
-                <IonRow>
-                  <p>Área del Muro:</p>
-                </IonRow>
-                <IonRow className="ion-justify-content-center ion-align-items-center">
-                  <IonCol size="6">
-                    <h5>Ingrese Área (m2): </h5>
-                  </IonCol>
-                  <IonCol size="6" className="ion-text-center">
-                    <IonInput
-                      value={wallArea}
-                      type="number"
-                      required
-                      min="1"
-                      onIonChange={(e) =>
-                        setWallArea(parseInt(e.detail.value!))
-                      }
-                    />
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
-            </IonItem>
-            <IonItem className="ion-margin-horizontal">
-              <IonGrid>
-                <IonRow>
-                  <p>Área aperturas:</p>
-                </IonRow>
-                <IonRow className="ion-justify-content-center ion-align-items-center">
-                  <IonCol size="6">
-                    <h5>Área descontada por (Puertas, Ventanas) (m2): </h5>
-                  </IonCol>
-                  <IonCol size="6" className="ion-text-center">
-                    <IonInput
-                      value={wallOpenings}
-                      type="number"
-                      required
-                      min="1"
-                      onIonChange={(e) =>
-                        setWallOpenings(parseInt(e.detail.value!))
-                      }
-                    />
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
-            </IonItem>
-            <IonItem className="ion-margin-horizontal">
-              <IonGrid>
-                <IonRow>
-                  <p>Área aperturas:</p>
-                </IonRow>
-                <IonRow className="ion-justify-content-center ion-align-items-center">
-                  <IonCol size="6">
-                    <img alt="" src={MortarJoint} />
-                  </IonCol>
-                  <IonCol size="6" className="ion-text-center">
-                    <IonLabel position="floating">Espesor (cm)</IonLabel>
-                    <IonInput
-                      type="number"
-                      value={wallThickness}
-                      required
-                      min="1"
-                      onIonChange={(e) =>
-                        setWallThickness(parseInt(e.detail.value!))
-                      }
-                    />
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
-            </IonItem>
-            <IonButton
-              expand="full"
-              size="large"
-              className="ion-margin-horizontal"
-              type="submit"
-            >
-              Calcular
-            </IonButton>
-          </>
-        ) : (
-          <BrickResult {...Brick} />
-        )}
+          {!calculate ? (
+            <>
+              <IonItem
+                className="ion-margin-top ion-margin-horizontal"
+                color="primary"
+              >
+                <img
+                  slot="start"
+                  src={BrickImg}
+                  alt=""
+                  className="Foundation-sidepanel__img"
+                />
+                <IonGrid>
+                  <IonRow>
+                    <IonCol size="12" className="ion-text-center">
+                      <IonText>
+                        <h4>{Brick.brickType}</h4>
+                      </IonText>
+                    </IonCol>
+                    <IonCol className="ion-text-center">
+                      <IonText>
+                        <h6>{Brick.size}</h6>
+                      </IonText>
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
+              </IonItem>
+              <IonItem className="ion-margin-horizontal">
+                <IonGrid>
+                  <IonRow>
+                    <p>Área del Muro:</p>
+                  </IonRow>
+                  <IonRow className="ion-justify-content-center ion-align-items-center">
+                    <IonCol size="6">
+                      <h5>Ingrese Área (m2): </h5>
+                    </IonCol>
+                    <IonCol size="6" className="ion-text-center">
+                      <IonInput
+                        value={wallArea}
+                        type="number"
+                        required
+                        min="1"
+                        onIonChange={(e) =>
+                          setWallArea(parseInt(e.detail.value!))
+                        }
+                      />
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
+              </IonItem>
+              <IonItem className="ion-margin-horizontal">
+                <IonGrid>
+                  <IonRow>
+                    <p>Área aperturas:</p>
+                  </IonRow>
+                  <IonRow className="ion-justify-content-center ion-align-items-center">
+                    <IonCol size="6">
+                      <h5>Área descontada por (Puertas, Ventanas) (m2): </h5>
+                    </IonCol>
+                    <IonCol size="6" className="ion-text-center">
+                      <IonInput
+                        value={wallOpenings}
+                        type="number"
+                        required
+                        min="1"
+                        onIonChange={(e) =>
+                          setWallOpenings(parseInt(e.detail.value!))
+                        }
+                      />
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
+              </IonItem>
+              <IonItem className="ion-margin-horizontal">
+                <IonGrid>
+                  <IonRow>
+                    <p>Área aperturas:</p>
+                  </IonRow>
+                  <IonRow className="ion-justify-content-center ion-align-items-center">
+                    <IonCol size="6">
+                      <img alt="" src={MortarJoint} />
+                    </IonCol>
+                    <IonCol size="6" className="ion-text-center">
+                      <IonLabel position="floating">Espesor (cm)</IonLabel>
+                      <IonInput
+                        type="number"
+                        value={wallThickness}
+                        required
+                        min="1"
+                        onIonChange={(e) =>
+                          setWallThickness(parseInt(e.detail.value!))
+                        }
+                      />
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
+              </IonItem>
+              <IonButton
+                expand="full"
+                size="large"
+                className="ion-margin-horizontal"
+                type="submit"
+              >
+                Calcular
+              </IonButton>
+            </>
+          ) : (
+            <BrickResult {...Brick} loading={loading} result={result} />
+          )}
         </form>
       </IonContent>
     </IonPage>
@@ -216,12 +243,15 @@ interface BrickResultProps {
   brickType: string;
   size: string;
   sizeBrick: string;
+  loading: boolean;
+  result: any;
 }
 
 const BrickResult: React.FC<BrickResultProps> = ({
   brickType,
   size,
-  sizeBrick,
+  loading,
+  result,
 }) => {
   return (
     <>
@@ -261,41 +291,71 @@ const BrickResult: React.FC<BrickResultProps> = ({
             <IonCol className="ion-text-center">Cantidad</IonCol>
             <IonCol className="ion-text-center">Unidad</IonCol>
           </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">Bloques</IonCol>
-            <IonCol className="ion-text-center">5357</IonCol>
-            <IonCol className="ion-text-center">357</IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">Cemento</IonCol>
-            <IonCol className="ion-text-center">9,4</IonCol>
-            <IonCol className="ion-text-center">Bulto 50Kg</IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center" size="4">
-              Arena
-            </IonCol>
-            <IonCol className="ion-text-center" size="4">
-              3,085 171,4
-            </IonCol>
-            <IonCol className="ion-text-center" size="4">
-              m3 Latas 18L
-            </IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">Agua</IonCol>
-            <IonCol className="ion-text-center">1249,6</IonCol>
-            <IonCol className="ion-text-center">Litros</IonCol>
-          </IonRow>
+          {loading ? (
+            <>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+            </>
+          ) : (
+            <>
+              {result.map(
+                ({
+                  name,
+                  cuantity,
+                  unit,
+                }: {
+                  name: string;
+                  cuantity: string;
+                  unit: string;
+                }) => (
+                  <IonRow key={name} className="ion-padding-vertical">
+                    <IonCol className="ion-text-center">
+                      {dataFormatter[name]}
+                    </IonCol>
+                    <IonCol className="ion-text-center">{cuantity}</IonCol>
+                    <IonCol className="ion-text-center">{unit}</IonCol>
+                  </IonRow>
+                )
+              )}
+            </>
+          )}
           <IonRow>
             <IonCol className="ion-text-center">
-              <img src={WhatsappIcon} className="Foundation-Result__icon" alt="whatsapp" />
+              <img
+                src={WhatsappIcon}
+                className="Foundation-Result__icon"
+                alt="whatsapp"
+              />
             </IonCol>
             <IonCol className="ion-text-center">
-              <img src={TelegramIcon} className="Foundation-Result__icon" alt="telegram" />
+              <img
+                src={TelegramIcon}
+                className="Foundation-Result__icon"
+                alt="telegram"
+              />
             </IonCol>
             <IonCol className="ion-text-center">
-              <img src={EmailIcon} className="Foundation-Result__icon" alt="email" />
+              <img
+                src={EmailIcon}
+                className="Foundation-Result__icon"
+                alt="email"
+              />
             </IonCol>
           </IonRow>
         </IonGrid>

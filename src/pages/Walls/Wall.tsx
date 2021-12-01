@@ -55,6 +55,8 @@ const Walls:React.FC<wallsProps> = ({ match }) => {
 
   const onClickCardHandler = (path: string, state: { mainMenu: string }) => {
     history.push({ pathname: `${match.url}${path}`, state})
+    localStorage.removeItem("brick-name");
+    localStorage.setItem("brick-name", state.mainMenu);
   }
   return (
     <IonPage>
