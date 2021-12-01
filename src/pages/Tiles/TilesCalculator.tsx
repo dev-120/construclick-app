@@ -8,10 +8,11 @@ import {
   IonPage,
   IonRow,
   IonText,
+  IonSkeletonText,
 } from "@ionic/react";
 import { useState, useEffect } from "react";
-import { SET_CALCULATOR_INFORMATION } from "../../store/actions/calculator.actions";
-import { useDispatch } from "react-redux";
+import { GET_CALCULATOR_RESULT_FETCH, SET_CALCULATOR_INFORMATION } from "../../store/actions/calculator.actions";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./TilesCalculator.css";
 import Header from "../../components/Header/Header";
@@ -21,6 +22,8 @@ import VeneerImg from "../../assets/veneer.png";
 import WhatsappIcon from "../../assets/whatsapp_icon.png";
 import TelegramIcon from "../../assets/telegram_icon.png";
 import EmailIcon from "../../assets/email_icon.png";
+import { dataFormatter } from "../../utils/dataFormatter";
+import useCommons from "../../hooks/useCommons";
 
 const menuTiles = [
   { type: "Piso ceramico", linkTo: "ceramic-floor", imgSrc: CeramicFloorImg },
@@ -42,6 +45,8 @@ interface TilesProps {
 
 const StuccoCalculator: React.FC<TilesProps> = ({ match }) => {
   const dispatch = useDispatch();
+  const { loading } = useCommons();
+  const { result } = useSelector((state: any) => state.calculator)
   const [calculate, setCalculate] = useState<boolean>(false);
   const [menuOption, setMenuOption] = useState(Object || null);
   const [wallArea, setWallArea] = useState<number>(0);
@@ -84,7 +89,18 @@ const StuccoCalculator: React.FC<TilesProps> = ({ match }) => {
         },
       });
     }
-
+    dispatch({
+      type: GET_CALCULATOR_RESULT_FETCH,
+      payload: {
+        name: match.params.type,
+        data: {
+          floorLongitude,
+          floorWidth,
+          wallOpenings,
+          coatingThickness,
+        },
+      },
+    })
     setCalculate(true);
   };
 
@@ -234,7 +250,7 @@ const StuccoCalculator: React.FC<TilesProps> = ({ match }) => {
               </IonButton>
             </>
           ) : (
-            <TilesResult {...menuOption} />
+            <TilesResult {...menuOption} loading={loading} result={result} />
           )}
         </form>
       </IonContent>
@@ -246,9 +262,11 @@ interface menuTilesProps {
   type: string;
   linkTo: string;
   imgSrc: any;
+  loading: boolean;
+  result: any;
 }
 
-const TilesResult: React.FC<menuTilesProps> = ({ type, linkTo, imgSrc }) => {
+const TilesResult: React.FC<menuTilesProps> = ({ type, linkTo, imgSrc, loading, result }) => {
   return (
     <>
       <IonItem className="ion-margin-top ion-margin-horizontal" color="primary">
@@ -282,41 +300,50 @@ const TilesResult: React.FC<menuTilesProps> = ({ type, linkTo, imgSrc }) => {
             <IonCol className="ion-text-center">Cantidad</IonCol>
             <IonCol className="ion-text-center">Unidad</IonCol>
           </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">
-              {type === "Piso ceramico" && "Piso ceramico"}
-              {type === "Piso porcelanato" && "Piso porcelanato"}
-              {type === "Enchape" && "Enchape\nceramico/porcelanato"}
-            </IonCol>
-            <IonCol className="ion-text-center">35</IonCol>
-            <IonCol className="ion-text-center">m2</IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">
-              {type === "Piso ceramico" && "Pegante para\npiso ceramico"}
-              {type === "Piso porcelanato" && "Pegante para\npiso porcelanato"}
-              {type === "Enchape" && "Pegante para\nceramico/porcelanato"}
-            </IonCol>
-            <IonCol className="ion-text-center">7,7</IonCol>
-            <IonCol className="ion-text-center">Kilos</IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">Boquilla</IonCol>
-            <IonCol className="ion-text-center">1,4</IonCol>
-            <IonCol className="ion-text-center">Kilos</IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">Estopa</IonCol>
-            <IonCol className="ion-text-center">11,6</IonCol>
-            <IonCol className="ion-text-center">Kilos</IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">
-              {"Bolsa separadores\nde 5mm x 30Und"}
-            </IonCol>
-            <IonCol className="ion-text-center">3,5</IonCol>
-            <IonCol className="ion-text-center">Unidades</IonCol>
-          </IonRow>
+          {loading ? (
+            <>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+              <IonRow>
+                <IonSkeletonText animated style={{ width: "100%" }} />
+              </IonRow>
+            </>
+          ) : (
+            <>
+              {result.map(
+                ({
+                  name,
+                  cuantity,
+                  unit,
+                }: {
+                  name: string;
+                  cuantity: string;
+                  unit: string;
+                }) => (
+                  <IonRow key={name} className="ion-padding-vertical">
+                    <IonCol className="ion-text-center">
+                      {dataFormatter[name]}
+                    </IonCol>
+                    <IonCol className="ion-text-center">{cuantity}</IonCol>
+                    <IonCol className="ion-text-center">{unit}</IonCol>
+                  </IonRow>
+                )
+              )}
+            </>
+          )}
           <IonRow>
             <IonCol className="ion-text-center" size="12">
               La cantidad total incluye los zocalos/rodapié
