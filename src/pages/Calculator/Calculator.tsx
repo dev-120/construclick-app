@@ -5,22 +5,12 @@ import {
   IonRow,
   IonCol,
   IonButton,
-  IonAvatar,
-  IonItem,
   IonIcon
 } from "@ionic/react";
 import {
-  newspaperOutline,
-  pricetagOutline,
-  cartOutline,
-  peopleOutline,
-  closeOutline,
-  calculator,
   business,
 } from "ionicons/icons";
 import React from "react";
-import { useHistory } from 'react-router-dom'
-import { chevronBack, notifications } from "ionicons/icons";
 
 import Header from "../../components/Header/Header";
 import "./Calculator.css";
@@ -84,14 +74,7 @@ const menuCalculator = [
   ],
 ];
 
-interface calculatorProps{
-  match: {
-    url: string;
-  }
-}
-
 const Calculator: React.FC = () => {
-  const history = useHistory();
   return (
     <IonPage>
       <IonContent fullscreen className="Calculator-content__style">

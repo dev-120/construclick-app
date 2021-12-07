@@ -218,7 +218,7 @@ const BeamCalculator: React.FC<OptionFoundationProps> = ({
                       <IonInput
                         type="number"
                         required
-                        min="1"
+                        min="0.1"
                         value={beamDimension.A}
                         onIonChange={(e) =>
                           setBeamDimension((data) => ({
@@ -233,7 +233,7 @@ const BeamCalculator: React.FC<OptionFoundationProps> = ({
                       <IonInput
                         type="number"
                         required
-                        min="1"
+                        min="0.1"
                         value={beamDimension.B}
                         onIonChange={(e) =>
                           setBeamDimension((data) => ({
@@ -248,7 +248,7 @@ const BeamCalculator: React.FC<OptionFoundationProps> = ({
                       <IonInput
                         type="number"
                         required
-                        min="1"
+                        min="0.1"
                         value={beamDimension.H}
                         onIonChange={(e) =>
                           setBeamDimension((data) => ({
@@ -264,7 +264,7 @@ const BeamCalculator: React.FC<OptionFoundationProps> = ({
                         value={beamDimension.rodNumber}
                         type="number"
                         required
-                        min="1"
+                        min="0.1"
                         onIonChange={(e) =>
                           setBeamDimension((data) => ({
                             ...data,

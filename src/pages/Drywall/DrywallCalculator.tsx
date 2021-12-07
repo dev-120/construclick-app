@@ -112,7 +112,7 @@ const DrywallCalculator: React.FC<DrywallCalculatorProps> = ({ match }) => {
                         }
                         type="number"
                         required
-                        min="1"
+                        min="0.1"
                       />
                     </IonCol>
                   </IonRow>
@@ -135,7 +135,7 @@ const DrywallCalculator: React.FC<DrywallCalculatorProps> = ({ match }) => {
                         }
                         type="number"
                         required
-                        min="1"
+                        min="0.1"
                       />
                     </IonCol>
                   </IonRow>
@@ -158,7 +158,7 @@ const DrywallCalculator: React.FC<DrywallCalculatorProps> = ({ match }) => {
                         }
                         type="number"
                         required
-                        min="1"
+                        min="0.1"
                       />
                     </IonCol>
                   </IonRow>
@@ -221,53 +221,6 @@ const DrywallResult: React.FC<resultProps> = ({ loading, result }) => {
             <IonCol className="ion-text-center">Cantidad</IonCol>
             <IonCol className="ion-text-center">Unidad</IonCol>
           </IonRow>
-          {/* <IonRow>
-            <IonCol className="ion-text-center">
-              {"Placa drywall\n(1,22m x 2,44m)"}
-            </IonCol>
-            <IonCol className="ion-text-center">12,2</IonCol>
-            <IonCol className="ion-text-center">Unidad</IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">Pintura Tipo 2</IonCol>
-            <IonCol className="ion-text-center">1</IonCol>
-            <IonCol className="ion-text-center">Galon</IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">Estuco plastico</IonCol>
-            <IonCol className="ion-text-center">1,6</IonCol>
-            <IonCol className="ion-text-center">Cuñete</IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">Angulo 2 x 2</IonCol>
-            <IonCol className="ion-text-center">14,7</IonCol>
-            <IonCol className="ion-text-center">Unidad</IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">Vigueta Cal.26</IonCol>
-            <IonCol className="ion-text-center">9,6</IonCol>
-            <IonCol className="ion-text-center">Unidad</IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">Perfil Z</IonCol>
-            <IonCol className="ion-text-center">5,9</IonCol>
-            <IonCol className="ion-text-center">Unidad</IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">{"Cinta papel\nx 50m"}</IonCol>
-            <IonCol className="ion-text-center">1,6</IonCol>
-            <IonCol className="ion-text-center">Unidad</IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">Tornillo de placa</IonCol>
-            <IonCol className="ion-text-center">640</IonCol>
-            <IonCol className="ion-text-center">Unidad</IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">{"Cinta Malla\nx 30m"}</IonCol>
-            <IonCol className="ion-text-center">3,2</IonCol>
-            <IonCol className="ion-text-center">Unidad</IonCol>
-          </IonRow> */}
           {loading ? (
             <>
               <IonRow>

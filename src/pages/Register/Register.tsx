@@ -12,9 +12,11 @@ import {
   IonDatetime,
   IonAvatar,
   IonTextarea,
+  IonAlert,
+  IonLoading,
 } from "@ionic/react";
 import { useHistory } from "react-router-dom";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Plugins, CameraResultType } from "@capacitor/core";
 
 import { Slide, SlideButtons, slideOpts } from "./Slide";
@@ -31,9 +33,10 @@ const { Camera } = Plugins;
 
 const RegisterPage: React.FC = () => {
   const history = useHistory();
-  const { registerAction } = useUser();
+  const { registerAction,registerSuccess } = useUser();
   const slidesRef = useRef<HTMLIonSlidesElement>(null);
-  const { cities, professions } = useCommons();
+  const { cities, professions, loading } = useCommons();
+  const [openAlert, setOpenAlert] = useState(false);
 
   const [nit, setNit] = useState("");
   const [email, setEmail] = useState<string>("");
@@ -55,6 +58,11 @@ const RegisterPage: React.FC = () => {
   const [facebookUsername, setFacebookUsername] = useState("");
   const [linkedinUsername, setLinkedinUsername] = useState("");
   const [professionalDescription, setProfessionalDescription] = useState("");
+  const [blockButton, setBlockButton] = useState(false)
+
+  useEffect(() => {
+    if(registerSuccess) setOpenAlert(true);
+  }, [registerSuccess, loading])
 
   const clickHandler = (e: { preventDefault: () => void }) => {
     slidesRef.current?.slideNext();
@@ -81,9 +89,9 @@ const RegisterPage: React.FC = () => {
   const isBussiness = () => registerType === "business";
 
   const onSubmit = async () => {
+    setBlockButton(true);
     const role = registerType === "person" ? ROLES.person : ROLES.company;
     let imageUrl;
-
     if (profilePicture) {
       const responseImage = await uploadImage(
         dataURLtoFile(profilePicture, "image.png")
@@ -121,6 +129,29 @@ const RegisterPage: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen className="ion-text-center slide-page-dark">
+        <IonAlert
+          isOpen={openAlert}
+          backdropDismiss={false}
+          header={"Usuario Registrado!"}
+          subHeader={
+            "Tu registro fue exitoso, puedes dirigirte a inicio de sesion"
+          }
+          buttons={[{
+            text: "Ir a inicio de sesión",
+            role: "ok",
+            handler: () => {
+              setOpenAlert(false)
+              setBlockButton(false)
+              history.push("/")
+            }
+          }]}
+        ></IonAlert>
+        <IonLoading
+          isOpen={loading}
+          message={"Por favor espere..."}
+          duration={8000}
+
+        />
         <IonSlides mode="md" pager={true} options={slideOpts} ref={slidesRef}>
           <Slide canBack backSlideHandler={backSlideHandler}>
             <IonContent fullscreen className="slide-page-dark">
@@ -421,6 +452,7 @@ const RegisterPage: React.FC = () => {
                 titleButton="Registrate"
                 backSlideHandler={backSlideHandler}
                 clickHandler={onSubmit}
+                disabled={blockButton}
               />
             </IonContent>
           </Slide>
