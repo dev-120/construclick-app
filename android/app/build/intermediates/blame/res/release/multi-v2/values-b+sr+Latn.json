@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/yosoyjp/develop/yosoyjp/construclick/Construclick/android/app/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-b+sr+Latn/values-b+sr+Latn.xml",
+            "outputFile": "/home/yosoyjp/develop/yosoyjp/120/construclick/app/android/app/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-b+sr+Latn/values-b+sr+Latn.xml",
             "map": [
                 {
                     "source": "/home/yosoyjp/.gradle/caches/transforms-2/files-2.1/c1420d47df5e117932bba76e098a3816/browser-1.2.0/res/values-b+sr+Latn/values-b+sr+Latn.xml",
