@@ -48,6 +48,7 @@ export interface SlideButtonRegister {
   backSlideHandler?: (e: any) => void;
   clickHandler?: (e: any) => void;
   titleButton?: string;
+  disabled?: boolean;
 }
 
 export const SlideButtons: React.FC<SlideButtonRegister> = ({
@@ -55,6 +56,7 @@ export const SlideButtons: React.FC<SlideButtonRegister> = ({
   backSlideHandler,
   clickHandler,
   titleButton,
+  disabled,
 }) => {
   return (
     <>
@@ -84,7 +86,7 @@ export const SlideButtons: React.FC<SlideButtonRegister> = ({
         </IonGrid>
       )}
       {!canBack && (
-        <IonButton className="ion-margin-top" onClick={clickHandler}>
+        <IonButton className="ion-margin-top" disabled={disabled} onClick={clickHandler}>
           {titleButton ? titleButton : "Siguiente"}
         </IonButton>
       )}

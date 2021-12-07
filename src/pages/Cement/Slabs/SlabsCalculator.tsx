@@ -354,7 +354,7 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                       <IonInput
                         type="number"
                         required
-                        min="1"
+                        min="0.1"
                         value={columnDimensions.A}
                         onIonChange={(e) =>
                           setColumnDimensions((data) => ({
@@ -369,7 +369,7 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                       <IonInput
                         type="number"
                         required
-                        min="1"
+                        min="0.1"
                         value={columnDimensions.B}
                         onIonChange={(e) =>
                           setColumnDimensions((data) => ({
@@ -384,7 +384,7 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                       <IonInput
                         type="number"
                         required
-                        min="1"
+                        min="0.1"
                         value={columnDimensions.thickness}
                         onIonChange={(e) =>
                           setColumnDimensions((data) => ({
@@ -405,7 +405,7 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                 value={inputCoating}
                 type="number"
                 required
-                min="1"
+                min="0.1"
                 onIonChange={(e) => setInputCoating(Number(e.detail.value!))}
               />
             </IonItem>
@@ -420,7 +420,7 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                     <IonInput
                       type="number"
                       required
-                      min="1"
+                      min="0.1"
                       value={areaOpenings}
                       onIonChange={(e) =>
                         setAreaOpenings(Number(e.detail.value))
@@ -448,7 +448,7 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                           <IonInput
                             type="number"
                             required
-                            min="1"
+                            min="0.1"
                             value={blockSlabZapataDimensions.A}
                             onIonChange={(e) =>
                               setBlockSlabZapataDimensions((data) => ({
@@ -463,7 +463,7 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                           <IonInput
                             type="number"
                             required
-                            min="1"
+                            min="0.1"
                             value={blockSlabZapataDimensions.B}
                             onIonChange={(e) =>
                               setBlockSlabZapataDimensions((data) => ({
@@ -478,7 +478,7 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                           <IonInput
                             type="number"
                             required
-                            min="1"
+                            min="0.1"
                             value={blockSlabZapataDimensions.C}
                             onIonChange={(e) =>
                               setBlockSlabZapataDimensions((data) => ({
@@ -533,7 +533,7 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                             type="number"
                             value={polystyreneDimensions.A}
                             required
-                            min="1"
+                            min="0.1"
                             onIonChange={(e) =>
                               setPolystyreneDimensions((data) => ({
                                 ...data,
@@ -547,7 +547,7 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                           <IonInput
                             type="number"
                             required
-                            min="1"
+                            min="0.1"
                             value={polystyreneDimensions.B}
                             onIonChange={(e) =>
                               setPolystyreneDimensions((data) => ({
@@ -711,109 +711,6 @@ const BeamCalculatorResult: React.FC<CalculatorResultProps> = ({
             <IonCol className="ion-text-center">Cantidad</IonCol>
             <IonCol className="ion-text-center">Unidad</IonCol>
           </IonRow>
-          {/* <IonRow>
-            <IonCol className="ion-text-center">Cemento</IonCol>
-            <IonCol className="ion-text-center">30,17</IonCol>
-            <IonCol className="ion-text-center">Bulto 50Kilos</IonCol>
-          </IonRow>
-          {linkTo === "block-slab" ? (
-            <>
-              <IonRow>
-                <IonCol className="ion-text-center">
-                  {"Bloquelon santa fe\n(7,7 x 22,8 x 80)"}
-                </IonCol>
-                <IonCol className="ion-text-center">93,1</IonCol>
-                <IonCol className="ion-text-center">Unidad</IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol className="ion-text-center">
-                  {"Malla\nelectrosoldada"}
-                </IonCol>
-                <IonCol className="ion-text-center">13,9</IonCol>
-                <IonCol className="ion-text-center">M2</IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol className="ion-text-center">
-                  {"Perfil ipe para\nplaca facil"}
-                </IonCol>
-                <IonCol className="ion-text-center">13,9</IonCol>
-                <IonCol className="ion-text-center">X 6m</IonCol>
-              </IonRow>
-            </>
-          ) : (
-            linkTo === "lightened-slab" && (
-              <>
-                <IonRow>
-                  <IonCol className="ion-text-center">
-                    {"Caseton de icopor\n(0,4 x  100)"}
-                  </IonCol>
-                  <IonCol className="ion-text-center">93,1</IonCol>
-                  <IonCol className="ion-text-center">Unidad</IonCol>
-                </IonRow>
-                <IonRow>
-                  <IonCol className="ion-text-center">
-                    {"Malla\nelectrosoldada"}
-                  </IonCol>
-                  <IonCol className="ion-text-center">13,9</IonCol>
-                  <IonCol className="ion-text-center">M2</IonCol>
-                </IonRow>
-                <IonRow>
-                  <IonCol className="ion-text-center">
-                    {"Formaleta y\npuntales"}
-                  </IonCol>
-                  <IonCol className="ion-text-center">8,9</IonCol>
-                  <IonCol className="ion-text-center">M2</IonCol>
-                </IonRow>
-              </>
-            )
-          )}
-          {linkTo === "metaldeck-slab" ? (
-            <>
-              <IonRow>
-                <IonCol className="ion-text-center">
-                  {"Malla\nelectrosoldada"}
-                </IonCol>
-                <IonCol className="ion-text-center">13,9</IonCol>
-                <IonCol className="ion-text-center">M2</IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol className="ion-text-center">
-                  {"Lamina metaldeck\nCal.20 - 0.85mm"}
-                </IonCol>
-                <IonCol className="ion-text-center">8,9</IonCol>
-                <IonCol className="ion-text-center">Unidad</IonCol>
-              </IonRow>
-            </>
-          ) : (
-            linkTo === "solid-slab" && (
-              <>
-                <IonRow>
-                  <IonCol className="ion-text-center">
-                    {"Malla electrosoldada"}
-                  </IonCol>
-                  <IonCol className="ion-text-center">13,9</IonCol>
-                  <IonCol className="ion-text-center">M2</IonCol>
-                </IonRow>
-                <IonRow>
-                  <IonCol className="ion-text-center">
-                    {"Malla\nelectrosoldada"}
-                  </IonCol>
-                  <IonCol className="ion-text-center">8,9</IonCol>
-                  <IonCol className="ion-text-center">M2</IonCol>
-                </IonRow>
-              </>
-            )
-          )}
-          <IonRow>
-            <IonCol className="ion-text-center">Arena</IonCol>
-            <IonCol className="ion-text-center">{"3,08\n171,4"}</IonCol>
-            <IonCol className="ion-text-center">m3 Latas 18L</IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="ion-text-center">Piedra</IonCol>
-            <IonCol className="ion-text-center">{"1,80\n101,4"}</IonCol>
-            <IonCol className="ion-text-center">m3 Latas 18L</IonCol>
-          </IonRow> */}
           {loading ? (
             <>
               <IonRow>

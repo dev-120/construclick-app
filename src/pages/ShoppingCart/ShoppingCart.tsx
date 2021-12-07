@@ -145,21 +145,14 @@ const ShoppingCart: React.FC<RouteComponentProps> = ({ match }) => {
                 <strong>$ {totalPrice}</strong>
               </IonText>
             </IonItem>
-            <Link
-              to={{
-                pathname: `${match.url}/checkout/shipping`,
-                state: { productList: cart, total: totalPrice },
-              }}
+            <IonButton
+              size="large"
+              expand="full"
+              color="primary"
+              style={{ fontFamily: "Bebas Neue" }}
             >
-              <IonButton
-                size="large"
-                expand="full"
-                color="primary"
-                style={{ fontFamily: "Bebas Neue" }}
-              >
-                Continuar Compra
-              </IonButton>
-            </Link>
+              Continuar Compra
+            </IonButton>
           </IonToolbar>
         </IonFooter>
       )}
@@ -172,7 +165,6 @@ type CartProductProps = {
   titleProduct: string;
   unitPrice: number;
   quantity: number;
-  color: string | undefined;
   image_url: string;
   discount: number | undefined;
   productId: string;
@@ -182,7 +174,6 @@ type CartProductProps = {
 const CartProduct = ({
   _id,
   titleProduct,
-  color,
   image_url,
   discount,
   unitPrice,
@@ -206,7 +197,6 @@ const CartProduct = ({
             </IonCol>
             <IonCol size="8">
               <IonCardTitle>{titleProduct}</IonCardTitle>
-              <IonCardSubtitle>Color: {color || "Desconocido"}</IonCardSubtitle>
               <IonGrid>
                 <IonRow className="ion-justify-content-center">
                   <IonCol className="ion-align-self-end" size="7">

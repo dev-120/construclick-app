@@ -18,12 +18,10 @@ import {
 import { pricetagOutline } from "ionicons/icons";
 import { useEffect, useState } from "react";
 
-import exampleItems from "./utils";
-import Header from "../../components/Header/Header";
 import "./ProductDetail.css";
-import Section from "../../components/SectionProducts/SectionProducts";
-import { getProductDetailService } from "../../services/marketplace.service";
+import Header from "../../components/Header/Header";
 import useShoppingCart from "../../hooks/useShoppingCart";
+import { getProductDetailService } from "../../services/marketplace.service";
 
 interface productItem {
   match: {
@@ -32,89 +30,6 @@ interface productItem {
     };
   };
 }
-
-// interface Comments {
-//   comments: Array<string>;
-// }
-
-const QuestionsAsked: React.FC = () => {
-  const mockupQuestions = [
-    {
-      question: "¿Tiene un tamaño mas grande?",
-      response:
-        "Si, tenemos todos los tamaños disponibles, visita nuestra tienda",
-    },
-    {
-      question: "¿Tiene un tamaño mas grande?",
-      response:
-        "Si, tenemos todos los tamaños disponibles, visita nuestra tienda",
-    },
-    {
-      question: "¿Tiene un tamaño mas grande?",
-      response:
-        "Si, tenemos todos los tamaños disponibles, visita nuestra tienda",
-    },
-  ];
-
-  return (
-    <>
-      <IonText>Preguntas realizadas</IonText>
-      <IonGrid>
-        {mockupQuestions.map((question, index) => (
-          <IonRow key={index}>
-            <IonCol size="12" className="ion-text-left">
-              <IonText color="success">{question.question}</IonText>
-            </IonCol>
-            <IonCol size="12" className="ion-text-left">
-              <div className="ion-margin-start">
-                <IonText color="light">{question.response}</IonText>
-              </div>
-            </IonCol>
-          </IonRow>
-        ))}
-      </IonGrid>
-    </>
-  );
-};
-
-// const CommentsProduct: React.FC<Comments> = ({ comments }) => {
-//   return (
-//     <>
-//       <h4 className="ion-margin">Comentarios Del Producto</h4>
-//       {comments.map((comment, index) => (
-//         <IonItem key={index}>{comment}</IonItem>
-//       ))}
-//     </>
-//   );
-// };
-
-// const CreateComments: React.FC = () => {
-//   const [comment, setComment] = useState<string>();
-
-//   const changeHandler = (e: any) => {
-//     setComment(e.detail.value!);
-//   };
-
-//   return (
-//     <>
-//       <IonItem className="ion-margin-horizontal">
-//         <IonTextarea
-//           value={comment}
-//           placeholder="Ingresa un comentario"
-//           onIonChange={changeHandler}
-//         ></IonTextarea>
-//       </IonItem>
-
-//       <IonButton
-//         color="primary"
-//         expand="full"
-//         className="ion-margin-horizontal"
-//       >
-//         Comentar
-//       </IonButton>
-//     </>
-//   );
-// };
 
 const ProductDetail: React.FC<productItem> = ({ match }) => {
   const [showLoading] = useState<boolean>(true);
@@ -256,13 +171,6 @@ const ProductDetail: React.FC<productItem> = ({ match }) => {
                 </IonCol>
               </IonRow>
             </IonGrid>
-            <QuestionsAsked />
-            <Section
-              items={exampleItems}
-              sectionName="Productos Relacionados"
-            />
-            {/* <CreateComments />
-            <CommentsProduct comments={product[0].comments} /> */}
           </>
         ) : (
           <IonLoading

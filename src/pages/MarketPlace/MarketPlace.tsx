@@ -53,7 +53,6 @@ const MarketPlacePage = () => {
       <Header canBack={false} title="MarketPlace" />
       <IonContent className="container_mk">
         <SelectCategory />
-        <IonImg src="https://www.homecenter.com.co/static/landing/catalogos/img/2019/marzo/tiendas/banner-tiendas-mb.jpg?tmp=19" />
         {grills.map(({ name, products }) => (
           <Section key={name} items={products} sectionName={name} />
         ))}

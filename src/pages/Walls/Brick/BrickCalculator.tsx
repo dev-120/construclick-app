@@ -165,7 +165,7 @@ const BrickCalculator: React.FC<BrickCalculatorProps> = ({
                         value={wallArea}
                         type="number"
                         required
-                        min="1"
+                        min="0.1"
                         onIonChange={(e) =>
                           setWallArea(parseInt(e.detail.value!))
                         }
@@ -188,7 +188,7 @@ const BrickCalculator: React.FC<BrickCalculatorProps> = ({
                         value={wallOpenings}
                         type="number"
                         required
-                        min="1"
+                        min="0.1"
                         onIonChange={(e) =>
                           setWallOpenings(parseInt(e.detail.value!))
                         }
@@ -212,7 +212,7 @@ const BrickCalculator: React.FC<BrickCalculatorProps> = ({
                         type="number"
                         value={wallThickness}
                         required
-                        min="1"
+                        min="0.1"
                         onIonChange={(e) =>
                           setWallThickness(parseInt(e.detail.value!))
                         }
