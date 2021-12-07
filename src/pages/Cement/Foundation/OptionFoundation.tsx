@@ -207,7 +207,7 @@ const OptionFoundation: React.FC<optionFoundationProps> = ({ location }) => {
                       <IonInput
                         type="number"
                         required
-                        min="1"
+                        min="0.1"
                         value={zapataDimensions.A}
                         onIonChange={(e) =>
                           setZapataDimensions((data) => ({
@@ -222,7 +222,7 @@ const OptionFoundation: React.FC<optionFoundationProps> = ({ location }) => {
                       <IonInput
                         type="number"
                         required
-                        min="1"
+                        min="0.1"
                         value={zapataDimensions.B}
                         onIonChange={(e) =>
                           setZapataDimensions((data) => ({
@@ -237,7 +237,7 @@ const OptionFoundation: React.FC<optionFoundationProps> = ({ location }) => {
                       <IonInput
                         type="number"
                         required
-                        min="1"
+                        min="0.1"
                         value={zapataDimensions.H}
                         onIonChange={(e) =>
                           setZapataDimensions((data) => ({
@@ -267,7 +267,7 @@ const OptionFoundation: React.FC<optionFoundationProps> = ({ location }) => {
                       <IonInput
                         type="number"
                         required
-                        min="1"
+                        min="0.1"
                         value={columnDimensions.A}
                         onIonChange={(e) =>
                           setColumnDimensions((data) => ({
@@ -282,7 +282,7 @@ const OptionFoundation: React.FC<optionFoundationProps> = ({ location }) => {
                       <IonInput
                         type="number"
                         required
-                        min="1"
+                        min="0.1"
                         value={columnDimensions.B}
                         onIonChange={(e) =>
                           setColumnDimensions((data) => ({
@@ -297,7 +297,7 @@ const OptionFoundation: React.FC<optionFoundationProps> = ({ location }) => {
                       <IonInput
                         type="number"
                         required
-                        min="1"
+                        min="0.1"
                         value={columnDimensions.H}
                         onIonChange={(e) =>
                           setColumnDimensions((data) => ({
@@ -312,7 +312,7 @@ const OptionFoundation: React.FC<optionFoundationProps> = ({ location }) => {
                       <IonInput
                         type="number"
                         required
-                        min="1"
+                        min="0.1"
                         value={columnDimensions.rodNumber}
                         onIonChange={(e) =>
                           setColumnDimensions((data) => ({
@@ -333,7 +333,7 @@ const OptionFoundation: React.FC<optionFoundationProps> = ({ location }) => {
                 value={inputCoating}
                 type="number"
                 required
-                min="1"
+                min="0.1"
                 onIonChange={(e) => setInputCoating(Number(e.detail.value!))}
               />
             </IonItem>

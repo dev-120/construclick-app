@@ -132,7 +132,7 @@ const StuccoCalculator: React.FC<PaintProps> = ({ match }) => {
                         }
                         type="number"
                         required
-                        min="1"
+                        min="0.1"
                       />
                     </IonCol>
                   </IonRow>
@@ -155,7 +155,7 @@ const StuccoCalculator: React.FC<PaintProps> = ({ match }) => {
                         }
                         type="number"
                         required
-                        min="1"
+                        min="0.1"
                       />
                     </IonCol>
                   </IonRow>
@@ -178,7 +178,7 @@ const StuccoCalculator: React.FC<PaintProps> = ({ match }) => {
                         }
                         type="number"
                         required
-                        min="1"
+                        min="0.1"
                       />
                     </IonCol>
                   </IonRow>
