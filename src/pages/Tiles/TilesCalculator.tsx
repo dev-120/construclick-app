@@ -149,7 +149,7 @@ const StuccoCalculator: React.FC<TilesProps> = ({ match }) => {
                           }
                           type="number"
                           required
-                          min="0.1"
+                          min="0.01"step="any"
                         />
                       </IonCol>
                     </IonRow>
@@ -171,7 +171,7 @@ const StuccoCalculator: React.FC<TilesProps> = ({ match }) => {
                           }
                           type="number"
                           required
-                          min="0.1"
+                          min="0.01"step="any"
                         />
                       </IonCol>
                     </IonRow>
@@ -187,7 +187,7 @@ const StuccoCalculator: React.FC<TilesProps> = ({ match }) => {
                           }
                           type="number"
                           required
-                          min="0.1"
+                          min="0.01"step="any"
                         />
                       </IonCol>
                     </IonRow>
@@ -211,7 +211,7 @@ const StuccoCalculator: React.FC<TilesProps> = ({ match }) => {
                         }
                         type="number"
                         required
-                        min="0.1"
+                        min="0.01"step="any"
                       />
                     </IonCol>
                   </IonRow>
@@ -234,7 +234,7 @@ const StuccoCalculator: React.FC<TilesProps> = ({ match }) => {
                         }
                         type="number"
                         required
-                        min="0.1"
+                        min="0.01"step="any"
                       />
                     </IonCol>
                   </IonRow>

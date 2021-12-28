@@ -54,7 +54,7 @@ const useShoppingCart = () => {
   // }
   // const { openLoader, closeLoader } = useCommons();
 
-  const addProductToCart = (product: any, quantity: number) => {
+  const addProductToCart = (product: any, quantity: number, shoppingCartId: string) => {
     dispatch({
       type: PRODUCT_ADD_FETCH,
       payload: {
@@ -74,14 +74,17 @@ const useShoppingCart = () => {
         productId,
       },
     });
+    getShoppingCart();
   };
 
   return {
     cart,
+    cartId: shoppingCartId,
     addProductToCart,
     deleteProductOfCart,
     getShoppingCart,
     totalPrice,
+    userId : profileUser?.id
   };
 };
 

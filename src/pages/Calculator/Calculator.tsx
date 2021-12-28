@@ -65,12 +65,12 @@ const menuCalculator = [
       buttonTitle: "Drywall",
       linkTo: "/drywall",
     },
-    {
-      id: 7,
-      imgsrc: "",
-      buttonTitle: "Cubierta",
-      linkTo: "/cover",
-    },
+    // {
+    //   id: 7,
+    //   imgsrc: "",
+    //   buttonTitle: "Cubierta",
+    //   linkTo: "/cover",
+    // },
   ],
 ];
 

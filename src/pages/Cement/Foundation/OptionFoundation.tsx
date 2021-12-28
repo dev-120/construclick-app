@@ -29,6 +29,8 @@ import EmailIcon from "../../../assets/email_icon.png";
 import TelegramIcon from "../../../assets/telegram_icon.png";
 import useCommons from "../../../hooks/useCommons";
 import { dataFormatter } from "../../../utils/dataFormatter";
+import BeamDimensionImg from "../../../assets/beam_dimensions.png";
+import StructuralBeamImg from "../../../assets/structural_beam.png";
 
 const FoundationOption = {
   EC: [
@@ -49,23 +51,44 @@ const FoundationOption = {
   EBPEC: [{ value: 1750, title: "1750PSI - 12MPa" }],
 };
 
+const FoundationOptions = [
+  {
+    title: "Viga Cimentacion",
+    imgSrc: StructuralBeamImg,
+    linkTo: "beam",
+    calculatorImage: BeamDimensionImg,
+  },
+  {
+    title: "Zapata",
+    imgSrc: FoundationImg,
+    linkTo: "zapata",
+    calculatorImage: FoundationDimesions,
+  },
+];
+
 type structureType = "EC" | "CCMR" | "ORGP" | "ER" | "EBPEC";
 
 interface optionFoundationProps {
   location: {
     state: Object;
   };
+  match: any;
 }
 
-const OptionFoundation: React.FC<optionFoundationProps> = ({ location }) => {
+const OptionFoundation: React.FC<optionFoundationProps> = ({
+  location,
+  match,
+}) => {
   const dispatch = useDispatch();
   const { loading } = useCommons();
+  const { result } = useSelector((state: any) => state.calculator);
+  const [typeFoundation, setTypeFoundation] = useState(Object);
   const [typeStructure, setTypeStructure] = useState<structureType>("EC");
   const [concreteResistance, setConcreteResistance] = useState<any>(
     FoundationOption[typeStructure]
   );
   const [valueConcreteResistance, setValueConcreteResistance] =
-    useState<number>(3600);
+    useState<Number>(3600);
   const [zapataDimensions, setZapataDimensions] = useState({
     A: 0,
     B: 0,
@@ -77,56 +100,98 @@ const OptionFoundation: React.FC<optionFoundationProps> = ({ location }) => {
     H: 0,
     rodNumber: 4,
   });
-  const [inputCoating, setInputCoating] = useState<number>(5);
+  const [inputCoating, setInputCoating] = useState(5);
   const [inputDiameterRods, setInputDiameterRods] = useState<string>("1/2");
 
   const [calculate, setCalculate] = useState<boolean>(false);
 
   useEffect(() => {
+    console.log(match);
+    setTypeFoundation(
+      FoundationOptions.filter(
+        (option) => option.linkTo === match.params.type
+      )[0]
+    );
     setConcreteResistance(FoundationOption[typeStructure]);
-  }, [typeStructure]);
+  }, [typeStructure, match]);
 
   const submitHandler = (e: any) => {
     e.preventDefault();
     if (location.state) {
-      dispatch({
-        type: SET_CALCULATOR_INFORMATION,
-        payload: {
-          ...location.state,
-          data: {
-            typeStructure,
-            concreteResistance: valueConcreteResistance,
-            zapataDimensionsA: zapataDimensions.A,
-            zapataDimensionsB: zapataDimensions.B,
-            zapataDimensinsH: zapataDimensions.H,
-            columnDimensionsA: columnDimensions.A,
-            columnDimensionsB: columnDimensions.B,
-            columnDimensionsH: columnDimensions.H,
-            columnRodNumber: columnDimensions.rodNumber,
-            coating: inputCoating,
-            rodDiameter: inputDiameterRods,
+      if(typeFoundation.title === "Zapata"){
+        dispatch({
+          type: SET_CALCULATOR_INFORMATION,
+          payload: {
+            ...location.state,
+            data: {
+              typeStructure,
+              concreteResistance: valueConcreteResistance,
+              zapataDimensionsA: zapataDimensions.A,
+              zapataDimensionsB: zapataDimensions.B,
+              zapataDimensionsH: zapataDimensions.H,
+              columnDimensionsA: columnDimensions.A,
+              columnDimensionsB: columnDimensions.B,
+              columnDimensionsH: columnDimensions.H,
+              columnRodNumber: columnDimensions.rodNumber,
+              coating: inputCoating,
+              rodDiameter: inputDiameterRods,
+            },
           },
-        },
-      });
-      dispatch({
-        type: GET_CALCULATOR_RESULT_FETCH,
-        payload: {
-          ...location.state,
-          data: {
-            typeStructure,
-            concreteResistance: valueConcreteResistance,
-            zapataDimensionsA: zapataDimensions.A,
-            zapataDimensionsB: zapataDimensions.B,
-            zapataDimensinsH: zapataDimensions.H,
-            columnDimensionsA: columnDimensions.A,
-            columnDimensionsB: columnDimensions.B,
-            columnDimensionsH: columnDimensions.H,
-            columnRodNumber: columnDimensions.rodNumber,
-            coating: inputCoating,
-            rodDiameter: inputDiameterRods,
+        });
+        dispatch({
+          type: GET_CALCULATOR_RESULT_FETCH,
+          payload: {
+            ...location.state,
+            data: {
+              typeStructure,
+              concreteResistance: valueConcreteResistance,
+              zapataDimensionsA: zapataDimensions.A,
+              zapataDimensionsB: zapataDimensions.B,
+              zapataDimensinsH: zapataDimensions.H,
+              columnDimensionsA: columnDimensions.A,
+              columnDimensionsB: columnDimensions.B,
+              columnDimensionsH: columnDimensions.H,
+              columnRodNumber: columnDimensions.rodNumber,
+              coating: inputCoating,
+              rodDiameter: inputDiameterRods,
+            },
           },
-        },
-      });
+        });
+      }else{
+        dispatch({
+          type: SET_CALCULATOR_INFORMATION,
+          payload: {
+            ...location.state,
+            data: {
+              typeStructure,
+              concreteResistance: valueConcreteResistance,
+              columnDimensionsA: columnDimensions.A,
+              columnDimensionsB: columnDimensions.B,
+              columnDimensionsH: columnDimensions.H,
+              columnRodNumber: columnDimensions.rodNumber,
+              coating: inputCoating,
+              rodDiameter: inputDiameterRods,
+            },
+          },
+        });
+        dispatch({
+          type: GET_CALCULATOR_RESULT_FETCH,
+          payload: {
+            ...location.state,
+            data: {
+              typeStructure,
+              concreteResistance: valueConcreteResistance,
+              columnDimensionsA: columnDimensions.A,
+              columnDimensionsB: columnDimensions.B,
+              columnDimensionsH: columnDimensions.H,
+              columnRodNumber: columnDimensions.rodNumber,
+              coating: inputCoating,
+              rodDiameter: inputDiameterRods,
+            },
+          },
+        });
+      }
+      
       setCalculate(true);
     }
   };
@@ -143,12 +208,12 @@ const OptionFoundation: React.FC<optionFoundationProps> = ({ location }) => {
             >
               <img
                 slot="start"
-                src={FoundationImg}
+                src={typeFoundation.imgSrc}
                 className="Foundation-sidepanel__img"
                 alt=""
               />
               <IonText>
-                <h4>Zapata</h4>
+                <h4>{typeFoundation.title}</h4>
               </IonText>
             </IonItem>
             <IonItem className="ion-margin-horizontal">
@@ -191,6 +256,72 @@ const OptionFoundation: React.FC<optionFoundationProps> = ({ location }) => {
                 ))}
               </IonSelect>
             </IonItem>
+            {match.params.type === "zapata" && (
+              <IonItem className="ion-margin-horizontal">
+                <IonGrid>
+                  <IonRow>
+                    <p>Diseño de dimensiones:</p>
+                  </IonRow>
+                  <IonRow className="ion-justify-content-center ion-align-items-center">
+                    <IonCol>
+                      <img src={typeFoundation.calculatorImage} alt="" />
+                    </IonCol>
+                    <IonCol>
+                      <h5>Dimensiones de zapata</h5>
+                      <IonItem>
+                        <IonLabel position="floating">A(m)</IonLabel>
+                        <IonInput
+                          type="number"
+                          required
+                          min="0.1"
+                          step="any"
+                          value={zapataDimensions.A}
+                          onIonChange={(e) =>
+                            setZapataDimensions((data) => ({
+                              ...data,
+                              A: Number(e.detail.value),
+                            }))
+                          }
+                        />
+                      </IonItem>
+                      <IonItem>
+                        <IonLabel position="floating">B(m)</IonLabel>
+                        <IonInput
+                          type="number"
+                          required
+                          min="0.1"
+                          step="any"
+                          value={zapataDimensions.B}
+                          onIonChange={(e) =>
+                            setZapataDimensions((data) => ({
+                              ...data,
+                              B: Number(e.detail.value),
+                            }))
+                          }
+                        />
+                      </IonItem>
+                      <IonItem>
+                        <IonLabel position="floating">H(m)</IonLabel>
+                        <IonInput
+                          type="number"
+                          required
+                          min="0.1"
+                          step="any"
+                          value={zapataDimensions.H}
+                          onIonChange={(e) =>
+                            setZapataDimensions((data) => ({
+                              ...data,
+                              H: Number(e.detail.value),
+                            }))
+                          }
+                        />
+                      </IonItem>
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
+              </IonItem>
+            )}
+
             <IonItem className="ion-margin-horizontal">
               <IonGrid>
                 <IonRow>
@@ -198,67 +329,7 @@ const OptionFoundation: React.FC<optionFoundationProps> = ({ location }) => {
                 </IonRow>
                 <IonRow className="ion-justify-content-center ion-align-items-center">
                   <IonCol>
-                    <img src={FoundationDimesions} alt="" />
-                  </IonCol>
-                  <IonCol>
-                    <h5>Dimensiones de zapata</h5>
-                    <IonItem>
-                      <IonLabel position="floating">A(m)</IonLabel>
-                      <IonInput
-                        type="number"
-                        required
-                        min="0.1"
-                        value={zapataDimensions.A}
-                        onIonChange={(e) =>
-                          setZapataDimensions((data) => ({
-                            ...data,
-                            A: Number(e.detail.value),
-                          }))
-                        }
-                      />
-                    </IonItem>
-                    <IonItem>
-                      <IonLabel position="floating">B(m)</IonLabel>
-                      <IonInput
-                        type="number"
-                        required
-                        min="0.1"
-                        value={zapataDimensions.B}
-                        onIonChange={(e) =>
-                          setZapataDimensions((data) => ({
-                            ...data,
-                            B: Number(e.detail.value),
-                          }))
-                        }
-                      />
-                    </IonItem>
-                    <IonItem>
-                      <IonLabel position="floating">H(m)</IonLabel>
-                      <IonInput
-                        type="number"
-                        required
-                        min="0.1"
-                        value={zapataDimensions.H}
-                        onIonChange={(e) =>
-                          setZapataDimensions((data) => ({
-                            ...data,
-                            H: Number(e.detail.value),
-                          }))
-                        }
-                      />
-                    </IonItem>
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
-            </IonItem>
-            <IonItem className="ion-margin-horizontal">
-              <IonGrid>
-                <IonRow>
-                  <p>Diseño de dimensiones:</p>
-                </IonRow>
-                <IonRow className="ion-justify-content-center ion-align-items-center">
-                  <IonCol>
-                    <img src={FoundationDimesions} alt="" />
+                    <img src={typeFoundation.calculatorImage} alt="" />
                   </IonCol>
                   <IonCol>
                     <h5>Dimensiones de la columna</h5>
@@ -268,6 +339,7 @@ const OptionFoundation: React.FC<optionFoundationProps> = ({ location }) => {
                         type="number"
                         required
                         min="0.1"
+                        step="any"
                         value={columnDimensions.A}
                         onIonChange={(e) =>
                           setColumnDimensions((data) => ({
@@ -283,6 +355,7 @@ const OptionFoundation: React.FC<optionFoundationProps> = ({ location }) => {
                         type="number"
                         required
                         min="0.1"
+                        step="any"
                         value={columnDimensions.B}
                         onIonChange={(e) =>
                           setColumnDimensions((data) => ({
@@ -298,6 +371,7 @@ const OptionFoundation: React.FC<optionFoundationProps> = ({ location }) => {
                         type="number"
                         required
                         min="0.1"
+                        step="any"
                         value={columnDimensions.H}
                         onIonChange={(e) =>
                           setColumnDimensions((data) => ({
@@ -313,6 +387,7 @@ const OptionFoundation: React.FC<optionFoundationProps> = ({ location }) => {
                         type="number"
                         required
                         min="0.1"
+                        step="any"
                         value={columnDimensions.rodNumber}
                         onIonChange={(e) =>
                           setColumnDimensions((data) => ({
@@ -334,6 +409,7 @@ const OptionFoundation: React.FC<optionFoundationProps> = ({ location }) => {
                 type="number"
                 required
                 min="0.1"
+                step="any"
                 onIonChange={(e) => setInputCoating(Number(e.detail.value!))}
               />
             </IonItem>
@@ -366,33 +442,38 @@ const OptionFoundation: React.FC<optionFoundationProps> = ({ location }) => {
             </IonButton>
           </form>
         ) : (
-          <OptionFoundationResult loading={loading}/>
+          <OptionFoundationResult {...typeFoundation} result={result} loading={loading} />
         )}
       </IonContent>
     </IonPage>
   );
 };
 
-const OptionFoundationResult: React.FC<{ loading: boolean }> = ({
-  loading,
-}: {
+interface CalculatorResultProps {
+  title: string;
+  imgSrc: string;
   loading: boolean;
-}): JSX.Element => {
-  const { currentCalculator, result } = useSelector((state: any) => state.calculator);
-  useEffect(() => {
-    console.log(JSON.stringify(currentCalculator));
-  }, [currentCalculator]);
+  result: any;
+}
+
+const OptionFoundationResult: React.FC<CalculatorResultProps> = ({
+  loading,
+  result,
+  imgSrc,
+  title
+}) => {
+
   return (
     <IonContent className="Foundation-content__style">
       <IonItem className="ion-margin-top ion-margin-horizontal" color="primary">
         <img
           slot="start"
-          src={FoundationImg}
+          src={imgSrc}
           className="Foundation-sidepanel__img"
           alt=""
         />
         <IonText>
-          <h4>Zapata</h4>
+          <h4>{title}</h4>
         </IonText>
       </IonItem>
       <IonItem className="ion-margin-horizontal">
@@ -433,13 +514,25 @@ const OptionFoundationResult: React.FC<{ loading: boolean }> = ({
             </>
           ) : (
             <>
-              {result.map(({ name, cuantity, unit }: { name: string; cuantity: string; unit: string; }) => (
-                <IonRow key={name} className="ion-padding-vertical">
-                  <IonCol className="ion-text-center">{dataFormatter[name]}</IonCol>
-                  <IonCol className="ion-text-center">{cuantity}</IonCol>
-                  <IonCol className="ion-text-center">{unit}</IonCol>
-                </IonRow>
-              ))}
+              {result.map(
+                ({
+                  name,
+                  cuantity,
+                  unit,
+                }: {
+                  name: string;
+                  cuantity: string;
+                  unit: string;
+                }) => (
+                  <IonRow key={name} className="ion-padding-vertical">
+                    <IonCol className="ion-text-center">
+                      {dataFormatter[name]}
+                    </IonCol>
+                    <IonCol className="ion-text-center">{cuantity}</IonCol>
+                    <IonCol className="ion-text-center">{unit}</IonCol>
+                  </IonRow>
+                )
+              )}
             </>
           )}
           <IonRow>

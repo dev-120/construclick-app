@@ -13,7 +13,6 @@ import Beam from "../../assets/viga.png";
 import Slabs from "../../assets/losas.png";
 import Foundation from "../../assets/cimentacion.png";
 import Column from "../../assets/columna.png";
-import Stairs from "../../assets/escalera.png";
 
 import Header from '../../components/Header/Header'
 
@@ -38,11 +37,11 @@ const submenuConcrete = [
     imgSrc: Slabs,
     linkTo: "slabs",
   },
-  {
-    submenuTitle: "Escaleras",
-    imgSrc: Stairs,
-    linkTo: "stairs",
-  },
+  // {
+  //   submenuTitle: "Escaleras",
+  //   imgSrc: Stairs,
+  //   linkTo: "stairs",
+  // },
 ];
 
 interface submenuProps {

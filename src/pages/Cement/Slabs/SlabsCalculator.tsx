@@ -354,7 +354,7 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                       <IonInput
                         type="number"
                         required
-                        min="0.1"
+                        min="0.01"step="any"
                         value={columnDimensions.A}
                         onIonChange={(e) =>
                           setColumnDimensions((data) => ({
@@ -369,7 +369,7 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                       <IonInput
                         type="number"
                         required
-                        min="0.1"
+                        min="0.01"step="any"
                         value={columnDimensions.B}
                         onIonChange={(e) =>
                           setColumnDimensions((data) => ({
@@ -384,7 +384,7 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                       <IonInput
                         type="number"
                         required
-                        min="0.1"
+                        min="0.01"step="any"
                         value={columnDimensions.thickness}
                         onIonChange={(e) =>
                           setColumnDimensions((data) => ({
@@ -405,7 +405,7 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                 value={inputCoating}
                 type="number"
                 required
-                min="0.1"
+                min="0.01"step="any"
                 onIonChange={(e) => setInputCoating(Number(e.detail.value!))}
               />
             </IonItem>
@@ -420,7 +420,7 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                     <IonInput
                       type="number"
                       required
-                      min="0.1"
+                      min="0.01"step="any"
                       value={areaOpenings}
                       onIonChange={(e) =>
                         setAreaOpenings(Number(e.detail.value))
@@ -448,7 +448,7 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                           <IonInput
                             type="number"
                             required
-                            min="0.1"
+                            min="0.01"step="any"
                             value={blockSlabZapataDimensions.A}
                             onIonChange={(e) =>
                               setBlockSlabZapataDimensions((data) => ({
@@ -463,7 +463,7 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                           <IonInput
                             type="number"
                             required
-                            min="0.1"
+                            min="0.01"step="any"
                             value={blockSlabZapataDimensions.B}
                             onIonChange={(e) =>
                               setBlockSlabZapataDimensions((data) => ({
@@ -478,7 +478,7 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                           <IonInput
                             type="number"
                             required
-                            min="0.1"
+                            min="0.01"step="any"
                             value={blockSlabZapataDimensions.C}
                             onIonChange={(e) =>
                               setBlockSlabZapataDimensions((data) => ({
@@ -533,7 +533,7 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                             type="number"
                             value={polystyreneDimensions.A}
                             required
-                            min="0.1"
+                            min="0.01"step="any"
                             onIonChange={(e) =>
                               setPolystyreneDimensions((data) => ({
                                 ...data,
@@ -547,7 +547,7 @@ const SlabsCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                           <IonInput
                             type="number"
                             required
-                            min="0.1"
+                            min="0.01"step="any"
                             value={polystyreneDimensions.B}
                             onIonChange={(e) =>
                               setPolystyreneDimensions((data) => ({

@@ -186,9 +186,14 @@ const Router = () => {
             path="/calculator/concrete/foundation"
             component={Foundation}
           />
-          <Route
+          {/* <Route
             exact
             path="/calculator/concrete/foundation/zapata"
+            component={OptionFoundation}
+          /> */}
+          <Route
+            exact
+            path="/calculator/concrete/foundation/:type"
             component={OptionFoundation}
           />
           <Route exact path="/calculator/concrete/column" component={Column} />

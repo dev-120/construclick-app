@@ -8,7 +8,6 @@ import {
   IonCard,
   IonCardHeader,
   IonCardTitle,
-  IonCardSubtitle,
   IonGrid,
   IonRow,
   IonCol,
@@ -23,7 +22,7 @@ import {
 } from "@ionic/react";
 import { useState, useEffect } from "react";
 import { menu } from "ionicons/icons";
-import { RouteComponentProps, Link } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 
 import Header from "../../components/Header/Header";
 import Mastic from "../../assets/masilla_img.jpg";
@@ -60,13 +59,13 @@ const ShoppingCart: React.FC<RouteComponentProps> = ({ match }) => {
   const [savedProducts, setSavedProducts] =
     useState<Array<any>>(mockupSavedProducts);
   const [segment, setSegment] = useState("cart");
-  const { cart, deleteProductOfCart, totalPrice, getShoppingCart } =
+  const { cart, deleteProductOfCart, totalPrice, getShoppingCart, userId } =
     useShoppingCart();
 
   useEffect(() => {
     getShoppingCart();
     setSavedProducts(mockupSavedProducts);
-  }, [match]);
+  }, [match, userId]);
 
 
   const segmentChangeHandler = (e: any) => {
