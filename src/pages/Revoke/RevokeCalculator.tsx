@@ -139,7 +139,7 @@ const RevokeCalculator: React.FC<RevokeCalculatorProps> = ({ match }) => {
                         }
                         type="number"
                         required
-                        min="0.1"
+                        min="0.01"step="any"
                       />
                     </IonCol>
                   </IonRow>
@@ -162,7 +162,7 @@ const RevokeCalculator: React.FC<RevokeCalculatorProps> = ({ match }) => {
                         }
                         type="number"
                         required
-                        min="0.1"
+                        min="0.01"step="any"
                       />
                     </IonCol>
                   </IonRow>
@@ -185,7 +185,7 @@ const RevokeCalculator: React.FC<RevokeCalculatorProps> = ({ match }) => {
                         }
                         type="number"
                         required
-                        min="0.1"
+                        min="0.01"step="any"
                       />
                     </IonCol>
                   </IonRow>

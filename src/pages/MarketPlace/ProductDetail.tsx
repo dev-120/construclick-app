@@ -22,6 +22,7 @@ import "./ProductDetail.css";
 import Header from "../../components/Header/Header";
 import useShoppingCart from "../../hooks/useShoppingCart";
 import { getProductDetailService } from "../../services/marketplace.service";
+import { loadDataUserBasic } from "../../services/auth.service";
 
 interface productItem {
   match: {
@@ -36,18 +37,21 @@ const ProductDetail: React.FC<productItem> = ({ match }) => {
   const [showModalForProduct, setShowModalForProduct] = useState(false);
   const [product, setProduct] = useState<any>({});
   const [currentCuantity, setCurrentCuantity] = useState(0);
-  const { addProductToCart } = useShoppingCart();
+  const { addProductToCart, cartId } = useShoppingCart();
+  const [productSeller, setProductSeller] = useState("");
 
   useEffect(() => {
     const fetchProduct = async () => {
       const response = await getProductDetailService(match.params.productId);
+      const getUsername = await loadDataUserBasic(response?.data?.data?.userId);
+      if(getUsername.status === 200) setProductSeller(getUsername?.data?.data?.name);
       setProduct(response.data.data);
     };
     fetchProduct();
   }, [match]);
 
   const handleSentProductToCart = (cuantity: number) => {
-    addProductToCart({ ...product }, cuantity);
+    addProductToCart({ ...product }, cuantity, cartId);
     setShowModalForProduct(false);
   };
 
@@ -132,7 +136,8 @@ const ProductDetail: React.FC<productItem> = ({ match }) => {
                     size="12"
                     className="ion-align-self-center ion-text-center ion-padding-horizontal"
                   >
-                    <IonText color="light">{product?.userId}</IonText>
+                    {/* <IonText color="light">{product?.userId}</IonText> */}
+                    <IonText color="light">{productSeller}</IonText>
                   </IonCol>
                 </IonRow>
               </IonGrid>

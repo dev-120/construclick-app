@@ -220,7 +220,7 @@ const ColumnCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                         type="number"
                         value={columnDimensions.A}
                         required
-                        min="0.1"
+                        min="0.01"step="any"
                         onIonChange={(e) =>
                           setColumnDimensions((data) => ({
                             ...data,
@@ -238,7 +238,7 @@ const ColumnCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                         type="number"
                         value={columnDimensions.B}
                         required
-                        min="0.1"
+                        min="0.01"step="any"
                         onIonChange={(e) =>
                           setColumnDimensions((data) => ({
                             ...data,
@@ -256,7 +256,7 @@ const ColumnCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                         type="number"
                         value={columnDimensions.H}
                         required
-                        min="0.1"
+                        min="0.01"step="any"
                         onIonChange={(e) =>
                           setColumnDimensions((data) => ({
                             ...data,
@@ -273,7 +273,7 @@ const ColumnCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                         value={columnDimensions.rodNumber}
                         type="number"
                         required
-                        min="0.1"
+                        min="0.01"step="any"
                         onIonChange={(e) =>
                           setColumnDimensions((data) => ({
                             ...data,
@@ -293,7 +293,7 @@ const ColumnCalculator: React.FC<OptionFoundationProps> = ({ match }) => {
                 value={inputCoating}
                 type="number"
                 required
-                min="0.1"
+                min="0.01"step="any"
                 onIonChange={(e) => setInputCoating(Number(e.detail.value!))}
               />
             </IonItem>

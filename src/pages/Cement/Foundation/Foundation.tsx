@@ -13,7 +13,6 @@ import { useHistory } from "react-router";
 import "./Foundation.css";
 import Header from "../../../components/Header/Header";
 import Beam from "../../../assets/viga.png";
-import Pile from "../../../assets/pilote.png";
 import FoundationImg from "../../../assets/zapata.png";
 
 interface FoundationProps {
@@ -21,13 +20,6 @@ interface FoundationProps {
     url: string;
   };
 }
-
-// const FoundationOptions = [
-//   { title: "Viga cimentación", isChecked: false, imageSrc: Beam },
-//   { title: "Zapata", isChecked: false, imageSrc: FoundationImg },
-//   { title: "Pilote", isChecked: false, imageSrc: Pile },
-// ];
-
 
 
 const Foundation: React.FC<FoundationProps> = ({ match }) => {
@@ -71,20 +63,6 @@ const Foundation: React.FC<FoundationProps> = ({ match }) => {
                 alt=""
               />
               <IonText>Zapata</IonText>
-            </IonItem>
-            <IonItem
-              lines="none"
-              className="ion-margin-vertical"
-              button
-              routerLink={`${match.url}/pile`}
-            >
-              <img
-                src={Pile}
-                slot="start"
-                className="Foundation-image__style"
-                alt=""
-              />
-              <IonText>Pilote</IonText>
             </IonItem>
           </IonCardContent>
         </IonCard>
